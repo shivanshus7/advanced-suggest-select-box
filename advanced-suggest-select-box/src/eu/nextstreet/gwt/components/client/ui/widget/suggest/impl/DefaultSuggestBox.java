@@ -41,9 +41,9 @@ import eu.nextstreet.gwt.components.client.ui.widget.suggest.SuggestTextBoxWidge
  * @author Zied Hamdi
  * 
  * @param <T>
- *          the class type of the items
+ *            the class type of the items
  * @param <W>
- *          the {@link EventHandlingValueHolderItem} implementation class
+ *            the {@link EventHandlingValueHolderItem} implementation class
  */
 public class DefaultSuggestBox<T, W extends EventHandlingValueHolderItem<T>>
 		extends AbstractSuggestBox<T, W> {
@@ -52,14 +52,14 @@ public class DefaultSuggestBox<T, W extends EventHandlingValueHolderItem<T>>
 	interface SuggestBoxUiBinder extends UiBinder<Widget, DefaultSuggestBox> {
 	}
 
-	private static SuggestBoxUiBinder	uiBinder	= GWT
-																									.create(SuggestBoxUiBinder.class);
+	private static SuggestBoxUiBinder uiBinder = GWT
+			.create(SuggestBoxUiBinder.class);
 
 	protected @UiField
-	SuggestTextBoxWidgetImpl<T, W>		textField;
+	SuggestTextBoxWidgetImpl<T, W> textField;
 
-	protected List<T>									possiblilities;
-	protected boolean									startsWith;
+	protected List<T> possiblilities;
+	protected boolean startsWith;
 
 	public DefaultSuggestBox() {
 		this(false, true);
@@ -115,8 +115,8 @@ public class DefaultSuggestBox<T, W extends EventHandlingValueHolderItem<T>>
 	}
 
 	@Override
-	protected void computeFiltredPossibilities(String text,
-			SuggestPossibilitiesCallBack<T> suggestPossibilitiesCallBack) {
+	protected void computeFiltredPossibilities(final String text,
+			final SuggestPossibilitiesCallBack<T> suggestPossibilitiesCallBack) {
 		List<T> toReturn = new ArrayList<T>();
 		for (T t : possiblilities) {
 			if (accept(text, t))
@@ -126,8 +126,8 @@ public class DefaultSuggestBox<T, W extends EventHandlingValueHolderItem<T>>
 	}
 
 	/**
-	 * used to define the filtering strategy, override and check in the inner list
-	 * if this element should appear
+	 * used to define the filtering strategy, override and check in the inner
+	 * list if this element should appear
 	 * 
 	 * @param text
 	 * @param t
@@ -153,8 +153,8 @@ public class DefaultSuggestBox<T, W extends EventHandlingValueHolderItem<T>>
 		if (startsWith || commit || strictMode) {
 			super.fillValue(t, commit);
 			if (!commit && !strictMode) {
-				textField.setSelectionRange(startIndex, textField.getText().length()
-						- startIndex);
+				textField.setSelectionRange(startIndex, textField.getText()
+						.length() - startIndex);
 			}
 			return true;
 		} else {

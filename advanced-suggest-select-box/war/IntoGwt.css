@@ -247,3 +247,7 @@ h4 {
 .eu-nextstreet-MultiItem {
 	vertical-align: middle;
 }
+
+.eu-nextstreet-AdvancedTextBoxDefaultText-loading {
+	background-color: gray;
+}
