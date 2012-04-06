@@ -283,7 +283,7 @@ public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderIt
 				newSelectedIndex = (selectedIndex - 1) % widgetCount;
 				if (newSelectedIndex < 0)
 					newSelectedIndex += widgetCount;
-				System.out.println("unhighlighting widget at " + selectedIndex + " and highlighting " + newSelectedIndex + " total count :" + widgetCount);
+
 				highlightSelectedValue(selectedIndex, newSelectedIndex);
 			}
 		}
