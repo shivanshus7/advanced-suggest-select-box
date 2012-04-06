@@ -16,8 +16,12 @@
  */
 package eu.nextstreet.gwt.components.client.ui.widget.suggest.impl.simple;
 
+import java.util.Map;
+
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.EventHandlingValueHolderItem;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueRendererFactory;
+import eu.nextstreet.gwt.components.client.ui.widget.suggest.param.BooleanOption;
+import eu.nextstreet.gwt.components.client.ui.widget.suggest.param.Option;
 
 /**
  * 
@@ -31,14 +35,12 @@ import eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueRendererFactor
  * @see EventHandlingValueHolderItem
  * @see ValueRendererFactory
  */
-public class DefaultValueRendererFactory<T, W extends EventHandlingValueHolderItem<T>>
-		implements ValueRendererFactory<T, W> {
+public class DefaultValueRendererFactory<T, W extends EventHandlingValueHolderItem<T>> implements ValueRendererFactory<T, W> {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public W createValueRenderer(T value, String filterText, boolean caseSensitive) {
-		W toReturn = (W) new DefaultValueRenderer<T>(value, filterText,
-				caseSensitive, this);
+	public W createValueRenderer(T value, String filterText, Map<String, Option<?>> options) {
+		W toReturn = (W) new DefaultValueRenderer<T>(value, filterText, BooleanOption.isEnabled(DefaultOptions.CASE_SENSITIVE.name(), options), this);
 		toReturn.setStyleName(EventHandlingValueHolderItem.ITEM_DEFAULT_STYLE);
 		return toReturn;
 	}

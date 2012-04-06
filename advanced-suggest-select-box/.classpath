@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" output="war/WEB-INF/classes" path="src"/>
 	<classpathentry kind="src" path="test"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+	<classpathentry kind="src" output="war/WEB-INF/classes" path="target/generated-sources/apt">
+		<attributes>
+			<attribute name="optional" value="true"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="lib" path="C:/dev/springsource/sts-2.9.1.M2/sts-2.9.0.M2/plugins/com.google.gwt.eclipse.sdkbundle_2.4.0.v201202290255-rel-r37/gwt-2.4.0/gwt-user.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="file:/C:/dev/springsource/sts-2.9.1.M2/sts-2.9.0.M2/plugins/com.google.gwt.eclipse.sdkbundle_2.4.0.v201202290255-rel-r37/gwt-2.4.0/doc/javadoc/"/>
@@ -14,6 +20,5 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="C:/dev/springsource/sts-2.9.1.M2/sts-2.9.0.M2/plugins/com.google.gwt.eclipse.sdkbundle_2.4.0.v201202290255-rel-r37/gwt-2.4.0/validation-api-1.0.0.GA-sources.jar"/>
 	<classpathentry kind="lib" path="C:/dev/springsource/sts-2.9.1.M2/sts-2.9.0.M2/plugins/com.google.gwt.eclipse.sdkbundle_2.4.0.v201202290255-rel-r37/gwt-2.4.0/validation-api-1.0.0.GA.jar" sourcepath="C:/dev/springsource/sts-2.9.1.M2/sts-2.9.0.M2/plugins/com.google.gwt.eclipse.sdkbundle_2.4.0.v201202290255-rel-r37/gwt-2.4.0/validation-api-1.0.0.GA-sources.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>

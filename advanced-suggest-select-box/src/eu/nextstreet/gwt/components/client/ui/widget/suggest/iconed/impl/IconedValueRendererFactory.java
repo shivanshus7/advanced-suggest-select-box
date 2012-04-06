@@ -1,5 +1,7 @@
 package eu.nextstreet.gwt.components.client.ui.widget.suggest.iconed.impl;
 
+import java.util.Map;
+
 import com.google.gwt.user.client.ui.Image;
 
 import eu.nextstreet.gwt.components.client.ui.common.data.ValueRepresentationTransformer;
@@ -7,24 +9,23 @@ import eu.nextstreet.gwt.components.client.ui.widget.suggest.EventHandlingValueH
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueRendererFactory;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.iconed.IconedValueHolderItem;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.impl.simple.DefaultListRenderer;
+import eu.nextstreet.gwt.components.client.ui.widget.suggest.param.BooleanOption;
+import eu.nextstreet.gwt.components.client.ui.widget.suggest.param.Option;
 
-public class IconedValueRendererFactory<T, W extends IconedValueHolderItem<T>>
-		implements ValueRendererFactory<T, W> {
+public class IconedValueRendererFactory<T, W extends IconedValueHolderItem<T>> implements ValueRendererFactory<T, W> {
 
 	/** Gives an image for each value */
-	protected ValueRepresentationTransformer<T, Image> iconLinker;
+	protected ValueRepresentationTransformer<T, Image>	iconLinker;
 
-	public IconedValueRendererFactory(
-			ValueRepresentationTransformer<T, Image> transformer) {
+	public IconedValueRendererFactory(ValueRepresentationTransformer<T, Image> transformer) {
 		this.iconLinker = transformer;
 	}
 
 	@Override
-	public W createValueRenderer(T value, String filterText, boolean caseSensitive) {
+	public W createValueRenderer(T value, String filterText, Map<String, Option<?>> options) {
 		Image icon = constructIcon(value);
 		@SuppressWarnings("unchecked")
-		W toReturn = (W) new IconedValueRenderer<T>(value, icon, filterText,
-				caseSensitive, this);
+		W toReturn = (W) new IconedValueRenderer<T>(value, icon, filterText, BooleanOption.isEnabled(filterText, options), this);
 		toReturn.setStyleName(EventHandlingValueHolderItem.ITEM_DEFAULT_STYLE);
 		return toReturn;
 	}

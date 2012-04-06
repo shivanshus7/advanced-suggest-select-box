@@ -16,7 +16,11 @@
  */
 package eu.nextstreet.gwt.components.client.ui.widget.suggest;
 
+import java.util.Map;
+
 import com.google.gwt.user.client.ui.IsWidget;
+
+import eu.nextstreet.gwt.components.client.ui.widget.suggest.param.Option;
 
 /**
  * Isolates the creation of suggested items rendering widgets. An instance of
@@ -79,11 +83,12 @@ public interface ValueRendererFactory<T, W extends ValueHolderItem<T>> {
 	 *          the item value
 	 * @param filterText
 	 *          the text that was typed in the suggest box
-	 * @param caseSensitive
-	 *          whether typing is case sensitive or not
+	 * @param options
+	 *          you can set options on the {@link AbstractSuggestBox} that you
+	 *          will find here
 	 * @return the widget
 	 */
-	W createValueRenderer(T value, String filterText, boolean caseSensitive);
+	W createValueRenderer(T value, String filterText, Map<String, Option<?>> options);
 
 	/**
 	 * Creates the widget responsible for displaying the list of possible items
