@@ -88,7 +88,8 @@ public interface ValueRendererFactory<T, W extends ValueHolderItem<T>> {
 	 *          will find here
 	 * @return the widget
 	 */
-	W createValueRenderer(T value, String filterText, Map<String, Option<?>> options);
+	W createValueRenderer(T value, String filterText,
+			Map<String, Option<?>> options);
 
 	/**
 	 * Creates the widget responsible for displaying the list of possible items
@@ -96,5 +97,19 @@ public interface ValueRendererFactory<T, W extends ValueHolderItem<T>> {
 	 * @return the widget
 	 */
 	ListRenderer<T, W> createListRenderer();
+
+	/**
+	 * Returns the {@link AbstractSuggestBox} implementation that handles the
+	 * current renderer
+	 * 
+	 * @return
+	 */
+	AbstractSuggestBox<T, EventHandlingValueHolderItem<T>> getSuggestBox();
+
+	/**
+	 * This method is called by the framework, you should never use it manually
+	 */
+	void setSuggestBox(
+			AbstractSuggestBox<T, EventHandlingValueHolderItem<T>> suggestBox);
 
 }

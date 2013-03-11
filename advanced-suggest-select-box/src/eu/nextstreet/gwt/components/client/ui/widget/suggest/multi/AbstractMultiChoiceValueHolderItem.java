@@ -39,6 +39,10 @@ public abstract class AbstractMultiChoiceValueHolderItem<T, C extends MultiChoic
 	/** list containing this item */
 	protected MultiChoiceListRenderer<T, C> associatedList;
 
+	public AbstractMultiChoiceValueHolderItem(T value) {
+		this.value = value;
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 

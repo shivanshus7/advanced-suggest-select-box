@@ -69,6 +69,7 @@ public abstract class BasicMultiChoiceValueHolderItem<T, R extends IsWidget, C e
 	 */
 	public BasicMultiChoiceValueHolderItem(T value,
 			ValueRendererFactory<T, ? extends ValueHolderItem<T>> valueRendererFactory) {
+		super(value);
 		this.valueRendererFactory = valueRendererFactory;
 		this.concreteWidget = transform(value);
 		setWidget(panel);

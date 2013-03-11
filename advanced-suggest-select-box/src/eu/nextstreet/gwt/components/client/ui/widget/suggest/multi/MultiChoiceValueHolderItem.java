@@ -17,7 +17,7 @@
 
 package eu.nextstreet.gwt.components.client.ui.widget.suggest.multi;
 
-import eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueHolderItem;
+import eu.nextstreet.gwt.components.client.ui.widget.suggest.EventHandlingValueHolderItem;
 
 /**
  * Items in a multi-valued suggest box have to be aware of their container for
@@ -30,7 +30,7 @@ import eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueHolderItem;
  *          concrete ValueHolderItem *
  */
 public interface MultiChoiceValueHolderItem<T, C extends MultiChoiceValueHolderItem<T, C>>
-		extends ValueHolderItem<T> {
+		extends EventHandlingValueHolderItem<T> {
 
 	/**
 	 * Must be called when this item is added to a list to keep a reference on it

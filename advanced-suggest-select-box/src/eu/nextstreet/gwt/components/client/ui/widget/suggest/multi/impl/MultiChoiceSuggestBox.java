@@ -22,11 +22,14 @@ import java.util.List;
 import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.IsWidget;
 
+import eu.nextstreet.gwt.components.client.ui.widget.suggest.AbstractSuggestBox;
+import eu.nextstreet.gwt.components.client.ui.widget.suggest.EventHandlingValueHolderItem;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueHolderItem;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueRendererFactory;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueRendererFactory.ListRenderer;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.iconed.IconedValueHolderItem;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.iconed.impl.DefaultIconedSuggestBox;
+import eu.nextstreet.gwt.components.client.ui.widget.suggest.iconed.impl.IconedValueRendererFactory;
 
 /**
  * 
@@ -41,32 +44,43 @@ import eu.nextstreet.gwt.components.client.ui.widget.suggest.iconed.impl.Default
  * @param <C>
  *          the selected items representer
  */
-public class MultiChoiceSuggestBox<T, W extends IconedValueHolderItem<T>, C extends ValueHolderItem<T>> extends DefaultIconedSuggestBox<T, W> {
+public class MultiChoiceSuggestBox<T, W extends IconedValueHolderItem<T>, C extends ValueHolderItem<T>>
+		extends DefaultIconedSuggestBox<T, W> {
 
 	/**
 	 * Contains the list of widgets for the selected values in their addition
 	 * order
 	 */
-	protected List<C>												selectedValues	= new ArrayList<C>();
+	protected List<C> selectedValues = new ArrayList<C>();
 	/**
 	 * Contains the list of widgets for the selected values in their addition
 	 * order
 	 */
-	protected ListRenderer<T, C>						selectedValuesPanel;
+	protected ListRenderer<T, C> selectedValuesPanel;
 
-	protected ValueRendererFactory<T, C>		choiceItemsRendererFactory;
+	protected ValueRendererFactory<T, C> choiceItemsRendererFactory;
 
-	protected DockPanel.DockLayoutConstant	position;
+	protected DockPanel.DockLayoutConstant position;
 
 	/**
 	 * @param defaultText
 	 */
-	public MultiChoiceSuggestBox(String defaultText, DockPanel.DockLayoutConstant position, ValueRendererFactory<T, C> choiceItemsRendererFactory) {
+	public MultiChoiceSuggestBox(String defaultText,
+			DockPanel.DockLayoutConstant position,
+			ValueRendererFactory<T, C> choiceItemsRendererFactory) {
 		super(defaultText);
 
 		this.position = position;
 		setChoiceItemsRendererFactory(choiceItemsRendererFactory);
 		setChoicesPanel();
+	}
+
+	@Override
+	protected void init(String defaultText) {
+		super.init(defaultText);
+		IconedValueRendererFactory<T, W> unifiedValueRendererFactory = new IconedValueRendererFactory<T, W>(
+				iconLinker);
+		setValueRendererFactory(unifiedValueRendererFactory);
 	}
 
 	/**
@@ -79,17 +93,38 @@ public class MultiChoiceSuggestBox<T, W extends IconedValueHolderItem<T>, C exte
 
 	public void valueSelected(T value) {
 		super.valueSelected(value);
-		selectedValuesPanel.add(choiceItemsRendererFactory.createValueRenderer(value, DEBUG_ID_PREFIX, getOptions()));
+		selectedValuesPanel.add(choiceItemsRendererFactory.createValueRenderer(
+				value, DEBUG_ID_PREFIX, getOptions()));
 	}
 
 	protected ValueRendererFactory<T, C> getChoiceItemsRendererFactory() {
 		return choiceItemsRendererFactory;
 	}
 
-	protected void setChoiceItemsRendererFactory(ValueRendererFactory<T, C> choiceItemsRendererFactory) {
+	protected void setChoiceItemsRendererFactory(
+			ValueRendererFactory<T, C> choiceItemsRendererFactory) {
 		this.choiceItemsRendererFactory = choiceItemsRendererFactory;
+		choiceItemsRendererFactory
+				.setSuggestBox((AbstractSuggestBox<T, EventHandlingValueHolderItem<T>>) this);
 		selectedValuesPanel = choiceItemsRendererFactory.createListRenderer();
 		setChoicesPanel();
+	}
+
+	public List<T> getValues() {
+		int widgetCount = selectedValuesPanel.getWidgetCount();
+		List<T> toReturn = new ArrayList<T>();
+		for (int i = 0; i < widgetCount; i++) {
+			C selected = selectedValuesPanel.getAt(i);
+			toReturn.add(selected.getValue());
+		}
+		return toReturn;
+	}
+
+	public void setValues(List<T> toSet) {
+		for (T value : toSet) {
+			selectedValuesPanel.add(choiceItemsRendererFactory.createValueRenderer(
+					value, DEBUG_ID_PREFIX, getOptions()));
+		}
 	}
 
 	protected DockPanel.DockLayoutConstant getPosition() {
@@ -112,7 +147,8 @@ public class MultiChoiceSuggestBox<T, W extends IconedValueHolderItem<T>, C exte
 	 * @param widget
 	 *          widget maybe null to remove widget
 	 */
-	protected void setPanelAt(DockPanel.DockLayoutConstant position, IsWidget widget) {
+	protected void setPanelAt(DockPanel.DockLayoutConstant position,
+			IsWidget widget) {
 		if (position == DockPanel.WEST)
 			textField.setLeftWidget(widget);
 		else if (position == DockPanel.EAST)

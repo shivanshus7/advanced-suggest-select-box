@@ -18,6 +18,7 @@ package eu.nextstreet.gwt.components.client.ui.widget.suggest.impl.simple;
 
 import java.util.Map;
 
+import eu.nextstreet.gwt.components.client.ui.widget.suggest.AbstractSuggestBox;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.EventHandlingValueHolderItem;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueRendererFactory;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.param.BooleanOption;
@@ -35,12 +36,18 @@ import eu.nextstreet.gwt.components.client.ui.widget.suggest.param.Option;
  * @see EventHandlingValueHolderItem
  * @see ValueRendererFactory
  */
-public class DefaultValueRendererFactory<T, W extends EventHandlingValueHolderItem<T>> implements ValueRendererFactory<T, W> {
+public class DefaultValueRendererFactory<T, W extends EventHandlingValueHolderItem<T>>
+		extends AbstractValueRendererFactory<T, W> {
+
+	protected AbstractSuggestBox<T, EventHandlingValueHolderItem<T>> suggestBox;
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public W createValueRenderer(T value, String filterText, Map<String, Option<?>> options) {
-		W toReturn = (W) new DefaultValueRenderer<T>(value, filterText, BooleanOption.isEnabled(DefaultOptions.CASE_SENSITIVE.name(), options), this);
+	public W createValueRenderer(T value, String filterText,
+			Map<String, Option<?>> options) {
+		W toReturn = (W) new DefaultValueRenderer<T>(value, filterText,
+				BooleanOption.isEnabled(DefaultOptions.CASE_SENSITIVE.name(), options),
+				this);
 		toReturn.setStyleName(EventHandlingValueHolderItem.ITEM_DEFAULT_STYLE);
 		return toReturn;
 	}

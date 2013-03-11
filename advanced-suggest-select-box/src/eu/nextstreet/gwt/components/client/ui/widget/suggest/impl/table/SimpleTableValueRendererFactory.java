@@ -18,7 +18,7 @@ package eu.nextstreet.gwt.components.client.ui.widget.suggest.impl.table;
 
 import java.util.Map;
 
-import eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueRendererFactory;
+import eu.nextstreet.gwt.components.client.ui.widget.suggest.impl.simple.AbstractValueRendererFactory;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.impl.simple.DefaultOptions;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.param.BooleanOption;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.param.Option;
@@ -35,9 +35,10 @@ import eu.nextstreet.gwt.components.client.ui.widget.suggest.param.Option;
  * @param <W>
  *          the view object representing the value row
  */
-public class SimpleTableValueRendererFactory<T, W extends SimpleTableRowItemRenderer<T>> implements ValueRendererFactory<T, W> {
-	private String	tableStyle	= "eu-nextstreet-SuggestFieldPopupSimpleTable";
-	private String	cellStyle		= "eu-nextstreet-SuggestFieldPopupSimpleTableCell";
+public class SimpleTableValueRendererFactory<T, W extends SimpleTableRowItemRenderer<T>>
+		extends AbstractValueRendererFactory<T, W> {
+	private String tableStyle = "eu-nextstreet-SuggestFieldPopupSimpleTable";
+	private String cellStyle = "eu-nextstreet-SuggestFieldPopupSimpleTableCell";
 
 	@Override
 	public SimpleTableListRenderer<T, W> createListRenderer() {
@@ -47,15 +48,18 @@ public class SimpleTableValueRendererFactory<T, W extends SimpleTableRowItemRend
 	}
 
 	@Override
-	public W createValueRenderer(T value, String filterText, Map<String, Option<?>> options) {
-		W toReturn = newInstance(value, filterText, BooleanOption.isEnabled(DefaultOptions.CASE_SENSITIVE.name(), options));
+	public W createValueRenderer(T value, String filterText,
+			Map<String, Option<?>> options) {
+		W toReturn = newInstance(value, filterText,
+				BooleanOption.isEnabled(DefaultOptions.CASE_SENSITIVE.name(), options));
 		toReturn.setStyleName(cellStyle);
 		return toReturn;
 	}
 
 	@SuppressWarnings("unchecked")
 	protected W newInstance(T value, String filterText, boolean caseSensitive) {
-		W toReturn = (W) new SimpleTableRowItemRenderer<T>(value, filterText, caseSensitive, this);
+		W toReturn = (W) new SimpleTableRowItemRenderer<T>(value, filterText,
+				caseSensitive, this);
 		return toReturn;
 	}
 

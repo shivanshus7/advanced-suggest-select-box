@@ -6,26 +6,30 @@ import com.google.gwt.user.client.ui.Image;
 
 import eu.nextstreet.gwt.components.client.ui.common.data.ValueRepresentationTransformer;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.EventHandlingValueHolderItem;
-import eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueRendererFactory;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.iconed.IconedValueHolderItem;
+import eu.nextstreet.gwt.components.client.ui.widget.suggest.impl.simple.AbstractValueRendererFactory;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.impl.simple.DefaultListRenderer;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.param.BooleanOption;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.param.Option;
 
-public class IconedValueRendererFactory<T, W extends IconedValueHolderItem<T>> implements ValueRendererFactory<T, W> {
+public class IconedValueRendererFactory<T, W extends IconedValueHolderItem<T>>
+		extends AbstractValueRendererFactory<T, W> {
 
 	/** Gives an image for each value */
-	protected ValueRepresentationTransformer<T, Image>	iconLinker;
+	protected ValueRepresentationTransformer<T, Image> iconLinker;
 
-	public IconedValueRendererFactory(ValueRepresentationTransformer<T, Image> transformer) {
+	public IconedValueRendererFactory(
+			ValueRepresentationTransformer<T, Image> transformer) {
 		this.iconLinker = transformer;
 	}
 
 	@Override
-	public W createValueRenderer(T value, String filterText, Map<String, Option<?>> options) {
+	public W createValueRenderer(T value, String filterText,
+			Map<String, Option<?>> options) {
 		Image icon = constructIcon(value);
 		@SuppressWarnings("unchecked")
-		W toReturn = (W) new IconedValueRenderer<T>(value, icon, filterText, BooleanOption.isEnabled(filterText, options), this);
+		W toReturn = (W) new IconedValueRenderer<T>(value, icon, filterText,
+				BooleanOption.isEnabled(filterText, options), this);
 		toReturn.setStyleName(EventHandlingValueHolderItem.ITEM_DEFAULT_STYLE);
 		return toReturn;
 	}
@@ -68,7 +72,7 @@ public class IconedValueRendererFactory<T, W extends IconedValueHolderItem<T>> i
 	 * #toString(T)
 	 */
 	public String toString(T value) {
-		return null;
+		return value.toString();
 	}
 
 }

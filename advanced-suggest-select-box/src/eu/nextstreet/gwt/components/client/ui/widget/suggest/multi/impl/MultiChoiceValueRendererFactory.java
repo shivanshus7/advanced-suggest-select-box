@@ -22,7 +22,7 @@ import java.util.Map;
 import com.google.gwt.user.client.ui.Image;
 
 import eu.nextstreet.gwt.components.client.ui.common.data.ValueRepresentationTransformer;
-import eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueRendererFactory;
+import eu.nextstreet.gwt.components.client.ui.widget.suggest.impl.simple.AbstractValueRendererFactory;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.multi.MultiChoiceListRenderer;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.multi.MultiChoiceValueHolderItem;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.param.Option;
@@ -36,16 +36,18 @@ import eu.nextstreet.gwt.components.client.ui.widget.suggest.param.Option;
  * @param <C>
  *          concrete ValueHolderItem
  */
-public class MultiChoiceValueRendererFactory<T, C extends MultiChoiceValueHolderItem<T, C>> implements ValueRendererFactory<T, C> {
+public class MultiChoiceValueRendererFactory<T, C extends MultiChoiceValueHolderItem<T, C>>
+		extends AbstractValueRendererFactory<T, C> {
 
 	/** transforms a value into its icon representation */
-	protected ValueRepresentationTransformer<T, Image>	iconLinker;
+	protected ValueRepresentationTransformer<T, Image> iconLinker;
 
 	/**
 	 * @param iconLinker
 	 *          the value transformer into icons
 	 */
-	public MultiChoiceValueRendererFactory(ValueRepresentationTransformer<T, Image> iconLinker) {
+	public MultiChoiceValueRendererFactory(
+			ValueRepresentationTransformer<T, Image> iconLinker) {
 		this.iconLinker = iconLinker;
 	}
 
@@ -58,7 +60,8 @@ public class MultiChoiceValueRendererFactory<T, C extends MultiChoiceValueHolder
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public C createValueRenderer(T value, String filterText, Map<String, Option<?>> options) {
+	public C createValueRenderer(T value, String filterText,
+			Map<String, Option<?>> options) {
 		return (C) new MultiChoiceValueHolderLabel<T>(value, this);
 	}
 
@@ -72,17 +75,6 @@ public class MultiChoiceValueRendererFactory<T, C extends MultiChoiceValueHolder
 	@Override
 	public eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueRendererFactory.ListRenderer<T, C> createListRenderer() {
 		return new MultiChoiceListRenderer<T, C>();
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueRendererFactory
-	 * #toString(T)
-	 */
-	public String toString(T value) {
-		return null;
 	}
 
 	/**

@@ -36,6 +36,7 @@ import com.google.gwt.user.client.ui.Widget;
 import eu.nextstreet.gwt.components.client.ui.common.data.ValueRepresentationTransformer;
 import eu.nextstreet.gwt.components.client.ui.widget.AdvancedTextBox;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.AbstractSuggestBox;
+import eu.nextstreet.gwt.components.client.ui.widget.suggest.StringFormulator;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.SuggestChangeEvent;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.iconed.IconedValueHolderItem;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.iconed.impl.DefaultIconedSuggestBox;
@@ -62,8 +63,8 @@ public class ValidationTest {
 	 * 
 	 */
 	static class Value {
-		String	str;
-		String	url;
+		String str;
+		String url;
 
 		public Value(String str, String url) {
 			this.str = str;
@@ -72,7 +73,7 @@ public class ValidationTest {
 
 		@Override
 		public String toString() {
-			return str;
+			return "toString is unwanted (" + str + ")";
 		}
 
 	}
@@ -80,16 +81,24 @@ public class ValidationTest {
 	/**
 	 * This class aims to give the icon corresponding to each value
 	 */
-	static final ValueRepresentationTransformer<Value, Image>	iconLinker	= new ValueRepresentationTransformer<Value, Image>() {
+	static final ValueRepresentationTransformer<Value, Image> iconLinker = new ValueRepresentationTransformer<Value, Image>() {
 
-																																					@Override
-																																					public Image transform(Value value) {
-																																						return new Image("img/chrome_extentions/" + value.str + ".png");
-																																					}
-																																				};
+		@Override
+		public Image transform(Value value) {
+			return new Image("img/chrome_extentions/" + value.str + ".png");
+		}
+	};
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static void testWidget() {
+		StringFormulator<ValidationTest.Value> stringFormulator = new StringFormulator<ValidationTest.Value>() {
+
+			@Override
+			public String toString(Value t) {
+				return t.str;
+			}
+		};
+
 		RootPanel suggestBoxContainer = RootPanel.get("suggestBoxContainer");
 		if (suggestBoxContainer == null) {
 			System.err
@@ -102,7 +111,9 @@ public class ValidationTest {
 		// final DefaultSuggestBox<Value,ValueHolderLabel<Value>> box = new
 		// DefaultSuggestBox<Value,
 		// ValueHolderLabel<Value>>("select or type value");
-		final DefaultIconedSuggestBox box = new DefaultIconedSuggestBox<Value, IconedValueHolderItem<Value>>("select or type value");
+		final DefaultIconedSuggestBox box = new DefaultIconedSuggestBox<Value, IconedValueHolderItem<Value>>(
+				"select or type value");
+		box.setStringFormulator(stringFormulator);
 		box.putOption(new BooleanOption(DefaultOptions.STARTS_WITH.name(), false));
 		fillData(box);
 
@@ -130,12 +141,31 @@ public class ValidationTest {
 		});
 		RootPanel.get("advancedTextBox").add(advancedTextBox);
 
+		MultiChoiceValueRendererFactory<Value, MultiChoiceValueHolderLabel<Value>> choiceItemsRendererFactory = new MultiChoiceValueRendererFactory<Value, MultiChoiceValueHolderLabel<Value>>(
+				iconLinker);
 		final MultiChoiceSuggestBox<Value, IconedValueRenderer<Value>, MultiChoiceValueHolderLabel<Value>> multiBox = new MultiChoiceSuggestBox<ValidationTest.Value, IconedValueRenderer<Value>, MultiChoiceValueHolderLabel<Value>>(
-				"select or type value", DockPanel.NORTH, new MultiChoiceValueRendererFactory<Value, MultiChoiceValueHolderLabel<Value>>(iconLinker));
-		multiBox.putOption(new BooleanOption(DefaultOptions.STARTS_WITH.name(), true));
-		multiBox.getTextField().getTop().setStyleName("eu-nextstreet-MultiChoiceSelection");
+				"select or type value", DockPanel.NORTH, choiceItemsRendererFactory);
+
+		multiBox.setStringFormulator(stringFormulator);
+		multiBox.putOption(new BooleanOption(DefaultOptions.STARTS_WITH.name(),
+				true));
+		multiBox.getTextField().getTop()
+				.setStyleName("eu-nextstreet-MultiChoiceSelection");
 		fillData(multiBox);
 		multiBox.setIconLinker(iconLinker);
+
+		multiBox.addHandler(new ChangeHandler() {
+
+			@Override
+			public void onChange(ChangeEvent event) {
+				Value selected = multiBox.getSelected();
+				if (selected != null)
+					System.out.println("selection changed: " + selected.str);
+
+				System.out.println("current selection : " + multiBox.getValues());
+			}
+		});
+
 		RootPanel.get("suggestBoxMultiValueContainer").add(multiBox);
 
 	}
@@ -151,8 +181,13 @@ public class ValidationTest {
 			public void onChange(ChangeEvent event) {
 				if (infoContainer.getWidgetCount() > 3)
 					infoContainer.remove(3);
-				infoContainer.insert(new Label("At " + dateTimeFormat.format(new Date()) + " you "
-						+ (((SuggestChangeEvent) event).isSelected() ? "selected " : "typed ") + ((AbstractSuggestBox) event.getSource()).getText()), 0);
+				infoContainer.insert(
+						new Label("At "
+								+ dateTimeFormat.format(new Date())
+								+ " you "
+								+ (((SuggestChangeEvent) event).isSelected() ? "selected "
+										: "typed ")
+								+ ((AbstractSuggestBox) event.getSource()).getText()), 0);
 			}
 		});
 	}
@@ -189,16 +224,34 @@ public class ValidationTest {
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	protected static void fillData(final DefaultIconedSuggestBox box) {
-		DefaultSuggestOracle<Value> suggestOracle = (DefaultSuggestOracle<Value>) box.getSuggestOracle();
-		suggestOracle.add(new Value("Blogger", "https://chrome.google.com/webstore/detail/mmoheajlpfaigefceljflpohdehkjbli"));
-		suggestOracle.add(new Value("Calendar", "https://chrome.google.com/webstore/detail/ookhcbgokankfmjafalglpofmolfopek"));
-		suggestOracle.add(new Value("Chrome For a Cause", "https://chrome.google.com/webstore/detail/bbfammmagchhaohncbhghoohcfoeckdi"));
-		suggestOracle.add(new Value("Chrome Toolbox", "https://chrome.google.com/webstore/detail/fjccknnhdnkbanjilpjddjhmkghmachn"));
-		suggestOracle.add(new Value("Google Documents", "https://chrome.google.com/webstore/detail/nnbmlagghjjcbdhgmkedmbmedengocbn"));
-		suggestOracle.add(new Value("GWT Developer Plugin", "http://code.google.com/webtoolkit/"));
-		suggestOracle.add(new Value("Screen Capture", "https://chrome.google.com/webstore/detail/cpngackimfmofbokmjmljamhdncknpmg"));
-		suggestOracle.add(new Value("Send From Gmail", "https://chrome.google.com/webstore/detail/pgphcomnlaojlmmcjmiddhdapjpbgeoc"));
-		suggestOracle.add(new Value("Similar Pages", "https://chrome.google.com/webstore/detail/pjnfggphgdjblhfjaphkjhfpiiekbbej"));
+		DefaultSuggestOracle<Value> suggestOracle = (DefaultSuggestOracle<Value>) box
+				.getSuggestOracle();
+		suggestOracle
+				.add(new Value("Blogger",
+						"https://chrome.google.com/webstore/detail/mmoheajlpfaigefceljflpohdehkjbli"));
+		suggestOracle
+				.add(new Value("Calendar",
+						"https://chrome.google.com/webstore/detail/ookhcbgokankfmjafalglpofmolfopek"));
+		suggestOracle
+				.add(new Value("Chrome For a Cause",
+						"https://chrome.google.com/webstore/detail/bbfammmagchhaohncbhghoohcfoeckdi"));
+		suggestOracle
+				.add(new Value("Chrome Toolbox",
+						"https://chrome.google.com/webstore/detail/fjccknnhdnkbanjilpjddjhmkghmachn"));
+		suggestOracle
+				.add(new Value("Google Documents",
+						"https://chrome.google.com/webstore/detail/nnbmlagghjjcbdhgmkedmbmedengocbn"));
+		suggestOracle.add(new Value("GWT Developer Plugin",
+				"http://code.google.com/webtoolkit/"));
+		suggestOracle
+				.add(new Value("Screen Capture",
+						"https://chrome.google.com/webstore/detail/cpngackimfmofbokmjmljamhdncknpmg"));
+		suggestOracle
+				.add(new Value("Send From Gmail",
+						"https://chrome.google.com/webstore/detail/pgphcomnlaojlmmcjmiddhdapjpbgeoc"));
+		suggestOracle
+				.add(new Value("Similar Pages",
+						"https://chrome.google.com/webstore/detail/pjnfggphgdjblhfjaphkjhfpiiekbbej"));
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -229,7 +282,8 @@ public class ValidationTest {
 	}
 
 	@SuppressWarnings("rawtypes")
-	protected static CheckBox tableRendererOption(final DefaultIconedSuggestBox box) {
+	protected static CheckBox tableRendererOption(
+			final DefaultIconedSuggestBox box) {
 		final CheckBox multiColumn = new CheckBox("Html Table Mode");
 		multiColumn.setValue(box.isReadOnly());
 		multiColumn.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
@@ -241,23 +295,28 @@ public class ValidationTest {
 
 					@SuppressWarnings("serial")
 					@Override
-					protected SimpleTableRowItemRenderer<Value> newInstance(Value value, String filterText, boolean caseSensitive) {
-						SimpleTableRowItemRenderer<Value> simpleTableRowItemRenderer = new SimpleTableRowItemRenderer<Value>(value, filterText, caseSensitive,
-								this) {
+					protected SimpleTableRowItemRenderer<Value> newInstance(Value value,
+							String filterText, boolean caseSensitive) {
+						SimpleTableRowItemRenderer<Value> simpleTableRowItemRenderer = new SimpleTableRowItemRenderer<Value>(
+								value, filterText, caseSensitive, this) {
 
 							@Override
-							protected String[] explodeValueInColumns(Value value, String filterText, boolean caseSensitive) {
+							protected String[] explodeValueInColumns(Value value,
+									String filterText, boolean caseSensitive) {
 								if (value == null)
 									return new String[] { "", "", "" };
-								return new String[] { "img/chrome_extentions/" + value.str + ".png", value.str,
+								return new String[] {
+										"img/chrome_extentions/" + value.str + ".png", value.str,
 										"<a href='" + value.url + "' target='_blank'>View</a>" };
 							}
 
 							@Override
-							protected Widget createWidget(String filterText, boolean caseSensitive, int col, String colText) {
+							protected Widget createWidget(String filterText,
+									boolean caseSensitive, int col, String colText) {
 								if (col == 0 && colText != null)
 									return new Image(colText);
-								return super.createWidget(filterText, caseSensitive, col, colText);
+								return super.createWidget(filterText, caseSensitive, col,
+										colText);
 							}
 						};
 						return simpleTableRowItemRenderer;
@@ -265,8 +324,9 @@ public class ValidationTest {
 
 				};
 				// box.setValueRendererFactory(tableRendererFactory)
-				box.setValueRendererFactory((event.getValue() ? tableRendererFactory : new IconedValueRendererFactory<Value, IconedValueHolderItem<Value>>(
-						iconLinker)));
+				box.setValueRendererFactory((event.getValue() ? tableRendererFactory
+						: new IconedValueRendererFactory<Value, IconedValueHolderItem<Value>>(
+								iconLinker)));
 			}
 
 		});
@@ -289,7 +349,8 @@ public class ValidationTest {
 	}
 
 	@SuppressWarnings("rawtypes")
-	protected static CheckBox mandaoryValueOption(final DefaultIconedSuggestBox box) {
+	protected static CheckBox mandaoryValueOption(
+			final DefaultIconedSuggestBox box) {
 		final CheckBox mandatory = new CheckBox("Mandatory");
 		mandatory.setValue(box.isMandatory());
 		mandatory.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
@@ -319,14 +380,17 @@ public class ValidationTest {
 	}
 
 	@SuppressWarnings("rawtypes")
-	protected static CheckBox roundedCornersOption(final DefaultIconedSuggestBox box) {
+	protected static CheckBox roundedCornersOption(
+			final DefaultIconedSuggestBox box) {
 		final CheckBox style = new CheckBox("Rounded");
-		style.setValue(BooleanOption.isEnabled(DefaultOptions.STARTS_WITH.name(), box.getOptions()));
+		style.setValue(BooleanOption.isEnabled(DefaultOptions.STARTS_WITH.name(),
+				box.getOptions()));
 		style.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
 
 			@Override
 			public void onValueChange(ValueChangeEvent<Boolean> event) {
-				IntoGwt.changeCss(style.getValue() ? "IntoGwt.css" : "IntoGwtClassic.css");
+				IntoGwt.changeCss(style.getValue() ? "IntoGwt.css"
+						: "IntoGwtClassic.css");
 			}
 
 		});
@@ -334,14 +398,17 @@ public class ValidationTest {
 	}
 
 	@SuppressWarnings("rawtypes")
-	protected static CheckBox caseSensitiveOption(final DefaultIconedSuggestBox box) {
+	protected static CheckBox caseSensitiveOption(
+			final DefaultIconedSuggestBox box) {
 		CheckBox caseSensitive = new CheckBox("Case Sensitive");
-		caseSensitive.setValue(BooleanOption.isEnabled(DefaultOptions.CASE_SENSITIVE.name(), box.getOptions()));
+		caseSensitive.setValue(BooleanOption.isEnabled(
+				DefaultOptions.CASE_SENSITIVE.name(), box.getOptions()));
 		caseSensitive.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
 
 			@Override
 			public void onValueChange(ValueChangeEvent<Boolean> event) {
-				box.putOption(new BooleanOption(DefaultOptions.CASE_SENSITIVE.name(), event.getValue()));
+				box.putOption(new BooleanOption(DefaultOptions.CASE_SENSITIVE.name(),
+						event.getValue()));
 			}
 		});
 		return caseSensitive;
@@ -350,12 +417,14 @@ public class ValidationTest {
 	@SuppressWarnings("rawtypes")
 	protected static CheckBox startsWithOption(final DefaultIconedSuggestBox box) {
 		CheckBox startsWith = new CheckBox("Starts With");
-		startsWith.setValue(BooleanOption.isEnabled(DefaultOptions.STARTS_WITH.name(), box.getOptions()));
+		startsWith.setValue(BooleanOption.isEnabled(
+				DefaultOptions.STARTS_WITH.name(), box.getOptions()));
 		startsWith.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
 
 			@Override
 			public void onValueChange(ValueChangeEvent<Boolean> event) {
-				box.putOption(new BooleanOption(DefaultOptions.STARTS_WITH.name(), event.getValue()));
+				box.putOption(new BooleanOption(DefaultOptions.STARTS_WITH.name(),
+						event.getValue()));
 			}
 		});
 		return startsWith;

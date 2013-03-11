@@ -45,26 +45,41 @@ public class DefaultValueRenderer<T> extends HTML implements
 			boolean caseSensitive, ValueRendererFactory<T, ?> valueRendererFactory) {
 		this.value = value;
 		this.caseSensitive = caseSensitive;
-		fillHtml(value, filterText, caseSensitive);
 		this.valueRendererFactory = valueRendererFactory;
+		fillHtml(value, filterText, caseSensitive);
 	}
 
 	protected void fillHtml(T value, String filterText, boolean caseSensitive) {
-		String html = toString(value);
+		String html = toHtml(value);
+		if (html == null)
+			throw new IllegalStateException(
+					"toString(T value) cannot return null for " + value
+							+ " current renderer : " + valueRendererFactory.getClass());
 		html = highlightMatchingSequence(html, filterText, caseSensitive);
 		setHTML(html);
 	}
 
 	/**
-	 * Override this method to have a specific string representation of the value
+	 * returns the html String representation of value
 	 * 
 	 * @param value
-	 *          value
-	 * @return the string value
+	 * @return
 	 */
-	public String toString(T value) {
-		return value.toString();
+	protected String toHtml(T value) {
+		return valueRendererFactory.getSuggestBox().toString(value);
 	}
+
+	// /**
+	// * Override this method to have a specific string representation of the
+	// value
+	// *
+	// * @param value
+	// * value
+	// * @return the string value
+	// */
+	// public String toString(T value) {
+	// return valueRendererFactory.toString(value);
+	// }
 
 	protected String highlightMatchingSequence(String html, String filterText,
 			boolean caseSensitive) {
