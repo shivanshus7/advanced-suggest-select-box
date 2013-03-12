@@ -60,6 +60,7 @@ public class SimpleTableValueRendererFactory<T, W extends SimpleTableRowItemRend
 	protected W newInstance(T value, String filterText, boolean caseSensitive) {
 		W toReturn = (W) new SimpleTableRowItemRenderer<T>(value, filterText,
 				caseSensitive, this);
+		toReturn.initWidget();
 		return toReturn;
 	}
 

@@ -112,4 +112,6 @@ public interface ValueRendererFactory<T, W extends ValueHolderItem<T>> {
 	void setSuggestBox(
 			AbstractSuggestBox<T, EventHandlingValueHolderItem<T>> suggestBox);
 
+	public String toString(T value);
+
 }

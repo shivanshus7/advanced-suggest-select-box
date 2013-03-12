@@ -22,7 +22,12 @@ import java.util.Map;
 import com.google.gwt.user.client.ui.Image;
 
 import eu.nextstreet.gwt.components.client.ui.common.data.ValueRepresentationTransformer;
+import eu.nextstreet.gwt.components.client.ui.widget.suggest.AbstractSuggestBox;
+import eu.nextstreet.gwt.components.client.ui.widget.suggest.EventHandlingValueHolderItem;
+import eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueHolderItem;
+import eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueRendererFactory;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.impl.simple.AbstractValueRendererFactory;
+import eu.nextstreet.gwt.components.client.ui.widget.suggest.impl.simple.DefaultValueRendererFactory;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.multi.MultiChoiceListRenderer;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.multi.MultiChoiceValueHolderItem;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.param.Option;
@@ -40,6 +45,8 @@ public class MultiChoiceValueRendererFactory<T, C extends MultiChoiceValueHolder
 		extends AbstractValueRendererFactory<T, C> {
 
 	/** transforms a value into its icon representation */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	protected ValueRendererFactory<T, ValueHolderItem<T>> textRendererFactory = new DefaultValueRendererFactory();
 	protected ValueRepresentationTransformer<T, Image> iconLinker;
 
 	/**
@@ -47,8 +54,16 @@ public class MultiChoiceValueRendererFactory<T, C extends MultiChoiceValueHolder
 	 *          the value transformer into icons
 	 */
 	public MultiChoiceValueRendererFactory(
-			ValueRepresentationTransformer<T, Image> iconLinker) {
+			ValueRepresentationTransformer<T, Image> iconLinker,
+			ValueRendererFactory<T, ValueHolderItem<T>> textRendererFactory) {
 		this.iconLinker = iconLinker;
+		if (textRendererFactory != null)
+			this.textRendererFactory = textRendererFactory;
+	}
+
+	public MultiChoiceValueRendererFactory(
+			ValueRepresentationTransformer<T, Image> iconLinker) {
+		this(iconLinker, null);
 	}
 
 	/*
@@ -62,7 +77,10 @@ public class MultiChoiceValueRendererFactory<T, C extends MultiChoiceValueHolder
 	@Override
 	public C createValueRenderer(T value, String filterText,
 			Map<String, Option<?>> options) {
-		return (C) new MultiChoiceValueHolderLabel<T>(value, this);
+		C toReturn = (C) new MultiChoiceValueHolderLabel<T>(value, this,
+				textRendererFactory);
+		toReturn.initWidget();
+		return toReturn;
 	}
 
 	/*
@@ -84,6 +102,13 @@ public class MultiChoiceValueRendererFactory<T, C extends MultiChoiceValueHolder
 	 */
 	public ValueRepresentationTransformer<T, Image> getIconLinker() {
 		return iconLinker;
+	}
+
+	@Override
+	public void setSuggestBox(
+			AbstractSuggestBox<T, EventHandlingValueHolderItem<T>> suggestBox) {
+		super.setSuggestBox(suggestBox);
+		textRendererFactory.setSuggestBox(suggestBox);
 	}
 
 }

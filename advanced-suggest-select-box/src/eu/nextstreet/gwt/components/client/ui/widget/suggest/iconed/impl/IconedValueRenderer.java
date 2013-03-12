@@ -29,10 +29,10 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.UIObject;
 
+import eu.nextstreet.gwt.components.client.ui.widget.suggest.EventHandlingValueHolderItem;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueHolderItem;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueRendererFactory;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.iconed.IconedValueHolderItem;
-import eu.nextstreet.gwt.components.client.ui.widget.suggest.impl.simple.DefaultValueRenderer;
 
 /**
  * Displays an iconed item
@@ -49,25 +49,19 @@ public class IconedValueRenderer<T> extends Composite implements
 
 	protected HorizontalPanel horizontalPanel = new HorizontalPanel();
 	protected Image icon;
-	protected DefaultValueRenderer<T> label;
+	protected EventHandlingValueHolderItem<T> label;
 	protected ValueRendererFactory<T, ? extends ValueHolderItem<T>> valueRendererFactory;
 
-	public IconedValueRenderer(T value, Image icon, String filterText,
+	public IconedValueRenderer(T value, Image icon,
+			EventHandlingValueHolderItem<T> label, String filterText,
 			boolean caseSensitive,
 			ValueRendererFactory<T, ? extends ValueHolderItem<T>> valueRendererFactory) {
 		initWidget(horizontalPanel);
-		label = new DefaultValueRenderer<T>(value, filterText, caseSensitive,
-				valueRendererFactory);
+		this.label = label;
 		if (icon == null) {
 			icon = new Image();
 		}
 		this.icon = icon;
-
-		horizontalPanel.setSpacing(5);
-		horizontalPanel.setHorizontalAlignment(HorizontalPanel.ALIGN_LEFT);
-		horizontalPanel.add(icon);
-		horizontalPanel.setCellWidth(icon, "20px");
-		horizontalPanel.add(label);
 	}
 
 	@Override
@@ -155,6 +149,15 @@ public class IconedValueRenderer<T> extends Composite implements
 	@Override
 	public ValueRendererFactory<T, ? extends ValueHolderItem<T>> getValueRendererFactory() {
 		return valueRendererFactory;
+	}
+
+	@Override
+	public void initWidget() {
+		horizontalPanel.setSpacing(5);
+		horizontalPanel.setHorizontalAlignment(HorizontalPanel.ALIGN_LEFT);
+		horizontalPanel.add(icon);
+		horizontalPanel.setCellWidth(icon, "20px");
+		horizontalPanel.add(label);
 	}
 
 }

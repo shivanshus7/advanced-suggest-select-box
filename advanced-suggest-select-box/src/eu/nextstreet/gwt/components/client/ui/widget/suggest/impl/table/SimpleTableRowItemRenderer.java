@@ -334,4 +334,9 @@ public class SimpleTableRowItemRenderer<T> extends BasicWidgetListHolder
 	public ValueRendererFactory<T, ? extends ValueHolderItem<T>> getValueRendererFactory() {
 		return valueRendererFactory;
 	}
+
+	@Override
+	public void initWidget() {
+
+	}
 }

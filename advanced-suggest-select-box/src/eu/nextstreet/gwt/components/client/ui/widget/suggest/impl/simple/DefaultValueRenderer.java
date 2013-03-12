@@ -66,7 +66,7 @@ public class DefaultValueRenderer<T> extends HTML implements
 	 * @return
 	 */
 	protected String toHtml(T value) {
-		return valueRendererFactory.getSuggestBox().toString(value);
+		return valueRendererFactory.toString(value);
 	}
 
 	// /**
@@ -127,5 +127,10 @@ public class DefaultValueRenderer<T> extends HTML implements
 	@Override
 	public ValueRendererFactory<T, ?> getValueRendererFactory() {
 		return valueRendererFactory;
+	}
+
+	@Override
+	public void initWidget() {
+
 	}
 }

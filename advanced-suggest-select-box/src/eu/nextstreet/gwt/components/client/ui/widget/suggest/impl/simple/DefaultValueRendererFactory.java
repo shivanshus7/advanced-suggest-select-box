@@ -20,6 +20,7 @@ import java.util.Map;
 
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.AbstractSuggestBox;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.EventHandlingValueHolderItem;
+import eu.nextstreet.gwt.components.client.ui.widget.suggest.StringFormulator;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueRendererFactory;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.param.BooleanOption;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.param.Option;
@@ -41,6 +42,14 @@ public class DefaultValueRendererFactory<T, W extends EventHandlingValueHolderIt
 
 	protected AbstractSuggestBox<T, EventHandlingValueHolderItem<T>> suggestBox;
 
+	public DefaultValueRendererFactory() {
+		super();
+	}
+
+	public DefaultValueRendererFactory(StringFormulator<T> stringFormulator) {
+		super(stringFormulator);
+	}
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public W createValueRenderer(T value, String filterText,
@@ -48,6 +57,7 @@ public class DefaultValueRendererFactory<T, W extends EventHandlingValueHolderIt
 		W toReturn = (W) new DefaultValueRenderer<T>(value, filterText,
 				BooleanOption.isEnabled(DefaultOptions.CASE_SENSITIVE.name(), options),
 				this);
+		toReturn.initWidget();
 		toReturn.setStyleName(EventHandlingValueHolderItem.ITEM_DEFAULT_STYLE);
 		return toReturn;
 	}

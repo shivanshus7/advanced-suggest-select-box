@@ -83,4 +83,9 @@ public interface ValueHolderItem<T> extends IsWidget {
 	 */
 	ValueRendererFactory<T, ?> getValueRendererFactory();
 
+	/**
+	 * Used to separate constructor from initialisation
+	 */
+	void initWidget();
+
 }

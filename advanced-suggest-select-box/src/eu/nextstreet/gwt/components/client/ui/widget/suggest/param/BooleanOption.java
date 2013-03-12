@@ -31,6 +31,9 @@ public class BooleanOption extends BasicOption<Boolean> {
 	}
 
 	public static boolean isEnabled(String key, Map<String, Option<?>> options) {
+		if (options == null)
+			return false;
+
 		if (!options.containsKey(key))
 			return false;
 
@@ -38,7 +41,8 @@ public class BooleanOption extends BasicOption<Boolean> {
 		if (option instanceof BooleanOption)
 			return (Boolean) option.getValue();
 		else
-			throw new IllegalArgumentException("Options under key '" + key + "' is not a boolean option : " + option.getClass());
+			throw new IllegalArgumentException("Options under key '" + key
+					+ "' is not a boolean option : " + option.getClass());
 
 	}
 }

@@ -319,6 +319,8 @@ public class ValidationTest {
 										colText);
 							}
 						};
+
+						simpleTableRowItemRenderer.initWidget();
 						return simpleTableRowItemRenderer;
 					}
 

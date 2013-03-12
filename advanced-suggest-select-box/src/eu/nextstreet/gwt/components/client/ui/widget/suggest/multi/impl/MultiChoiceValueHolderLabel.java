@@ -27,6 +27,7 @@ import com.google.gwt.event.dom.client.MouseWheelHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.Image;
 
+import eu.nextstreet.gwt.components.client.ui.widget.suggest.EventHandlingValueHolderItem;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueHolderItem;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueRendererFactory;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.iconed.impl.IconedValueRenderer;
@@ -42,18 +43,21 @@ public class MultiChoiceValueHolderLabel<T>
 		extends
 		BasicMultiChoiceValueHolderItem<T, IconedValueRenderer<T>, MultiChoiceValueHolderLabel<T>> {
 	private static final String MULTI_CHOICE_ITEM = "eu-nextstreet-MultiChoiceItem";
+	protected ValueRendererFactory<T, ? extends ValueHolderItem<T>> textRendererFactory;
 
 	/**
 	 * 
 	 * @param value
 	 *          value
-	 * @param valueRendererFactory
+	 * @param imageRendererFactory
 	 *          the factory the created this instance
 	 */
-	public MultiChoiceValueHolderLabel(T value,
-			ValueRendererFactory<T, ? extends ValueHolderItem<T>> valueRendererFactory) {
-		super(value, valueRendererFactory);
-		setStyleName(MULTI_CHOICE_ITEM);
+	public MultiChoiceValueHolderLabel(
+			T value,
+			ValueRendererFactory<T, ? extends ValueHolderItem<T>> imageRendererFactory,
+			ValueRendererFactory<T, ? extends ValueHolderItem<T>> textRendererFactory) {
+		super(value, imageRendererFactory);
+		this.textRendererFactory = textRendererFactory;
 	}
 
 	/*
@@ -65,9 +69,28 @@ public class MultiChoiceValueHolderLabel<T>
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public IconedValueRenderer<T> transform(T value) {
-		return new IconedValueRenderer<T>(value,
-				(Image) ((MultiChoiceValueRendererFactory) getValueRendererFactory())
-						.getIconLinker().transform(value), "", false, valueRendererFactory);
+		Image image = (Image) ((MultiChoiceValueRendererFactory) valueRendererFactory)
+				.getIconLinker().transform(value);
+		image.setTitle(toString(value));
+
+		EventHandlingValueHolderItem<T> label = (EventHandlingValueHolderItem<T>) textRendererFactory
+				.createValueRenderer(value, "", null);
+
+		IconedValueRenderer<T> toReturn = new IconedValueRenderer<T>(value, image,
+				label, "", false, valueRendererFactory);
+		toReturn.initWidget();
+
+		return toReturn;
+	}
+
+	@Override
+	public void initWidget() {
+		super.initWidget();
+		setStyleName(MULTI_CHOICE_ITEM);
+	}
+
+	protected String toString(T value) {
+		return valueRendererFactory.toString(value);
 	}
 
 	// -------------------- these are unused for now ------------------
@@ -98,6 +121,15 @@ public class MultiChoiceValueHolderLabel<T>
 
 	public HandlerRegistration addClickHandler(ClickHandler handler) {
 		return concreteWidget.addClickHandler(handler);
+	}
+
+	public ValueRendererFactory<T, ? extends ValueHolderItem<T>> getTextRendererFactory() {
+		return textRendererFactory;
+	}
+
+	public void setTextRendererFactory(
+			ValueRendererFactory<T, ? extends ValueHolderItem<T>> textRendererFactory) {
+		this.textRendererFactory = textRendererFactory;
 	}
 
 }

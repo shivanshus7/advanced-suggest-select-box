@@ -115,7 +115,7 @@ public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderIt
 		getTextField().setStyleName(SUGGEST_FIELD);
 		getTextField().setDefaultText(defaultText);
 		suggestWidget.setWidget(scrollPanel);
-		setValueRendererFactory(new DefaultValueRendererFactory<T, W>());
+		setValueRendererFactory(new DefaultValueRendererFactory<T, W>(this));
 	}
 
 	// unused

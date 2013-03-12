@@ -103,6 +103,7 @@ public class MultiChoiceSuggestBox<T, W extends IconedValueHolderItem<T>, C exte
 		return choiceItemsRendererFactory;
 	}
 
+	@SuppressWarnings("unchecked")
 	protected void setChoiceItemsRendererFactory(
 			ValueRendererFactory<T, C> choiceItemsRendererFactory) {
 		this.choiceItemsRendererFactory = choiceItemsRendererFactory;
