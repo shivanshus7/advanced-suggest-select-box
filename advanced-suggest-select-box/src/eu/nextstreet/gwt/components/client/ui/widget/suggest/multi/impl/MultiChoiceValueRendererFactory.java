@@ -111,4 +111,13 @@ public class MultiChoiceValueRendererFactory<T, C extends MultiChoiceValueHolder
 		textRendererFactory.setSuggestBox(suggestBox);
 	}
 
+	public ValueRendererFactory<T, ValueHolderItem<T>> getTextRendererFactory() {
+		return textRendererFactory;
+	}
+
+	public void setTextRendererFactory(
+			ValueRendererFactory<T, ValueHolderItem<T>> textRendererFactory) {
+		this.textRendererFactory = textRendererFactory;
+	}
+
 }

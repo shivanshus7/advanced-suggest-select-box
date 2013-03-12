@@ -40,4 +40,12 @@ public abstract class AbstractValueRendererFactory<T, W extends EventHandlingVal
 
 		return stringFormulator.toString(value);
 	}
+
+	public StringFormulator<T> getStringFormulator() {
+		return stringFormulator;
+	}
+
+	public void setStringFormulator(StringFormulator<T> stringFormulator) {
+		this.stringFormulator = stringFormulator;
+	}
 }

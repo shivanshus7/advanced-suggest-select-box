@@ -42,6 +42,7 @@ import eu.nextstreet.gwt.components.client.ui.widget.suggest.iconed.IconedValueH
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.iconed.impl.DefaultIconedSuggestBox;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.iconed.impl.IconedValueRenderer;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.iconed.impl.IconedValueRendererFactory;
+import eu.nextstreet.gwt.components.client.ui.widget.suggest.impl.simple.AbstractValueRendererFactory;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.impl.simple.DefaultOptions;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.impl.simple.DefaultSuggestOracle;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.impl.table.SimpleTableRowItemRenderer;
@@ -145,6 +146,16 @@ public class ValidationTest {
 				iconLinker);
 		final MultiChoiceSuggestBox<Value, IconedValueRenderer<Value>, MultiChoiceValueHolderLabel<Value>> multiBox = new MultiChoiceSuggestBox<ValidationTest.Value, IconedValueRenderer<Value>, MultiChoiceValueHolderLabel<Value>>(
 				"select or type value", DockPanel.NORTH, choiceItemsRendererFactory);
+
+		((AbstractValueRendererFactory) choiceItemsRendererFactory
+				.getTextRendererFactory())
+				.setStringFormulator(new StringFormulator<Value>() {
+
+					@Override
+					public String toString(Value t) {
+						return "";
+					}
+				});
 
 		multiBox.setStringFormulator(stringFormulator);
 		multiBox.putOption(new BooleanOption(DefaultOptions.STARTS_WITH.name(),
