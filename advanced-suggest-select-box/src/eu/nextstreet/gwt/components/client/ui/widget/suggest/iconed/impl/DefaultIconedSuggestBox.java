@@ -35,7 +35,8 @@ public class DefaultIconedSuggestBox<T, W extends IconedValueHolderItem<T>>
 	@Override
 	protected void init(String defaultText) {
 		super.init(defaultText);
-		IconedValueRendererFactory<T, W> unifiedValueRendererFactory = new IconedValueRendererFactory<T, W>(iconLinker);
+		IconedValueRendererFactory<T, W> unifiedValueRendererFactory = new IconedValueRendererFactory<T, W>(
+				iconLinker);
 		setValueRendererFactory(unifiedValueRendererFactory);
 	}
 
@@ -43,8 +44,8 @@ public class DefaultIconedSuggestBox<T, W extends IconedValueHolderItem<T>>
 	 * Value changes trigger icon changes
 	 */
 	public void valueSelected(T value) {
-		super.valueSelected(value);
 		fillIcon(value);
+		super.valueSelected(value);
 	}
 
 	/**

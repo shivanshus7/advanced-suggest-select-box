@@ -92,9 +92,9 @@ public class MultiChoiceSuggestBox<T, W extends IconedValueHolderItem<T>, C exte
 	}
 
 	public void valueSelected(T value) {
-		super.valueSelected(value);
 		selectedValuesPanel.add(choiceItemsRendererFactory.createValueRenderer(
 				value, DEBUG_ID_PREFIX, getOptions()));
+		super.valueSelected(value);
 	}
 
 	protected ValueRendererFactory<T, C> getChoiceItemsRendererFactory() {
