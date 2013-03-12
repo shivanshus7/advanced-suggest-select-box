@@ -95,6 +95,8 @@ public class MultiChoiceSuggestBox<T, W extends IconedValueHolderItem<T>, C exte
 		selectedValuesPanel.add(choiceItemsRendererFactory.createValueRenderer(
 				value, DEBUG_ID_PREFIX, getOptions()));
 		super.valueSelected(value);
+		setText("");
+		emptyIcon();
 	}
 
 	protected ValueRendererFactory<T, C> getChoiceItemsRendererFactory() {

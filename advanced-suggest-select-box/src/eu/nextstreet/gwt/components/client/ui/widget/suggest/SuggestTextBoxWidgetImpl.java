@@ -480,5 +480,9 @@ public class SuggestTextBoxWidgetImpl<T, W extends EventHandlingValueHolderItem<
 		this.bottom = bottom;
 	}
 
+	public void setFieldId(String id) {
+		advancedTextBox.getElement().setId(id + "suggest");
+	}
+
 	// ------------------------------------------------------- end.
 }

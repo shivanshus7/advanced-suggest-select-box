@@ -16,6 +16,8 @@
  */
 package eu.nextstreet.gwt.components.client.ui.widget;
 
+import com.google.gwt.event.dom.client.BlurEvent;
+import com.google.gwt.event.dom.client.BlurHandler;
 import com.google.gwt.event.dom.client.DoubleClickEvent;
 import com.google.gwt.event.dom.client.DoubleClickHandler;
 import com.google.gwt.event.dom.client.FocusEvent;
@@ -63,6 +65,7 @@ public class AdvancedTextBox extends TextBox implements HasDoubleClickHandlers {
 	protected String readOnlyTextStyle;
 	protected boolean mandatory;
 	protected Widget representer;
+	protected boolean focused;
 	protected UIHandler uiHandler = new UIHandler() {
 
 		@Override
@@ -102,6 +105,7 @@ public class AdvancedTextBox extends TextBox implements HasDoubleClickHandlers {
 
 			@Override
 			public void onFocus(FocusEvent event) {
+				focused = true;
 				String text = AdvancedTextBox.this.getText();
 				if (AdvancedTextBox.this.defaultText == null
 						|| !AdvancedTextBox.this.defaultText.equals(text)) {
@@ -109,6 +113,15 @@ public class AdvancedTextBox extends TextBox implements HasDoubleClickHandlers {
 				} else {
 					AdvancedTextBox.super.setText("");
 				}
+			}
+		});
+
+		addBlurHandler(new BlurHandler() {
+
+			@Override
+			public void onBlur(BlurEvent event) {
+				focused = false;
+				handleDefaultText();
 			}
 		});
 
@@ -146,6 +159,10 @@ public class AdvancedTextBox extends TextBox implements HasDoubleClickHandlers {
 	 * 
 	 */
 	protected void handleDefaultText() {
+		// does nothing if the element is focused
+		if (hasFocus())
+			return;
+
 		if (defaultText != null && defaultText.length() > 0) {
 			boolean empty = isEmptyTextField();
 			if (empty && !isReadOnly()) {
@@ -156,6 +173,10 @@ public class AdvancedTextBox extends TextBox implements HasDoubleClickHandlers {
 			uiHandler.handleDefaultText();
 
 		handleTextStyles();
+	}
+
+	public boolean hasFocus() {
+		return focused;
 	}
 
 	/**
