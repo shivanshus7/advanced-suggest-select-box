@@ -147,6 +147,8 @@ public class ValidationTest {
 		final MultiChoiceSuggestBox<Value, IconedValueRenderer<Value>, MultiChoiceValueHolderLabel<Value>> multiBox = new MultiChoiceSuggestBox<ValidationTest.Value, IconedValueRenderer<Value>, MultiChoiceValueHolderLabel<Value>>(
 				"select or type value", DockPanel.NORTH, choiceItemsRendererFactory);
 
+		// FIXME some default behavior like: only icons or only text should be
+		// possible through options
 		((AbstractValueRendererFactory) choiceItemsRendererFactory
 				.getTextRendererFactory())
 				.setStringFormulator(new StringFormulator<Value>() {
