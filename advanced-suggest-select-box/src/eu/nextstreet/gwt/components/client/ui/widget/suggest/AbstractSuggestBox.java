@@ -148,8 +148,7 @@ public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderIt
 				String currentText = getText();
 				if (typed == null || !typed.equals(currentText)) {
 					if (strictMode) {
-						setText("");
-						valueTyped("");
+						clearSelection();
 					} else {
 						valueTyped(currentText);
 					}
@@ -531,11 +530,10 @@ public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderIt
 	}
 
 	/**
-	 * Called when a typed value is confirmed whether by pressing the key enter,
-	 * or on blur (losing the focus) of the element. Notice that this method
-	 * behavior also can be changed thanks to the property
-	 * <code>multipleChangeEvent</code> which specifies if the method has to be
-	 * called on each enter key press or only on the first one.
+	 * Called when a typed value is confirmed whether by pressing the enter key,
+	 * or on blur. Notice that this method behavior also can be changed thanks to
+	 * the property {@link #multipleChangeEvent} which specifies if the method has
+	 * to be called on each enter key press or only on the first one.
 	 * 
 	 * @param value
 	 */
@@ -828,6 +826,11 @@ public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderIt
 
 	public void setStringFormulator(StringFormulator<T> stringFormulator) {
 		this.stringFormulator = stringFormulator;
+	}
+
+	public void clearSelection() {
+		setText("");
+		valueTyped("");
 	}
 
 }

@@ -130,6 +130,11 @@ public class MultiChoiceSuggestBox<T, W extends IconedValueHolderItem<T>, C exte
 		}
 	}
 
+	public void clearSelection() {
+		selectedValuesPanel.clear();
+		super.clearSelection();
+	}
+
 	protected DockPanel.DockLayoutConstant getPosition() {
 		return position;
 	}
