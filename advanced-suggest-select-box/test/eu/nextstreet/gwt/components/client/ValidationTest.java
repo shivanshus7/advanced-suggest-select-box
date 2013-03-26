@@ -90,6 +90,11 @@ public class ValidationTest {
 		}
 	};
 
+	static Value blogger = new Value("Blogger",
+			"https://chrome.google.com/webstore/detail/mmoheajlpfaigefceljflpohdehkjbli");
+	static Value chromeToolBox = new Value("Chrome Toolbox",
+			"https://chrome.google.com/webstore/detail/fjccknnhdnkbanjilpjddjhmkghmachn");
+
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static void testWidget() {
 		StringFormulator<ValidationTest.Value> stringFormulator = new StringFormulator<ValidationTest.Value>() {
@@ -121,10 +126,17 @@ public class ValidationTest {
 		box.setIconLinker(iconLinker);
 
 		suggestBoxContainer.add(box);
-		// box.setText("Chrome Toolbox");
-		box.computeSelected(box.getText());
+		// // box.setText("Chrome Toolbox");
+		// // box.computeSelected(box.getText());
+		// //
+		// // Object selected = box.getSelected();
+		// // if (selected != chromeToolBox)
+		// // throw new IllegalStateException("Chrome Toolbox should be selected,"
+		// // + selected + " found instead");
+		//
+		// System.out.println("selected : " + selected);
 
-		System.out.println("selected : " + box.getSelected());
+		box.setSelected(blogger);
 
 		VerticalPanel options = fillOptions(box);
 
@@ -239,18 +251,14 @@ public class ValidationTest {
 	protected static void fillData(final DefaultIconedSuggestBox box) {
 		DefaultSuggestOracle<Value> suggestOracle = (DefaultSuggestOracle<Value>) box
 				.getSuggestOracle();
-		suggestOracle
-				.add(new Value("Blogger",
-						"https://chrome.google.com/webstore/detail/mmoheajlpfaigefceljflpohdehkjbli"));
+		suggestOracle.add(blogger);
 		suggestOracle
 				.add(new Value("Calendar",
 						"https://chrome.google.com/webstore/detail/ookhcbgokankfmjafalglpofmolfopek"));
 		suggestOracle
 				.add(new Value("Chrome For a Cause",
 						"https://chrome.google.com/webstore/detail/bbfammmagchhaohncbhghoohcfoeckdi"));
-		suggestOracle
-				.add(new Value("Chrome Toolbox",
-						"https://chrome.google.com/webstore/detail/fjccknnhdnkbanjilpjddjhmkghmachn"));
+		suggestOracle.add(chromeToolBox);
 		suggestOracle
 				.add(new Value("Google Documents",
 						"https://chrome.google.com/webstore/detail/nnbmlagghjjcbdhgmkedmbmedengocbn"));

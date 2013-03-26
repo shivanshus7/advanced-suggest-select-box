@@ -812,6 +812,7 @@ public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderIt
 	public void setSelected(T selected) {
 		this.selected = selected;
 		setText(toString(selected));
+		valueSelected(selected);
 	}
 
 	public abstract SuggestTextBoxWidget<T, W> getTextField();
