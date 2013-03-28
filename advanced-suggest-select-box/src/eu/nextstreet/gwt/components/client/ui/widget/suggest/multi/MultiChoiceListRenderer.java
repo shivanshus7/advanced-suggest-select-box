@@ -19,7 +19,10 @@ package eu.nextstreet.gwt.components.client.ui.widget.suggest.multi;
 
 import com.google.gwt.user.client.ui.HorizontalPanel;
 
+import eu.nextstreet.gwt.components.client.ui.widget.suggest.AbstractSuggestBox;
+import eu.nextstreet.gwt.components.client.ui.widget.suggest.EventHandlingValueHolderItem;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueRendererFactory.ListRenderer;
+import eu.nextstreet.gwt.components.client.ui.widget.suggest.multi.impl.MultiChoiceSuggestBox;
 
 /**
  * @author Zied Hamdi
@@ -28,9 +31,16 @@ import eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueRendererFactor
 public class MultiChoiceListRenderer<T, C extends MultiChoiceValueHolderItem<T, C>>
 		extends HorizontalPanel implements ListRenderer<T, C> {
 
+	protected AbstractSuggestBox<T, EventHandlingValueHolderItem<T>> suggestBox;
+
 	public MultiChoiceListRenderer() {
 		super();
 		setSpacing(2);
+	}
+
+	public MultiChoiceListRenderer(
+			AbstractSuggestBox<T, EventHandlingValueHolderItem<T>> suggestBox) {
+		this.suggestBox = suggestBox;
 	}
 
 	/*
@@ -57,6 +67,12 @@ public class MultiChoiceListRenderer<T, C extends MultiChoiceValueHolderItem<T, 
 	@Override
 	public C getAt(int index) {
 		return (C) super.getWidget(index);
+	}
+
+	@Override
+	public boolean remove(C item) {
+		((MultiChoiceSuggestBox) suggestBox).valueRemoved(item.getValue());
+		return super.remove(item);
 	}
 
 }

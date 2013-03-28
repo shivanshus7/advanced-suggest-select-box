@@ -74,6 +74,14 @@ public interface ValueRendererFactory<T, W extends ValueHolderItem<T>> {
 		 */
 		W getAt(int index);
 
+		/**
+		 * removes the element and notifies the suggest box
+		 * 
+		 * @param item
+		 * @return
+		 */
+		boolean remove(W item);
+
 	}
 
 	/**

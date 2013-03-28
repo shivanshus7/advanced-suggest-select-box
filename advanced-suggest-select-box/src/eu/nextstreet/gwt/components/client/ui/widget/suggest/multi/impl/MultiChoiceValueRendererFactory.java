@@ -92,7 +92,7 @@ public class MultiChoiceValueRendererFactory<T, C extends MultiChoiceValueHolder
 	 */
 	@Override
 	public eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueRendererFactory.ListRenderer<T, C> createListRenderer() {
-		return new MultiChoiceListRenderer<T, C>();
+		return new MultiChoiceListRenderer<T, C>(suggestBox);
 	}
 
 	/**

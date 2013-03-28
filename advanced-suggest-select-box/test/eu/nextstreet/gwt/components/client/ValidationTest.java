@@ -15,7 +15,9 @@
  */
 package eu.nextstreet.gwt.components.client;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
@@ -157,7 +159,13 @@ public class ValidationTest {
 		MultiChoiceValueRendererFactory<Value, MultiChoiceValueHolderLabel<Value>> choiceItemsRendererFactory = new MultiChoiceValueRendererFactory<Value, MultiChoiceValueHolderLabel<Value>>(
 				iconLinker);
 		final MultiChoiceSuggestBox<Value, IconedValueRenderer<Value>, MultiChoiceValueHolderLabel<Value>> multiBox = new MultiChoiceSuggestBox<ValidationTest.Value, IconedValueRenderer<Value>, MultiChoiceValueHolderLabel<Value>>(
-				"select or type value", DockPanel.NORTH, choiceItemsRendererFactory);
+				"select or type value", DockPanel.NORTH, choiceItemsRendererFactory) {
+			@Override
+			public void valueRemoved(Value value) {
+				super.valueRemoved(value);
+				System.out.println("Removed values" + getRemovedValues());
+			}
+		};
 
 		// FIXME some default behavior like: only icons or only text should be
 		// possible through options
@@ -178,6 +186,11 @@ public class ValidationTest {
 				.setStyleName("eu-nextstreet-MultiChoiceSelection");
 		fillData(multiBox);
 		multiBox.setIconLinker(iconLinker);
+
+		List<Value> multiSelection = new ArrayList<ValidationTest.Value>();
+		multiSelection.add(blogger);
+		multiSelection.add(chromeToolBox);
+		multiBox.setValues(multiSelection);
 
 		multiBox.addHandler(new ChangeHandler() {
 

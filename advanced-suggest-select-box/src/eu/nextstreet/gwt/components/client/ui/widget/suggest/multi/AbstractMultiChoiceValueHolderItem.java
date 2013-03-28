@@ -92,7 +92,7 @@ public abstract class AbstractMultiChoiceValueHolderItem<T, C extends MultiChoic
 	 */
 	@Override
 	public void remove() {
-		associatedList.remove(this);
+		associatedList.remove((C) this);
 	}
 
 }

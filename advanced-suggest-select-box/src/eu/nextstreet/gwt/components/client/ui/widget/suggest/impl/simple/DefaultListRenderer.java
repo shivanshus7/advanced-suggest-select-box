@@ -30,8 +30,8 @@ import eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueRendererFactor
  * 
  * @param <T>
  */
-public class DefaultListRenderer<T, W extends EventHandlingValueHolderItem<T>> extends
-		VerticalPanel implements ListRenderer<T, W> {
+public class DefaultListRenderer<T, W extends EventHandlingValueHolderItem<T>>
+		extends VerticalPanel implements ListRenderer<T, W> {
 
 	@Override
 	public void add(W item) {
@@ -41,5 +41,10 @@ public class DefaultListRenderer<T, W extends EventHandlingValueHolderItem<T>> e
 	@SuppressWarnings("unchecked")
 	public W getAt(int index) {
 		return (W) super.getWidget(index);
+	}
+
+	@Override
+	public boolean remove(W item) {
+		return super.remove(item);
 	}
 }

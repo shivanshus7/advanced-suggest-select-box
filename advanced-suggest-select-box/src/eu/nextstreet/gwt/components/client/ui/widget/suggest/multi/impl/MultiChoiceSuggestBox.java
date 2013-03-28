@@ -52,6 +52,11 @@ public class MultiChoiceSuggestBox<T, W extends IconedValueHolderItem<T>, C exte
 	 * order
 	 */
 	protected List<C> selectedValues = new ArrayList<C>();
+
+	/**
+	 * Remembers the removed elements
+	 */
+	protected List<T> removedValues = new ArrayList<T>();
 	/**
 	 * Contains the list of widgets for the selected values in their addition
 	 * order
@@ -99,6 +104,10 @@ public class MultiChoiceSuggestBox<T, W extends IconedValueHolderItem<T>, C exte
 		emptyIcon();
 	}
 
+	public void valueRemoved(T value) {
+		removedValues.add(value);
+	}
+
 	protected ValueRendererFactory<T, C> getChoiceItemsRendererFactory() {
 		return choiceItemsRendererFactory;
 	}
@@ -125,6 +134,7 @@ public class MultiChoiceSuggestBox<T, W extends IconedValueHolderItem<T>, C exte
 
 	public void setValues(List<T> toSet) {
 		clearSelection();
+		removedValues.clear();
 		for (T value : toSet) {
 			selectedValuesPanel.add(choiceItemsRendererFactory.createValueRenderer(
 					value, DEBUG_ID_PREFIX, getOptions()));
@@ -166,6 +176,10 @@ public class MultiChoiceSuggestBox<T, W extends IconedValueHolderItem<T>, C exte
 			textField.setTopWidget(widget);
 		else if (position == DockPanel.SOUTH)
 			textField.setBottomWidget(widget);
+	}
+
+	public List<T> getRemovedValues() {
+		return removedValues;
 	}
 
 }
