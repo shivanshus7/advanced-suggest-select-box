@@ -69,6 +69,7 @@ public class MultiChoiceListRenderer<T, C extends MultiChoiceValueHolderItem<T, 
 		return (C) super.getWidget(index);
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public boolean remove(C item) {
 		((MultiChoiceSuggestBox) suggestBox).valueRemoved(item.getValue());
