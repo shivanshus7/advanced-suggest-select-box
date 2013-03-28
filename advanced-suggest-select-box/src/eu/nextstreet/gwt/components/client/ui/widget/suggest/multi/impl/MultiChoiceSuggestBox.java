@@ -124,6 +124,7 @@ public class MultiChoiceSuggestBox<T, W extends IconedValueHolderItem<T>, C exte
 	}
 
 	public void setValues(List<T> toSet) {
+		clearSelection();
 		for (T value : toSet) {
 			selectedValuesPanel.add(choiceItemsRendererFactory.createValueRenderer(
 					value, DEBUG_ID_PREFIX, getOptions()));
