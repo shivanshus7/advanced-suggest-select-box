@@ -28,8 +28,7 @@ import eu.nextstreet.gwt.components.client.ui.widget.suggest.multi.impl.MultiCho
  * @author Zied Hamdi
  * 
  */
-public class MultiChoiceListRenderer<T, C extends MultiChoiceValueHolderItem<T, C>>
-		extends HorizontalPanel implements ListRenderer<T, C> {
+public class MultiChoiceListRenderer<T, C extends MultiChoiceValueHolderItem<T, C>> extends HorizontalPanel implements ListRenderer<T, C> {
 
 	protected AbstractSuggestBox<T, EventHandlingValueHolderItem<T>> suggestBox;
 
@@ -38,8 +37,7 @@ public class MultiChoiceListRenderer<T, C extends MultiChoiceValueHolderItem<T, 
 		setSpacing(2);
 	}
 
-	public MultiChoiceListRenderer(
-			AbstractSuggestBox<T, EventHandlingValueHolderItem<T>> suggestBox) {
+	public MultiChoiceListRenderer(AbstractSuggestBox<T, EventHandlingValueHolderItem<T>> suggestBox) {
 		this.suggestBox = suggestBox;
 	}
 
@@ -72,8 +70,9 @@ public class MultiChoiceListRenderer<T, C extends MultiChoiceValueHolderItem<T, 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public boolean remove(C item) {
+		boolean removed = super.remove(item);
 		((MultiChoiceSuggestBox) suggestBox).valueRemoved(item.getValue());
-		return super.remove(item);
+		return removed;
 	}
 
 }

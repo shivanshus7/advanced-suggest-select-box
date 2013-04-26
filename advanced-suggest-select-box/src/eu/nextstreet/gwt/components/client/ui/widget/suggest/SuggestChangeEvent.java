@@ -76,4 +76,20 @@ public class SuggestChangeEvent<T, W extends EventHandlingValueHolderItem<T>> ex
 		return selected;
 	}
 
+	public boolean isRemoved() {
+		return removed;
+	}
+
+	public void setRemoved(boolean removed) {
+		this.removed = removed;
+	}
+
+	public String getText() {
+		return text;
+	}
+
+	public void setText(String text) {
+		this.text = text;
+	}
+
 }
