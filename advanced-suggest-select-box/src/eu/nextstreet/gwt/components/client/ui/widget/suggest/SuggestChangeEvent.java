@@ -26,17 +26,22 @@ import com.google.gwt.event.dom.client.ChangeEvent;
  * 
  * @param <T>
  */
-public class SuggestChangeEvent<T, W extends EventHandlingValueHolderItem<T>> extends
-		ChangeEvent {
+public class SuggestChangeEvent<T, W extends EventHandlingValueHolderItem<T>> extends ChangeEvent {
 	protected AbstractSuggestBox<T, W> source;
 	protected T selection;
 	protected boolean selected;
+	protected boolean removed;
 	protected String text;
 
-	public SuggestChangeEvent(AbstractSuggestBox<T, W> suggestBox, T selection) {
+	public SuggestChangeEvent(AbstractSuggestBox<T, W> suggestBox, T selection, boolean removed) {
 		this.source = suggestBox;
 		this.selection = selection;
 		this.selected = true;
+		this.removed = removed;
+	}
+
+	public SuggestChangeEvent(AbstractSuggestBox<T, W> suggestBox, T selection) {
+		this(suggestBox, selection, false);
 	}
 
 	public SuggestChangeEvent(AbstractSuggestBox<T, W> suggestBox, String text) {
@@ -62,8 +67,8 @@ public class SuggestChangeEvent<T, W extends EventHandlingValueHolderItem<T>> ex
 	}
 
 	/**
-	 * Specifies if the value was selected to distinguish between a null
-	 * selected value and a "non selected value"
+	 * Specifies if the value was selected to distinguish between a null selected
+	 * value and a "non selected value"
 	 * 
 	 * @return true ifaoif the value was selected
 	 */

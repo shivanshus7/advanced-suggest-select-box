@@ -90,6 +90,7 @@ public abstract class AbstractMultiChoiceValueHolderItem<T, C extends MultiChoic
 	 * @see eu.nextstreet.gwt.components.client.ui.widget.suggest.multi.
 	 * MultiChoiceValueHolderItem#remove()
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void remove() {
 		associatedList.remove((C) this);

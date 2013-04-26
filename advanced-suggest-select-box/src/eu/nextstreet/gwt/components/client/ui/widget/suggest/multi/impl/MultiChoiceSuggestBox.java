@@ -24,6 +24,7 @@ import com.google.gwt.user.client.ui.IsWidget;
 
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.AbstractSuggestBox;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.EventHandlingValueHolderItem;
+import eu.nextstreet.gwt.components.client.ui.widget.suggest.SuggestChangeEvent;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueHolderItem;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueRendererFactory;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueRendererFactory.ListRenderer;
@@ -44,8 +45,7 @@ import eu.nextstreet.gwt.components.client.ui.widget.suggest.iconed.impl.IconedV
  * @param <C>
  *          the selected items representer
  */
-public class MultiChoiceSuggestBox<T, W extends IconedValueHolderItem<T>, C extends ValueHolderItem<T>>
-		extends DefaultIconedSuggestBox<T, W> {
+public class MultiChoiceSuggestBox<T, W extends IconedValueHolderItem<T>, C extends ValueHolderItem<T>> extends DefaultIconedSuggestBox<T, W> {
 
 	/**
 	 * Contains the list of widgets for the selected values in their addition
@@ -70,9 +70,7 @@ public class MultiChoiceSuggestBox<T, W extends IconedValueHolderItem<T>, C exte
 	/**
 	 * @param defaultText
 	 */
-	public MultiChoiceSuggestBox(String defaultText,
-			DockPanel.DockLayoutConstant position,
-			ValueRendererFactory<T, C> choiceItemsRendererFactory) {
+	public MultiChoiceSuggestBox(String defaultText, DockPanel.DockLayoutConstant position, ValueRendererFactory<T, C> choiceItemsRendererFactory) {
 		super(defaultText);
 
 		this.position = position;
@@ -83,8 +81,7 @@ public class MultiChoiceSuggestBox<T, W extends IconedValueHolderItem<T>, C exte
 	@Override
 	protected void init(String defaultText) {
 		super.init(defaultText);
-		IconedValueRendererFactory<T, W> unifiedValueRendererFactory = new IconedValueRendererFactory<T, W>(
-				iconLinker);
+		IconedValueRendererFactory<T, W> unifiedValueRendererFactory = new IconedValueRendererFactory<T, W>(iconLinker);
 		setValueRendererFactory(unifiedValueRendererFactory);
 	}
 
@@ -97,8 +94,7 @@ public class MultiChoiceSuggestBox<T, W extends IconedValueHolderItem<T>, C exte
 	}
 
 	public void valueSelected(T value) {
-		selectedValuesPanel.add(choiceItemsRendererFactory.createValueRenderer(
-				value, DEBUG_ID_PREFIX, getOptions()));
+		selectedValuesPanel.add(choiceItemsRendererFactory.createValueRenderer(value, DEBUG_ID_PREFIX, getOptions()));
 		super.valueSelected(value);
 		setText("");
 		emptyIcon();
@@ -106,6 +102,8 @@ public class MultiChoiceSuggestBox<T, W extends IconedValueHolderItem<T>, C exte
 
 	public void valueRemoved(T value) {
 		removedValues.add(value);
+		SuggestChangeEvent<T, W> changeEvent = new SuggestChangeEvent<T, W>(this, value, true);
+		changeOccured(changeEvent);
 	}
 
 	protected ValueRendererFactory<T, C> getChoiceItemsRendererFactory() {
@@ -113,11 +111,9 @@ public class MultiChoiceSuggestBox<T, W extends IconedValueHolderItem<T>, C exte
 	}
 
 	@SuppressWarnings("unchecked")
-	protected void setChoiceItemsRendererFactory(
-			ValueRendererFactory<T, C> choiceItemsRendererFactory) {
+	protected void setChoiceItemsRendererFactory(ValueRendererFactory<T, C> choiceItemsRendererFactory) {
 		this.choiceItemsRendererFactory = choiceItemsRendererFactory;
-		choiceItemsRendererFactory
-				.setSuggestBox((AbstractSuggestBox<T, EventHandlingValueHolderItem<T>>) this);
+		choiceItemsRendererFactory.setSuggestBox((AbstractSuggestBox<T, EventHandlingValueHolderItem<T>>) this);
 		selectedValuesPanel = choiceItemsRendererFactory.createListRenderer();
 		setChoicesPanel();
 	}
@@ -136,8 +132,7 @@ public class MultiChoiceSuggestBox<T, W extends IconedValueHolderItem<T>, C exte
 		clearSelection();
 		removedValues.clear();
 		for (T value : toSet) {
-			selectedValuesPanel.add(choiceItemsRendererFactory.createValueRenderer(
-					value, DEBUG_ID_PREFIX, getOptions()));
+			selectedValuesPanel.add(choiceItemsRendererFactory.createValueRenderer(value, DEBUG_ID_PREFIX, getOptions()));
 		}
 	}
 
@@ -166,8 +161,7 @@ public class MultiChoiceSuggestBox<T, W extends IconedValueHolderItem<T>, C exte
 	 * @param widget
 	 *          widget maybe null to remove widget
 	 */
-	protected void setPanelAt(DockPanel.DockLayoutConstant position,
-			IsWidget widget) {
+	protected void setPanelAt(DockPanel.DockLayoutConstant position, IsWidget widget) {
 		if (position == DockPanel.WEST)
 			textField.setLeftWidget(widget);
 		else if (position == DockPanel.EAST)

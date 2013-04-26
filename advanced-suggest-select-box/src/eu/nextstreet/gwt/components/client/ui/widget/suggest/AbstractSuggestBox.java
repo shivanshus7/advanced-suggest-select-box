@@ -59,8 +59,7 @@ import eu.nextstreet.gwt.components.shared.Validator;
  * 
  * @param <T>
  */
-public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderItem<T>>
-		extends ChangeEventHandlerHolder<Boolean, SuggestChangeEvent<T, W>>
+public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderItem<T>> extends ChangeEventHandlerHolder<Boolean, SuggestChangeEvent<T, W>>
 		implements StringFormulator<T> {
 
 	private static final String SUGGEST_FIELD_COMP = "eu-nextstreet-SuggestFieldComp";
@@ -179,22 +178,21 @@ public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderIt
 	public void onKeyUp(KeyUpEvent keyUpEvent) {
 		final int keyCode = keyUpEvent.getNativeKeyCode();
 
-		if (keyCode == KeyCodes.KEY_TAB || keyCode == KeyCodes.KEY_ALT
-				|| keyCode == KeyCodes.KEY_CTRL || keyCode == KeyCodes.KEY_SHIFT
+		if (keyCode == KeyCodes.KEY_TAB || keyCode == KeyCodes.KEY_ALT || keyCode == KeyCodes.KEY_CTRL || keyCode == KeyCodes.KEY_SHIFT
 				|| keyCode == KeyCodes.KEY_HOME || keyCode == KeyCodes.KEY_END) {
 			return;
-		} else if (keyCode == KeyCodes.KEY_UP || keyCode == KeyCodes.KEY_DOWN
-				|| keyCode == KeyCodes.KEY_LEFT || keyCode == KeyCodes.KEY_RIGHT) {
+		} else if (keyCode == KeyCodes.KEY_UP || keyCode == KeyCodes.KEY_DOWN || keyCode == KeyCodes.KEY_LEFT || keyCode == KeyCodes.KEY_RIGHT) {
 			// don't recompute if only navigating
 			handleKeyNavigation(keyCode);
 			recomputePopupContent = false;
-		} else if (keyCode == KeyCodes.KEY_DELETE
-				|| keyCode == KeyCodes.KEY_BACKSPACE) {
+		} else if (keyCode == KeyCodes.KEY_DELETE || keyCode == KeyCodes.KEY_BACKSPACE) {
 			recomputePopupContent = true;
-
-		} else if (keyCode == KeyCodes.KEY_DELETE
-				|| keyCode == KeyCodes.KEY_BACKSPACE) {
+		} else if (keyCode == KeyCodes.KEY_DELETE || keyCode == KeyCodes.KEY_BACKSPACE) {
+			// FIXME never enters here, check what is it for
 			selectedIndex = -1;
+		} else if (keyCode == KeyCodes.KEY_ENTER) {
+			handleKeyEnter();
+			recomputePopupContent = false;
 		} else {
 			recomputePopupContent = true;
 		}
@@ -204,7 +202,7 @@ public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderIt
 				@Override
 				public void setPossibilities(List<T> possibilities) {
 					// the value was already set by the previous handler
-					if (possibilities.size() == 1)
+					if (possibilities.size() == 1 && keyCode != KeyCodes.KEY_ENTER)
 						return;
 
 					EventHandlingValueHolderItem<T> popupWidget = getItemAt(selectedIndex);
@@ -215,27 +213,7 @@ public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderIt
 					if (widgetCount == 0)
 						return;
 
-					if (keyCode == KeyCodes.KEY_ENTER) {
-						if (isShowingSuggestList()) {
-							if (popupWidget != null) {
-								T t = popupWidget.getValue();
-								fillValue(t, true);
-							} else {
-								// value not in list, this enter means OK.
-								valueTyped(getText());
-							}
-							hideSuggestList();
-						} else {
-							if (multipleChangeEvent) {
-								// popup is not visible, this enter means OK (check if the
-								// value was entered from the list or from text).
-								if (selected == null)
-									valueTyped(getText());
-								else
-									fillValue(selected, multipleChangeEvent);
-							}
-						}
-					} else if (keyCode == KeyCodes.KEY_ESCAPE) {
+					if (keyCode == KeyCodes.KEY_ESCAPE) {
 						hideSuggestList();
 					} else if (keyCode == KeyCodes.KEY_TAB) {
 
@@ -243,21 +221,20 @@ public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderIt
 						recomputePopupContent = true;
 						if (strictMode) {
 							final StringBuffer reducingText = new StringBuffer(getText());
-							recomputePopupContent(keyCode,
-									new SuggestPossibilitiesCallBack<T>() {
+							recomputePopupContent(keyCode, new SuggestPossibilitiesCallBack<T>() {
 
-										@Override
-										public void setPossibilities(List<T> possibilities) {
-											if (reducingText.length() > 1 && possibilities.size() < 1) {
-												// FIXME should optimize by remembering the last valid
-												// entry
-												// (that has at least one possibility)
-												reducingText.setLength(reducingText.length() - 1);
-												setText(reducingText.toString());
-												recomputePopupContent(keyCode, this);
-											}
-										}
-									});
+								@Override
+								public void setPossibilities(List<T> possibilities) {
+									if (reducingText.length() > 1 && possibilities.size() < 1) {
+										// FIXME should optimize by remembering the last valid
+										// entry
+										// (that has at least one possibility)
+										reducingText.setLength(reducingText.length() - 1);
+										setText(reducingText.toString());
+										recomputePopupContent(keyCode, this);
+									}
+								}
+							});
 						}
 					}
 				}
@@ -265,6 +242,15 @@ public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderIt
 			recomputePopupContent(keyCode, callBack);
 		}
 
+	}
+
+	protected void selectSuggestedText(int cursorPositionOnEnterTyped) {
+		SuggestTextBoxWidget<T, W> textField = getTextField();
+		int selectionLength = textField.getText().length() - cursorPositionOnEnterTyped;
+
+		// handles the case where the value is emptied after a selection occurs
+		if (selectionLength > 0)
+			textField.setSelectionRange(cursorPositionOnEnterTyped, selectionLength);
 	}
 
 	/**
@@ -307,8 +293,7 @@ public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderIt
 	/**
 	 * 
 	 */
-	protected void highlightSelectedValue(int oldSelectedIndex,
-			int newSelectedIndex) {
+	protected void highlightSelectedValue(int oldSelectedIndex, int newSelectedIndex) {
 		if (oldSelectedIndex != -1) {
 			EventHandlingValueHolderItem<T> oldPopupWidget = getItemAt(oldSelectedIndex);
 			oldPopupWidget.setSelected(false);
@@ -349,8 +334,7 @@ public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderIt
 		recomputePopupContent(keyCode, null);
 	}
 
-	protected void recomputePopupContent(final int keyCode,
-			final SuggestPossibilitiesCallBack<T> callBack) {
+	protected void recomputePopupContent(final int keyCode, final SuggestPossibilitiesCallBack<T> callBack) {
 		if (isReadOnly())
 			return;
 
@@ -377,8 +361,7 @@ public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderIt
 			listRenderer.clear();
 			if (possibilities.size() == 1) {
 				// laisse l'utilisateur effacer les valeurs
-				if (keyCode != KeyCodes.KEY_BACKSPACE && keyCode != KeyCodes.KEY_LEFT
-						&& keyCode != KeyCodes.KEY_RIGHT) {
+				if (keyCode != KeyCodes.KEY_BACKSPACE && keyCode != KeyCodes.KEY_LEFT && keyCode != KeyCodes.KEY_RIGHT) {
 					fillValue(possibilities.get(0), false);
 				}
 			}
@@ -392,8 +375,7 @@ public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderIt
 	}
 
 	protected void showSuggestList() {
-		suggestWidget.adjustPosition(getTextField().getAbsoluteLeft(),
-				getTextField().getAbsoluteTop() + getTextField().getOffsetHeight());
+		suggestWidget.adjustPosition(getTextField().getAbsoluteLeft(), getTextField().getAbsoluteTop() + getTextField().getOffsetHeight());
 		highlightSelectedValue(-1, selectedIndex);
 		suggestWidget.show();
 	}
@@ -451,8 +433,7 @@ public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderIt
 	}
 
 	private W createValueRenderer(final T t, String value) {
-		final W currentLabel = valueRendererFactory.createValueRenderer(t, value,
-				getOptions());
+		final W currentLabel = valueRendererFactory.createValueRenderer(t, value, getOptions());
 		return currentLabel;
 	}
 
@@ -630,8 +611,7 @@ public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderIt
 		getTextField().setFocus(focus);
 	}
 
-	protected abstract void computeFiltredPossibilities(String text,
-			SuggestPossibilitiesCallBack<T> suggestPossibilitiesCallBack);
+	protected abstract void computeFiltredPossibilities(String text, SuggestPossibilitiesCallBack<T> suggestPossibilitiesCallBack);
 
 	/**
 	 * returns the curent suggest renderer factory
@@ -648,11 +628,9 @@ public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderIt
 	 * 
 	 * @param valueRendererFactory
 	 */
-	public void setValueRendererFactory(
-			ValueRendererFactory<T, W> valueRendererFactory) {
+	public void setValueRendererFactory(ValueRendererFactory<T, W> valueRendererFactory) {
 		this.valueRendererFactory = valueRendererFactory;
-		valueRendererFactory
-				.setSuggestBox((AbstractSuggestBox<T, EventHandlingValueHolderItem<T>>) this);
+		valueRendererFactory.setSuggestBox((AbstractSuggestBox<T, EventHandlingValueHolderItem<T>>) this);
 		if (listRenderer != null) {
 			listRenderer.clear();
 			scrollPanel.clear();
@@ -832,6 +810,40 @@ public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderIt
 	public void clearSelection() {
 		setText("");
 		valueTyped("");
+	}
+
+	protected void handleKeyEnter() {
+		if (listRenderer.getWidgetCount() == 0)
+			return;
+
+		// take first value
+		if (selectedIndex == -1)
+			selectedIndex = 0;
+
+		int cursorPositionOnEnterTyped = getTextField().getText().length();
+		EventHandlingValueHolderItem<T> popupWidget = getItemAt(selectedIndex);
+
+		if (isShowingSuggestList()) {
+			if (popupWidget != null) {
+				T t = popupWidget.getValue();
+				fillValue(t, true);
+			} else {
+				// value not in list, this enter means OK.
+				valueTyped(getText());
+			}
+			hideSuggestList();
+		} else {
+			if (multipleChangeEvent) {
+				// popup is not visible, this enter means OK (check if the
+				// value was entered from the list or from text).
+				if (selected == null)
+					valueTyped(getText());
+				else
+					fillValue(selected, multipleChangeEvent);
+			}
+		}
+		selectSuggestedText(cursorPositionOnEnterTyped);
+
 	}
 
 }
