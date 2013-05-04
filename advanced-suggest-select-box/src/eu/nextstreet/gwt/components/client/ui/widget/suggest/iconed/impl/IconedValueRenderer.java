@@ -16,12 +16,19 @@
  */
 package eu.nextstreet.gwt.components.client.ui.widget.suggest.iconed.impl;
 
+import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.MouseDownEvent;
 import com.google.gwt.event.dom.client.MouseDownHandler;
+import com.google.gwt.event.dom.client.MouseMoveEvent;
 import com.google.gwt.event.dom.client.MouseMoveHandler;
+import com.google.gwt.event.dom.client.MouseOutEvent;
 import com.google.gwt.event.dom.client.MouseOutHandler;
+import com.google.gwt.event.dom.client.MouseOverEvent;
 import com.google.gwt.event.dom.client.MouseOverHandler;
+import com.google.gwt.event.dom.client.MouseUpEvent;
 import com.google.gwt.event.dom.client.MouseUpHandler;
+import com.google.gwt.event.dom.client.MouseWheelEvent;
 import com.google.gwt.event.dom.client.MouseWheelHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.Composite;
@@ -42,8 +49,7 @@ import eu.nextstreet.gwt.components.client.ui.widget.suggest.iconed.IconedValueH
  * @param <T>
  *          the value class type
  */
-public class IconedValueRenderer<T> extends Composite implements
-		IconedValueHolderItem<T> {
+public class IconedValueRenderer<T> extends Composite implements IconedValueHolderItem<T> {
 	private static final String ITEM_HOVER = "eu-nextstreet-SuggestItemHover";
 	public static final String SELECTED = "eu-nextstreet-SuggestItemSelected";
 
@@ -52,9 +58,7 @@ public class IconedValueRenderer<T> extends Composite implements
 	protected EventHandlingValueHolderItem<T> label;
 	protected ValueRendererFactory<T, ? extends ValueHolderItem<T>> valueRendererFactory;
 
-	public IconedValueRenderer(T value, Image icon,
-			EventHandlingValueHolderItem<T> label, String filterText,
-			boolean caseSensitive,
+	public IconedValueRenderer(T value, Image icon, EventHandlingValueHolderItem<T> label, String filterText, boolean caseSensitive,
 			ValueRendererFactory<T, ? extends ValueHolderItem<T>> valueRendererFactory) {
 		initWidget(horizontalPanel);
 		this.label = label;
@@ -100,45 +104,37 @@ public class IconedValueRenderer<T> extends Composite implements
 
 	@Override
 	public HandlerRegistration addMouseDownHandler(MouseDownHandler handler) {
-		icon.addMouseDownHandler(handler);
-		return label.addMouseDownHandler(handler);
+		return addDomHandler(handler, MouseDownEvent.getType());
 	}
 
 	@Override
 	public HandlerRegistration addMouseUpHandler(MouseUpHandler handler) {
-		icon.addMouseUpHandler(handler);
-		return label.addMouseUpHandler(handler);
+		return addDomHandler(handler, MouseUpEvent.getType());
 	}
 
 	@Override
 	public HandlerRegistration addMouseOutHandler(MouseOutHandler handler) {
-		icon.addMouseOutHandler(handler);
-		return label.addMouseOutHandler(handler);
+		return addDomHandler(handler, MouseOutEvent.getType());
 	}
 
 	@Override
 	public HandlerRegistration addMouseOverHandler(MouseOverHandler handler) {
-		icon.addMouseOverHandler(handler);
-		return label.addMouseOverHandler(handler);
+		return addDomHandler(handler, MouseOverEvent.getType());
 	}
 
 	@Override
 	public HandlerRegistration addMouseMoveHandler(MouseMoveHandler handler) {
-		icon.addMouseMoveHandler(handler);
-		return label.addMouseMoveHandler(handler);
+		return addDomHandler(handler, MouseMoveEvent.getType());
 	}
 
 	@Override
 	public HandlerRegistration addMouseWheelHandler(MouseWheelHandler handler) {
-		icon.addMouseWheelHandler(handler);
-		return label.addMouseWheelHandler(handler);
+		return addDomHandler(handler, MouseWheelEvent.getType());
 	}
 
 	@Override
 	public HandlerRegistration addClickHandler(ClickHandler handler) {
-		if (icon != null)
-			icon.addClickHandler(handler);
-		return label.addClickHandler(handler);
+		return addDomHandler(handler, ClickEvent.getType());
 	}
 
 	@Override
