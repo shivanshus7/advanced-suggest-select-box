@@ -17,6 +17,7 @@
 package eu.nextstreet.gwt.components.client.ui.widget.suggest.impl.table;
 
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.DoubleClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.dom.client.HasMouseDownHandlers;
 import com.google.gwt.event.dom.client.HasMouseMoveHandlers;
@@ -57,8 +58,7 @@ import eu.nextstreet.gwt.components.client.ui.widget.util.HtmlUtil;
  * @param <T>
  *          the value to be represented in this row's type
  */
-public class SimpleTableRowItemRenderer<T> extends BasicWidgetListHolder
-		implements EventHandlingValueHolderItem<T> {
+public class SimpleTableRowItemRenderer<T> extends BasicWidgetListHolder implements EventHandlingValueHolderItem<T> {
 	private static final String MATCHING_STRING = "eu-nextstreet-SuggestTableMatchingString";
 	public static final String SELECTED = "selected";
 	private static final long serialVersionUID = 1L;
@@ -67,8 +67,7 @@ public class SimpleTableRowItemRenderer<T> extends BasicWidgetListHolder
 	protected String styleName;
 	protected ValueRendererFactory<T, ? extends ValueHolderItem<T>> valueRendererFactory;
 
-	public SimpleTableRowItemRenderer(T value, String filterText,
-			boolean caseSensitive,
+	public SimpleTableRowItemRenderer(T value, String filterText, boolean caseSensitive,
 			ValueRendererFactory<T, ? extends ValueHolderItem<T>> valueRendererFactory) {
 		this.value = value;
 		this.caseSensitive = caseSensitive;
@@ -90,8 +89,7 @@ public class SimpleTableRowItemRenderer<T> extends BasicWidgetListHolder
 	 *          the case sensitive option of the suggest box
 	 */
 	protected void fillHtml(T value, String filterText, boolean caseSensitive) {
-		String[] valueInColumns = explodeValueInColumns(value, filterText,
-				caseSensitive);
+		String[] valueInColumns = explodeValueInColumns(value, filterText, caseSensitive);
 		for (int i = 0; i < valueInColumns.length; i++) {
 			String colText = valueInColumns[i];
 			add(createWidget(filterText, caseSensitive, i, colText));
@@ -114,10 +112,8 @@ public class SimpleTableRowItemRenderer<T> extends BasicWidgetListHolder
 	 * @return teh widgets to display
 	 * @see #explodeValueInColumns(Object, String, boolean)
 	 */
-	protected Widget createWidget(String filterText, boolean caseSensitive,
-			int col, String colText) {
-		return new HTML(highlightColumnText(col) ? highlightMatchingSequence(
-				colText, filterText, caseSensitive) : colText);
+	protected Widget createWidget(String filterText, boolean caseSensitive, int col, String colText) {
+		return new HTML(highlightColumnText(col) ? highlightMatchingSequence(colText, filterText, caseSensitive) : colText);
 	}
 
 	/**
@@ -132,10 +128,8 @@ public class SimpleTableRowItemRenderer<T> extends BasicWidgetListHolder
 	 * @param colText
 	 *          the column text (can be an image url or any text) * @return
 	 */
-	protected String highlightMatchingSequence(String colText, String filterText,
-			boolean caseSensitive) {
-		return HtmlUtil.highlightMatchingSequence(colText, filterText,
-				caseSensitive, MATCHING_STRING);
+	protected String highlightMatchingSequence(String colText, String filterText, boolean caseSensitive) {
+		return HtmlUtil.highlightMatchingSequence(colText, filterText, caseSensitive, MATCHING_STRING);
 	}
 
 	/**
@@ -168,8 +162,7 @@ public class SimpleTableRowItemRenderer<T> extends BasicWidgetListHolder
 	 *          true if the case sensitive option is enabled
 	 * @return the row columns text representations
 	 */
-	protected String[] explodeValueInColumns(T value, String filterText,
-			boolean caseSensitive) {
+	protected String[] explodeValueInColumns(T value, String filterText, boolean caseSensitive) {
 		return new String[] { value.toString() };
 	}
 
@@ -212,8 +205,7 @@ public class SimpleTableRowItemRenderer<T> extends BasicWidgetListHolder
 		MultipleHandlerRegistration toReturn = new MultipleHandlerRegistration();
 		for (Widget widget : this) {
 			if (widget instanceof HasMouseDownHandlers)
-				toReturn.add(((HasMouseDownHandlers) widget)
-						.addMouseDownHandler(handler));
+				toReturn.add(((HasMouseDownHandlers) widget).addMouseDownHandler(handler));
 		}
 		return toReturn;
 	}
@@ -241,8 +233,7 @@ public class SimpleTableRowItemRenderer<T> extends BasicWidgetListHolder
 		MultipleHandlerRegistration toReturn = new MultipleHandlerRegistration();
 		for (Widget widget : this) {
 			if (widget instanceof HasMouseOutHandlers)
-				toReturn
-						.add(((HasMouseOutHandlers) widget).addMouseOutHandler(handler));
+				toReturn.add(((HasMouseOutHandlers) widget).addMouseOutHandler(handler));
 		}
 		return toReturn;
 	}
@@ -252,8 +243,7 @@ public class SimpleTableRowItemRenderer<T> extends BasicWidgetListHolder
 		MultipleHandlerRegistration toReturn = new MultipleHandlerRegistration();
 		for (Widget widget : this) {
 			if (widget instanceof HasMouseOverHandlers)
-				toReturn.add(((HasMouseOverHandlers) widget)
-						.addMouseOverHandler(handler));
+				toReturn.add(((HasMouseOverHandlers) widget).addMouseOverHandler(handler));
 		}
 		return toReturn;
 	}
@@ -263,8 +253,7 @@ public class SimpleTableRowItemRenderer<T> extends BasicWidgetListHolder
 		MultipleHandlerRegistration toReturn = new MultipleHandlerRegistration();
 		for (Widget widget : this) {
 			if (widget instanceof HasMouseMoveHandlers)
-				toReturn.add(((HasMouseMoveHandlers) widget)
-						.addMouseMoveHandler(handler));
+				toReturn.add(((HasMouseMoveHandlers) widget).addMouseMoveHandler(handler));
 		}
 		return toReturn;
 	}
@@ -274,8 +263,7 @@ public class SimpleTableRowItemRenderer<T> extends BasicWidgetListHolder
 		MultipleHandlerRegistration toReturn = new MultipleHandlerRegistration();
 		for (Widget widget : this) {
 			if (widget instanceof HasMouseWheelHandlers)
-				toReturn.add(((HasMouseWheelHandlers) widget)
-						.addMouseWheelHandler(handler));
+				toReturn.add(((HasMouseWheelHandlers) widget).addMouseWheelHandler(handler));
 		}
 		return toReturn;
 	}
@@ -327,8 +315,7 @@ public class SimpleTableRowItemRenderer<T> extends BasicWidgetListHolder
 	 */
 	@Override
 	public Widget asWidget() {
-		throw new UnsupportedOperationException(
-				"There's no element in GWT to represent a row, this is a special case that shouldn't be called");
+		throw new UnsupportedOperationException("There's no element in GWT to represent a row, this is a special case that shouldn't be called");
 	}
 
 	public ValueRendererFactory<T, ? extends ValueHolderItem<T>> getValueRendererFactory() {
@@ -338,5 +325,10 @@ public class SimpleTableRowItemRenderer<T> extends BasicWidgetListHolder
 	@Override
 	public void initWidget() {
 
+	}
+
+	@Override
+	public HandlerRegistration addDoubleClickHandler(DoubleClickHandler handler) {
+		throw new UnsupportedOperationException("not supported yet");
 	}
 }

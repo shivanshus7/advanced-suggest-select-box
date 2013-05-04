@@ -4,6 +4,7 @@ import com.google.gwt.event.dom.client.BlurHandler;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.DoubleClickEvent;
 import com.google.gwt.event.dom.client.DoubleClickHandler;
 import com.google.gwt.event.dom.client.FocusHandler;
 import com.google.gwt.event.dom.client.GestureChangeHandler;
@@ -46,8 +47,7 @@ import eu.nextstreet.gwt.components.shared.Validator;
  * 
  * 
  */
-public class SuggestTextBoxWidgetImpl<T, W extends EventHandlingValueHolderItem<T>>
-		extends Composite implements SuggestTextBoxWidget<T, W> {
+public class SuggestTextBoxWidgetImpl<T, W extends EventHandlingValueHolderItem<T>> extends Composite implements SuggestTextBoxWidget<T, W> {
 	/** the text field style name */
 	private static final String SUGGEST_FIELD = "eu-nextstreet-SuggestField";
 	private static final String SUGGEST_FIELD_TOP = "eu-nextstreet-SuggestField-top";
@@ -313,8 +313,7 @@ public class SuggestTextBoxWidgetImpl<T, W extends EventHandlingValueHolderItem<
 		return advancedTextBox.addChangeHandler(handler);
 	}
 
-	public HandlerRegistration addValueChangeHandler(
-			ValueChangeHandler<String> handler) {
+	public HandlerRegistration addValueChangeHandler(ValueChangeHandler<String> handler) {
 		return advancedTextBox.addValueChangeHandler(handler);
 	}
 
@@ -334,8 +333,7 @@ public class SuggestTextBoxWidgetImpl<T, W extends EventHandlingValueHolderItem<
 		return advancedTextBox.addFocusHandler(handler);
 	}
 
-	public HandlerRegistration addGestureChangeHandler(
-			GestureChangeHandler handler) {
+	public HandlerRegistration addGestureChangeHandler(GestureChangeHandler handler) {
 		return advancedTextBox.addGestureChangeHandler(handler);
 	}
 
@@ -400,8 +398,7 @@ public class SuggestTextBoxWidgetImpl<T, W extends EventHandlingValueHolderItem<
 	 */
 	@UiHandler("textField")
 	public void onMouseDown(MouseDownEvent event) {
-		int interval = advancedTextBox.getAbsoluteLeft()
-				+ advancedTextBox.getOffsetWidth() - event.getClientX();
+		int interval = advancedTextBox.getAbsoluteLeft() + advancedTextBox.getOffsetWidth() - event.getClientX();
 		if (interval < buttonWidth) {
 			if (representer.isShowingSuggestList()) {
 				representer.hideSuggestList(false);
@@ -422,11 +419,11 @@ public class SuggestTextBoxWidgetImpl<T, W extends EventHandlingValueHolderItem<
 	@UiHandler("textField")
 	public void onMouseMove(MouseMoveEvent event) {
 		int mousePosition = event.getX();
-		representer
-				.mouseOnButton(mousePosition > (advancedTextBox.getOffsetWidth() - buttonWidth));
+		representer.mouseOnButton(mousePosition > (advancedTextBox.getOffsetWidth() - buttonWidth));
 	}
 
 	@Override
+	@UiHandler("textField")
 	public void onMouseOut(MouseOutEvent event) {
 		representer.mouseOnButton(false);
 	}
@@ -482,6 +479,11 @@ public class SuggestTextBoxWidgetImpl<T, W extends EventHandlingValueHolderItem<
 
 	public void setFieldId(String id) {
 		advancedTextBox.getElement().setId(id + "suggest");
+	}
+
+	@Override
+	public void onDoubleClick(DoubleClickEvent event) {
+		representer.onDoubleClick(event);
 	}
 
 	// ------------------------------------------------------- end.

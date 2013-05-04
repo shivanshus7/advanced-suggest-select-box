@@ -30,6 +30,7 @@ import com.google.gwt.event.dom.client.MouseOutEvent;
 import com.google.gwt.event.dom.client.MouseOutHandler;
 import com.google.gwt.event.dom.client.MouseOverEvent;
 import com.google.gwt.event.dom.client.MouseOverHandler;
+import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.UIObject;
@@ -129,7 +130,7 @@ public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderIt
 	/**
 	 * Default double click handling
 	 */
-	// @UiHandler("textField")
+	@UiHandler("textField")
 	public void onDoubleClick(DoubleClickEvent event) {
 		doubleClicked(event);
 	}

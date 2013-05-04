@@ -18,6 +18,8 @@ package eu.nextstreet.gwt.components.client.ui.widget.suggest.iconed.impl;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.DoubleClickEvent;
+import com.google.gwt.event.dom.client.DoubleClickHandler;
 import com.google.gwt.event.dom.client.MouseDownEvent;
 import com.google.gwt.event.dom.client.MouseDownHandler;
 import com.google.gwt.event.dom.client.MouseMoveEvent;
@@ -145,6 +147,11 @@ public class IconedValueRenderer<T> extends Composite implements IconedValueHold
 	@Override
 	public ValueRendererFactory<T, ? extends ValueHolderItem<T>> getValueRendererFactory() {
 		return valueRendererFactory;
+	}
+
+	@Override
+	public HandlerRegistration addDoubleClickHandler(DoubleClickHandler handler) {
+		return addDomHandler(handler, DoubleClickEvent.getType());
 	}
 
 	@Override

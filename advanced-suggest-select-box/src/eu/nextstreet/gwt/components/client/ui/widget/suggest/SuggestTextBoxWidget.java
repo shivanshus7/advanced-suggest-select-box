@@ -1,5 +1,6 @@
 package eu.nextstreet.gwt.components.client.ui.widget.suggest;
 
+import com.google.gwt.event.dom.client.DoubleClickEvent;
 import com.google.gwt.event.dom.client.HasBlurHandlers;
 import com.google.gwt.event.dom.client.HasDoubleClickHandlers;
 import com.google.gwt.event.dom.client.HasKeyDownHandlers;
@@ -30,10 +31,8 @@ import eu.nextstreet.gwt.components.shared.Validator;
  * @param <W>
  *          the suggest box items representer type (only for consistency)
  */
-public interface SuggestTextBoxWidget<T, W extends EventHandlingValueHolderItem<T>> extends
-		IsWidget, MouseDownHandler, MouseMoveHandler, MouseOutHandler,
-		HasKeyUpHandlers, HasKeyDownHandlers, HasDoubleClickHandlers,
-		HasBlurHandlers {
+public interface SuggestTextBoxWidget<T, W extends EventHandlingValueHolderItem<T>> extends IsWidget, MouseDownHandler, MouseMoveHandler, MouseOutHandler,
+		HasKeyUpHandlers, HasKeyDownHandlers, HasDoubleClickHandlers, HasBlurHandlers {
 
 	public abstract String getText();
 
@@ -77,8 +76,7 @@ public interface SuggestTextBoxWidget<T, W extends EventHandlingValueHolderItem<
 
 	public abstract void setDefaultText(String defaultText);
 
-	public abstract void setRepresenter(
-			AbstractSuggestBox<T, W> abstractSuggestBox);
+	public abstract void setRepresenter(AbstractSuggestBox<T, W> abstractSuggestBox);
 
 	public abstract AbstractSuggestBox<T, W> getRepresenter();
 
@@ -100,5 +98,7 @@ public interface SuggestTextBoxWidget<T, W extends EventHandlingValueHolderItem<
 	public abstract void addStyleName(String suggestFieldHover);
 
 	public abstract void removeStyleName(String suggestFieldHover);
+
+	void onDoubleClick(DoubleClickEvent event);
 
 }

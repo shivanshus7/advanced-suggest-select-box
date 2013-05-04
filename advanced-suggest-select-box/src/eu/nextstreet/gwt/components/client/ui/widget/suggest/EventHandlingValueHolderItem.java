@@ -18,6 +18,7 @@ package eu.nextstreet.gwt.components.client.ui.widget.suggest;
 
 import com.google.gwt.event.dom.client.HasAllMouseHandlers;
 import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.event.dom.client.HasDoubleClickHandlers;
 
 /**
  * Representation of an item in the suggest list that handles events
@@ -28,6 +29,5 @@ import com.google.gwt.event.dom.client.HasClickHandlers;
  * @param <T>
  *          the type of the item value
  */
-public interface EventHandlingValueHolderItem<T> extends ValueHolderItem<T>,
-		HasAllMouseHandlers, HasClickHandlers {
+public interface EventHandlingValueHolderItem<T> extends ValueHolderItem<T>, HasAllMouseHandlers, HasClickHandlers, HasDoubleClickHandlers {
 }
