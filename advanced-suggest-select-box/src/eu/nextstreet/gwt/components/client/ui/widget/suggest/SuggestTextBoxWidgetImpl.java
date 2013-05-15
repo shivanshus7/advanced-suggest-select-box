@@ -127,6 +127,7 @@ public class SuggestTextBoxWidgetImpl<T, W extends EventHandlingValueHolderItem<
 	@Override
 	public void setText(String value) {
 		advancedTextBox.setText(value);
+		advancedTextBox.setTitle(value);
 		textChangeEventHandlerHolder.fireChangeOccured(value);
 	}
 
