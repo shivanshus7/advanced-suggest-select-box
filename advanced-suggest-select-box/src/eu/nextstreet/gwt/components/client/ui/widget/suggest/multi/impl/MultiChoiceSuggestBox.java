@@ -94,10 +94,9 @@ public class MultiChoiceSuggestBox<T, W extends IconedValueHolderItem<T>, C exte
 	}
 
 	public void valueSelected(T value) {
-		if (value == null)
-			return;
-
-		selectedValuesPanel.add(choiceItemsRendererFactory.createValueRenderer(value, DEBUG_ID_PREFIX, getOptions()));
+		if (value != null) {
+			selectedValuesPanel.add(choiceItemsRendererFactory.createValueRenderer(value, DEBUG_ID_PREFIX, getOptions()));
+		}
 		super.valueSelected(value);
 		setText("");
 		emptyIcon();
