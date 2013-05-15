@@ -315,8 +315,15 @@ public class ValidationTest {
 							@Override
 							protected String[] explodeValueInColumns(Value value, String filterText, boolean caseSensitive) {
 								if (value == null)
-									return new String[] { "", "", "" };
-								return new String[] { "img/chrome_extentions/" + value.str + ".png", value.str, "<a href='" + value.url + "' target='_blank'>View</a>" };
+									return new String[] { "", "", "", "", "", "" };
+
+								return new String[] {"img/chrome_extentions/" + value.str + ".png", value.str, "<a href='" + value.url + "' target='_blank'>View</a>",
+										//@formatter:off
+										"<span style='color:green; padding-left: 5px; border-letf:1px solid;'>col3</span>",
+										"<span style='color:green; padding-left: 5px;'>col4</span>",
+										"<span style='color:green; padding-left: 5px;'>etc...</span>",
+										//@formatter:on
+								};
 							}
 
 							@Override
@@ -324,6 +331,11 @@ public class ValidationTest {
 								if (col == 0 && colText != null)
 									return new Image(colText);
 								return super.createWidget(filterText, caseSensitive, col, colText);
+							}
+
+							@Override
+							protected boolean highlightColumnText(int col) {
+								return col == 1;
 							}
 						};
 
