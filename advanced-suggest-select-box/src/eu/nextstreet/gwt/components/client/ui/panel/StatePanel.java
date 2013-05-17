@@ -92,14 +92,6 @@ public class StatePanel<T extends StatePanel.PanelState> extends FocusPanel impl
 		}
 	}
 
-	public class StateChangeEvent extends ValueChangeEvent<T> {
-
-		protected StateChangeEvent(T value) {
-			super(value);
-		}
-
-	}
-
 	protected T[] stateList;
 	protected T panelState;
 	protected StatePanelManager<T> panelManager;
@@ -191,7 +183,13 @@ public class StatePanel<T extends StatePanel.PanelState> extends FocusPanel impl
 		setEnabled(enabled);
 	}
 
+	/**
+	 * asks the manager to get switch state ifaoif {@link #isEnabled()} is true
+	 */
 	protected void requestStateChange() {
+		if (!enabled)
+			return;
+
 		setPanelState(panelManager.onStateChangeRequest(this));
 	}
 
