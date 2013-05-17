@@ -37,6 +37,8 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import eu.nextstreet.gwt.components.client.ui.common.data.ValueRepresentationTransformer;
+import eu.nextstreet.gwt.components.client.ui.panel.StatePanel;
+import eu.nextstreet.gwt.components.client.ui.panel.StatePanel.SimplePanelState;
 import eu.nextstreet.gwt.components.client.ui.widget.AdvancedTextBox;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.AbstractSuggestBox;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.StringFormulator;
@@ -144,6 +146,24 @@ public class ValidationTest {
 		RootPanel.get("options").add(options);
 
 		addLogInfoPanel(box);
+
+		StatePanel statePanel = new StatePanel("UNPRESSED", "PRESSED");
+		statePanel.add(new Label("put any widgets here"));
+		statePanel.setStyleName("sPanel");
+
+		final HTML stateListenerLabel = new HTML();
+		stateListenerLabel.getElement().setAttribute("style", "color:gray;");
+		statePanel.addValueChangeHandler(new ValueChangeHandler<SimplePanelState>() {
+
+			@Override
+			public void onValueChange(ValueChangeEvent<SimplePanelState> event) {
+				stateListenerLabel.setHTML(" state changed to : <b>" + event.getValue().name()
+						+ "</b>, you can configure as many states as you like and handle their transitions through your own implementation of <b>StatePanelManager</b>");
+			}
+		});
+		RootPanel statePanelHolder = RootPanel.get("statePanel");
+		statePanelHolder.add(statePanel);
+		statePanelHolder.add(stateListenerLabel);
 
 		AdvancedTextBox advancedTextBox = new AdvancedTextBox("Please type a value");
 		advancedTextBox.addDoubleClickHandler(new DoubleClickHandler() {

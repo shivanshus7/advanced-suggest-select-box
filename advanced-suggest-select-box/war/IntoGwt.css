@@ -251,3 +251,36 @@ h4 {
 .eu-nextstreet-AdvancedTextBoxDefaultText-loading {
 	background-color: gray;
 }
+
+/**----------- StatePanel **********/
+.sPanel {
+	height: 50px;
+	width: 150px;
+	border-radius : 4px;
+	text-align: center;
+}
+
+.sPanel .gwt-Label {
+	font-weight: bold;
+    padding-top: 10px;
+}
+
+.PRESSED {
+	-webkit-box-shadow: 0px 0px 1px #A09B8C;
+	-moz-box-shadow: 0px 0px 1px #A09B8C;
+	box-shadow: 0px 0px 1px #A09B8C;
+}
+
+.UNPRESSED {
+	-webkit-box-shadow: 1px 1px 2px #A09B8C;
+	-moz-box-shadow: 1px 1px 2px #A09B8C;
+	box-shadow: 1px 1px 2px #A09B8C;	
+}
+
+.DISBLED {
+	background-color: gray;
+}
+
+.ENABLED {
+	background-color: #F8F9FE;
+}
