@@ -17,7 +17,7 @@ public class DefaultStatePanelManager<T extends StatePanel.PanelState> implement
 
 	@Override
 	public T onStateChangeRequest(StatePanel<T> panel) {
-		return nextState(panel.getPanelState());
+		return nextState(panel.getState());
 	}
 
 	protected T nextState(PanelState panelState) {

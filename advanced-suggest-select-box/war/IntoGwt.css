@@ -9,11 +9,13 @@ h1 {
 }
 
 h3 {
-	color:#ff7700;
+	color: #ff7700;
 }
+
 h4 {
-	color:#ff7700;
+	color: #ff7700;
 }
+
 .sendButton {
 	display: block;
 	font-size: 16pt;
@@ -42,7 +44,6 @@ h4 {
 	border: 1px solid blue;
 	-moz-border-radius: 8px;
 	border-radius: 8px;
-	
 	-webkit-box-shadow: 1px 1px 8px #9fa7eb;
 	-moz-box-shadow: 1px 1px 8px #9fa7eb;
 	box-shadow: 1px 1px 8px #414178;
@@ -85,11 +86,9 @@ h4 {
 .eu-nextstreet-SuggestItemSelected {
 	width: 100%;
 	-moz-border-radius: 6px;
-	border-radius: 6px;	
-		
+	border-radius: 6px;
 	text-shadow: 1px 1px 1px #949dff;
-	filter: dropshadow(color=#949dff, offx=1, offy=1);
-	
+	filter: dropshadow(color = #949dff, offx = 1, offy = 1);
 	background-color: #cbddfa;
 	color: black;
 }
@@ -97,40 +96,41 @@ h4 {
 .eu-nextstreet-SuggestItemHover {
 	width: 100%;
 	font-weight: bold;
-	
 	background-color: #cce4f5;
 	-moz-border-radius: 6px;
-	border-radius: 6px;	
+	border-radius: 6px;
 }
 
 .eu-nextstreet-SuggestMatchingString {
 	color: #0f8a04;
-
 	text-shadow: 1px 1px 1px #95ff8f;
-	filter: dropshadow(color=#95ff8f, offx=1, offy=1);
+	filter: dropshadow(color = #95ff8f, offx = 1, offy = 1);
 }
 
 .eu-nextstreet-SuggestField-top {
 	border: 1px solid white;
 }
+
 .eu-nextstreet-SuggestField-bottom {
 	border: 1px solid white;
 }
+
 .eu-nextstreet-SuggestField-left {
 	border: 1px solid white;
 }
+
 .eu-nextstreet-SuggestField-right {
 	border: 1px solid white;
 }
+
 .eu-nextstreet-SuggestField {
 	margin: 2px 0 0 0;
 	background: transparent url('img/arrow.png') no-repeat right 5px;
 	border: none;
 	height: 16px;
 	padding-right: 10px; /*for the arrow image on the right*/
-
 	text-shadow: 1px 1px 1px #9fa7eb;
-	filter: dropshadow(color = #9fa7eb, offx = 1, offy = 1);
+	filter: dropshadow(color =   #9fa7eb, offx =   1, offy =   1);
 	width: 95%;
 }
 
@@ -138,30 +138,26 @@ h4 {
 	background-color: #f3f3f3;
 	border: 1px solid blue;
 	border-top: 0px;
-
 	-moz-border-radius-topleft: 0px;
 	-moz-border-radius-topright: 0px;
 	-moz-border-radius-bottomright: 8px;
 	-moz-border-radius-bottomleft: 8px;
-	
 	border-top-left-radius: 0px;
 	border-top-right-radius: 0px;
 	border-bottom-right-radius: 8px;
 	border-bottom-left-radius: 8px;
-
 	-webkit-box-shadow: 1px 1px 8px #9fa7eb;
 	-moz-box-shadow: 1px 1px 8px #9fa7eb;
 	box-shadow: 1px 1px 8px #414178;
-
 	padding: 5px;
 }
 
 .eu-nextstreet-SuggestPopup table {
+	
 }
 
 .eu-nextstreet-SuggestFieldHover {
 	cursor: pointer;
-	
 	-webkit-box-shadow: 1px 1px 6px #dbe9ff;
 	-moz-box-shadow: 1px 1px 6px #dbe9ff;
 	box-shadow: 1px 1px 6px #dbe9ff;
@@ -174,33 +170,28 @@ h4 {
 .eu-nextstreet-AdvancedTextBoxErrorText {
 	-moz-border-radius: 6px;
 	border-radius: 6px;
-	
 	text-shadow: 1px 1px 1px #a90329;
-	filter: dropshadow(color=#a90329, offx=1, offy=1);
-	
+	filter: dropshadow(color = #a90329, offx = 1, offy = 1);
 	background-color: #ffc2c2;
 	color: black;
 }
 
 .eu-nextstreet-AdvancedTextBoxMandatoryText {
 	background-color: #ff9999;
-	
 	border: 0px;
 	-moz-border-radius: 6px;
 	border-radius: 6px;
-	
 	-webkit-box-shadow: 1px 1px 8px #ff9999;
 	-moz-box-shadow: 1px 1px 8px #ff9999;
-	box-shadow: 1px 1px 8px #ff9999;}
+	box-shadow: 1px 1px 8px #ff9999;
+}
 
 .eu-nextstreet-AdvancedTextBoxReadOnlyText {
 	background-color: #dddddd;
 	color: gray;
-	
 	border: 0px;
 	-moz-border-radius: 6px;
 	border-radius: 6px;
-	
 	-webkit-box-shadow: 1px 1px 8px #9fa7eb;
 	-moz-box-shadow: 1px 1px 8px #9fa7eb;
 	box-shadow: 1px 1px 8px #414178;
@@ -211,6 +202,7 @@ h4 {
 }
 
 .eu-nextstreet-SuggestFieldPopupSimpleTable tr td {
+	
 }
 
 .eu-nextstreet-SuggestFieldPopupSimpleTableCell {
@@ -218,19 +210,20 @@ h4 {
 }
 
 .eu-nextstreet-SuggestFieldPopupSimpleTableCell-selected {
-	background-color:#b5b5b5;
+	background-color: #b5b5b5;
 	text-shadow: 1px 1px 1px #d5d5d5;
-	filter: dropshadow(color=#d5d5d5, offx=1, offy=1);}
+	filter: dropshadow(color = #d5d5d5, offx = 1, offy = 1);
+}
 
 .eu-nextstreet-SuggestFieldPopupSimpleTableCell-hover {
 	text-shadow: 1px 1px 1px #707cba;
-	filter: dropshadow(color=#707cba, offx=1, offy=1);
+	filter: dropshadow(color = #707cba, offx = 1, offy = 1);
 }
 
 .eu-nextstreet-SuggestTableMatchingString {
 	background-color: #b0fc24;
 	text-shadow: 1px 1px 1px #25e1fa;
-	filter: dropshadow(color=#25e1fa, offx=1, offy=1);
+	filter: dropshadow(color = #25e1fa, offx = 1, offy = 1);
 }
 
 .eu-nextstreet-MultiChoiceItem {
@@ -254,16 +247,14 @@ h4 {
 
 /**----------- StatePanel **********/
 .sPanel {
-	height: 50px;
-	width: 150px;
-	border-radius : 4px;
+	border-radius: 4px 4px 4px 4px;
+	height: 70px;
 	text-align: center;
+	width: 450px;
+	padding: 10px;
+	background-color: #FFEFBF;
 }
 
-.sPanel .gwt-Label {
-	font-weight: bold;
-    padding-top: 10px;
-}
 
 .PRESSED {
 	-webkit-box-shadow: 0px 0px 1px #A09B8C;
@@ -274,7 +265,7 @@ h4 {
 .UNPRESSED {
 	-webkit-box-shadow: 1px 1px 2px #A09B8C;
 	-moz-box-shadow: 1px 1px 2px #A09B8C;
-	box-shadow: 1px 1px 2px #A09B8C;	
+	box-shadow: 1px 1px 2px #A09B8C;
 }
 
 .DISBLED {
@@ -282,5 +273,13 @@ h4 {
 }
 
 .ENABLED {
-	background-color: #F8F9FE;
+}
+
+/**---------------- demo ----------- */
+.flat {
+	background-color: transparent;
+}
+
+.green {
+	background-color: #E6FFA2;
 }

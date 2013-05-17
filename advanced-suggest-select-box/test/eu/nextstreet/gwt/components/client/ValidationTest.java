@@ -147,23 +147,7 @@ public class ValidationTest {
 
 		addLogInfoPanel(box);
 
-		StatePanel statePanel = new StatePanel("UNPRESSED", "PRESSED");
-		statePanel.add(new Label("put any widgets here"));
-		statePanel.setStyleName("sPanel");
-
-		final HTML stateListenerLabel = new HTML();
-		stateListenerLabel.getElement().setAttribute("style", "color:gray;");
-		statePanel.addValueChangeHandler(new ValueChangeHandler<SimplePanelState>() {
-
-			@Override
-			public void onValueChange(ValueChangeEvent<SimplePanelState> event) {
-				stateListenerLabel.setHTML(" state changed to : <b>" + event.getValue().name()
-						+ "</b>, you can configure as many states as you like and handle their transitions through your own implementation of <b>StatePanelManager</b>");
-			}
-		});
-		RootPanel statePanelHolder = RootPanel.get("statePanel");
-		statePanelHolder.add(statePanel);
-		statePanelHolder.add(stateListenerLabel);
+		initStatePanel();
 
 		AdvancedTextBox advancedTextBox = new AdvancedTextBox("Please type a value");
 		advancedTextBox.addDoubleClickHandler(new DoubleClickHandler() {
@@ -226,6 +210,25 @@ public class ValidationTest {
 
 		RootPanel.get("suggestBoxMultiValueContainer").add(multiBox);
 
+	}
+
+	protected static void initStatePanel() {
+		StatePanel<SimplePanelState> statePanel = new StatePanel<SimplePanelState>("UNPRESSED", "PRESSED", "flat", "green");
+		statePanel.setStyleName("sPanel");
+
+		final HTML stateListenerLabel = new HTML("Click on this panel to change its state. Current: " + statePanel.getState().name());
+		statePanel.add(stateListenerLabel);
+		stateListenerLabel.getElement().setAttribute("style", "color:gray;");
+		statePanel.addValueChangeHandler(new ValueChangeHandler<SimplePanelState>() {
+
+			@Override
+			public void onValueChange(ValueChangeEvent<SimplePanelState> event) {
+				stateListenerLabel.setHTML(" state changed to : <b>" + event.getValue().name()
+						+ "</b>, you can configure as many states as you like and handle their transitions through your own implementation of <b>StatePanelManager</b>");
+			}
+		});
+		RootPanel statePanelHolder = RootPanel.get("statePanel");
+		statePanelHolder.add(statePanel);
 	}
 
 	@SuppressWarnings("rawtypes")

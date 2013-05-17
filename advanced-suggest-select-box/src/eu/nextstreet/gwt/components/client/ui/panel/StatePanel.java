@@ -93,9 +93,9 @@ public class StatePanel<T extends StatePanel.PanelState> extends FocusPanel impl
 	}
 
 	protected T[] stateList;
-	protected T panelState;
+	protected T state;
 	protected StatePanelManager<T> panelManager;
-	protected boolean enabled;
+	protected boolean enabled = true;
 	protected List<ValueChangeHandler<T>> handlerList;
 
 	/**
@@ -135,7 +135,7 @@ public class StatePanel<T extends StatePanel.PanelState> extends FocusPanel impl
 
 	public StatePanel(T[] stateList, StatePanelManager<T> panelManager) {
 		this.stateList = stateList;
-		setPanelState(panelManager.register(this));
+		setState(panelManager.register(this));
 		this.panelManager = panelManager;
 		initHandlers();
 	}
@@ -150,12 +150,12 @@ public class StatePanel<T extends StatePanel.PanelState> extends FocusPanel impl
 		});
 	}
 
-	public PanelState getPanelState() {
-		return panelState;
+	public PanelState getState() {
+		return state;
 	}
 
-	public void setPanelState(T panelState) {
-		this.panelState = panelState;
+	public void setState(T panelState) {
+		this.state = panelState;
 		for (PanelState state : stateList) {
 			String stateCssName = state.name();
 			if (state.equals(panelState)) {
@@ -168,7 +168,7 @@ public class StatePanel<T extends StatePanel.PanelState> extends FocusPanel impl
 	}
 
 	protected void fireStateChangeOccured() {
-		ValueChangeEvent.fire(this, panelState);
+		ValueChangeEvent.fire(this, state);
 	}
 
 	@Override
@@ -179,7 +179,7 @@ public class StatePanel<T extends StatePanel.PanelState> extends FocusPanel impl
 	}
 
 	protected void refreshStyles() {
-		setPanelState(panelState);
+		setState(state);
 		setEnabled(enabled);
 	}
 
@@ -190,7 +190,7 @@ public class StatePanel<T extends StatePanel.PanelState> extends FocusPanel impl
 		if (!enabled)
 			return;
 
-		setPanelState(panelManager.onStateChangeRequest(this));
+		setState(panelManager.onStateChangeRequest(this));
 	}
 
 	public T[] getStateList() {
