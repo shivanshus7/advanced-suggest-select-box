@@ -20,7 +20,7 @@ package eu.nextstreet.gwt.components.client.ui.widget.suggest.multi;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
-import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.UIObject;
@@ -43,9 +43,8 @@ import eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueRendererFactor
  * @param <C>
  *          concrete ValueHolderItem
  */
-public abstract class BasicMultiChoiceValueHolderItem<T, R extends IsWidget, C extends MultiChoiceValueHolderItem<T, C>>
-		extends AbstractMultiChoiceValueHolderItem<T, C> implements
-		ValueRepresentationTransformer<T, R> {
+public abstract class BasicMultiChoiceValueHolderItem<T, R extends IsWidget, C extends MultiChoiceValueHolderItem<T, C>> extends
+		AbstractMultiChoiceValueHolderItem<T, C> implements ValueRepresentationTransformer<T, R> {
 
 	/** Css style for multi item */
 	private static final String STYLE = "eu-nextstreet-MultiItem";
@@ -53,8 +52,10 @@ public abstract class BasicMultiChoiceValueHolderItem<T, R extends IsWidget, C e
 	private static final String SELECTED = "eu-nextstreet-MultiItemSelected";
 	/** Css style for hover */
 	private static final String ITEM_HOVER = "eu-nextstreet-MultiItemHover";
+	private static final String ITEM = "eu-nextstreet-MultiItem";
+	private static final String REMOVE_BUTTON = "remove";
 
-	protected HorizontalPanel panel = new HorizontalPanel();
+	protected FlowPanel panel = new FlowPanel();
 	protected R concreteWidget;
 	protected IsWidget removeButton;
 	protected ValueRendererFactory<T, ? extends ValueHolderItem<T>> valueRendererFactory;
@@ -67,8 +68,7 @@ public abstract class BasicMultiChoiceValueHolderItem<T, R extends IsWidget, C e
 	 * @param valueRendererFactory
 	 *          the factory that created this instance
 	 */
-	public BasicMultiChoiceValueHolderItem(T value,
-			ValueRendererFactory<T, ? extends ValueHolderItem<T>> valueRendererFactory) {
+	public BasicMultiChoiceValueHolderItem(T value, ValueRendererFactory<T, ? extends ValueHolderItem<T>> valueRendererFactory) {
 		super(value);
 		this.valueRendererFactory = valueRendererFactory;
 	}
@@ -76,13 +76,12 @@ public abstract class BasicMultiChoiceValueHolderItem<T, R extends IsWidget, C e
 	@Override
 	public void initWidget() {
 		concreteWidget = transform(value);
+		panel.setStyleName(ITEM);
 		setWidget(panel);
 		setStyleName(STYLE);
 		createRemoveButton();
 		panel.add(concreteWidget);
 		panel.add(removeButton);
-		panel.setCellVerticalAlignment(removeButton, HorizontalPanel.ALIGN_MIDDLE);
-		panel.setCellWidth(removeButton, "16px");
 	}
 
 	/*
@@ -135,6 +134,7 @@ public abstract class BasicMultiChoiceValueHolderItem<T, R extends IsWidget, C e
 	 */
 	protected void createRemoveButton() {
 		removeButton = new Image("img/multi/remove.png");
+		((Image) removeButton).setStyleName(REMOVE_BUTTON);
 		((HasClickHandlers) removeButton).addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {

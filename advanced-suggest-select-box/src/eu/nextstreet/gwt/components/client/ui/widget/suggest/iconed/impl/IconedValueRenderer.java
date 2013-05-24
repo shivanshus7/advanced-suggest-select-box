@@ -34,8 +34,9 @@ import com.google.gwt.event.dom.client.MouseWheelEvent;
 import com.google.gwt.event.dom.client.MouseWheelHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Image;
+import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.UIObject;
 
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.EventHandlingValueHolderItem;
@@ -54,20 +55,29 @@ import eu.nextstreet.gwt.components.client.ui.widget.suggest.iconed.IconedValueH
 public class IconedValueRenderer<T> extends Composite implements IconedValueHolderItem<T> {
 	private static final String ITEM_HOVER = "eu-nextstreet-SuggestItemHover";
 	public static final String SELECTED = "eu-nextstreet-SuggestItemSelected";
+	public static final String SURROUNDING_PANEL = "eu-nextstreet-SuggestItem-Elem";
+	public static final String CONTAINER_PANEL = "container";
+	public static final String ICON = "icon";
+	public static final String LABEL = "label";
 
-	protected HorizontalPanel horizontalPanel = new HorizontalPanel();
+	protected SimplePanel surroundingPanel = new SimplePanel();
+	protected FlowPanel containerPanel = new FlowPanel();
 	protected Image icon;
 	protected EventHandlingValueHolderItem<T> label;
 	protected ValueRendererFactory<T, ? extends ValueHolderItem<T>> valueRendererFactory;
 
 	public IconedValueRenderer(T value, Image icon, EventHandlingValueHolderItem<T> label, String filterText, boolean caseSensitive,
 			ValueRendererFactory<T, ? extends ValueHolderItem<T>> valueRendererFactory) {
-		initWidget(horizontalPanel);
 		this.label = label;
 		if (icon == null) {
 			icon = new Image();
 		}
 		this.icon = icon;
+		surroundingPanel.setStyleName(SURROUNDING_PANEL);
+		containerPanel.setStyleName(CONTAINER_PANEL);
+		icon.addStyleName(ICON);
+		label.addStyleName(LABEL);
+		initWidget(surroundingPanel);
 	}
 
 	@Override
@@ -101,7 +111,7 @@ public class IconedValueRenderer<T> extends Composite implements IconedValueHold
 
 	@Override
 	public UIObject getUiObject() {
-		return horizontalPanel;
+		return containerPanel;
 	}
 
 	@Override
@@ -156,11 +166,9 @@ public class IconedValueRenderer<T> extends Composite implements IconedValueHold
 
 	@Override
 	public void initWidget() {
-		horizontalPanel.setSpacing(5);
-		horizontalPanel.setHorizontalAlignment(HorizontalPanel.ALIGN_LEFT);
-		horizontalPanel.add(icon);
-		horizontalPanel.setCellWidth(icon, "20px");
-		horizontalPanel.add(label);
+		containerPanel.add(icon);
+		containerPanel.add(label);
+		surroundingPanel.setWidget(containerPanel);
 	}
 
 }

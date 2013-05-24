@@ -78,23 +78,33 @@ h4 {
 }
 
 .eu-nextstreet-SuggestItem {
-	width: 100%;
 	font-size: 0.9em;
-	padding: 0 3px;
+	min-height: 22px;
+	padding: 2px;
+}
+
+.eu-nextstreet-SuggestItem .container {
+	
+}
+
+.eu-nextstreet-SuggestItem .container .icon {
+	float: left;
+}
+
+.eu-nextstreet-SuggestItem .container .label {
+	float: left;
 }
 
 .eu-nextstreet-SuggestItemSelected {
-	width: 100%;
 	-moz-border-radius: 6px;
 	border-radius: 6px;
 	text-shadow: 1px 1px 1px #949dff;
-	filter: dropshadow(color = #949dff, offx = 1, offy = 1);
+	filter: dropshadow(color =         #949dff, offx =         1, offy =         1);
 	background-color: #cbddfa;
 	color: black;
 }
 
 .eu-nextstreet-SuggestItemHover {
-	width: 100%;
 	font-weight: bold;
 	background-color: #cce4f5;
 	-moz-border-radius: 6px;
@@ -104,7 +114,7 @@ h4 {
 .eu-nextstreet-SuggestMatchingString {
 	color: #0f8a04;
 	text-shadow: 1px 1px 1px #95ff8f;
-	filter: dropshadow(color = #95ff8f, offx = 1, offy = 1);
+	filter: dropshadow(color =         #95ff8f, offx =         1, offy =         1);
 }
 
 .eu-nextstreet-SuggestField-top {
@@ -130,7 +140,8 @@ h4 {
 	height: 16px;
 	padding-right: 10px; /*for the arrow image on the right*/
 	text-shadow: 1px 1px 1px #9fa7eb;
-	filter: dropshadow(color =   #9fa7eb, offx =   1, offy =   1);
+	filter: dropshadow(color =           #9fa7eb, offx =           1, offy =
+		          1);
 	width: 95%;
 }
 
@@ -171,7 +182,7 @@ h4 {
 	-moz-border-radius: 6px;
 	border-radius: 6px;
 	text-shadow: 1px 1px 1px #a90329;
-	filter: dropshadow(color = #a90329, offx = 1, offy = 1);
+	filter: dropshadow(color =         #a90329, offx =         1, offy =         1);
 	background-color: #ffc2c2;
 	color: black;
 }
@@ -212,25 +223,53 @@ h4 {
 .eu-nextstreet-SuggestFieldPopupSimpleTableCell-selected {
 	background-color: #b5b5b5;
 	text-shadow: 1px 1px 1px #d5d5d5;
-	filter: dropshadow(color = #d5d5d5, offx = 1, offy = 1);
+	filter: dropshadow(color =         #d5d5d5, offx =         1, offy =         1);
 }
 
 .eu-nextstreet-SuggestFieldPopupSimpleTableCell-hover {
 	text-shadow: 1px 1px 1px #707cba;
-	filter: dropshadow(color = #707cba, offx = 1, offy = 1);
+	filter: dropshadow(color =         #707cba, offx =         1, offy =         1);
 }
 
 .eu-nextstreet-SuggestTableMatchingString {
 	background-color: #b0fc24;
 	text-shadow: 1px 1px 1px #25e1fa;
-	filter: dropshadow(color = #25e1fa, offx = 1, offy = 1);
+	filter: dropshadow(color =         #25e1fa, offx =         1, offy =         1);
 }
 
 .eu-nextstreet-MultiChoiceItem {
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	border-radius: 5px;
+	float: left;
+	padding-right: 3px;
+}
+
+.eu-nextstreet-MultiChoiceItem .eu-nextstreet-MultiItem {
+	-webkit-border-radius: 3px 3px 3px 3px;
+	-moz-border-radius: 3px 3px 3px 3px;
+	border-radius: 3px 3px 3px 3px;
 	background-color: #CBDDFA;
+	padding: 2px;
+}
+
+.eu-nextstreet-SuggestItem-Elem {
+	float: left;
+}
+
+.eu-nextstreet-SuggestItem-Elem .container {
+	clear: both;
+	float: left;
+}
+
+.eu-nextstreet-SuggestItem-Elem .container .icon {
+	float: left;
+}
+
+.eu-nextstreet-SuggestItem-Elem .container .label {
+	
+}
+
+.eu-nextstreet-SuggestItem-Elem .remove {
+	float: right;
+	padding-right: 5px;
 }
 
 .eu-nextstreet-MultiChoiceSelection {
@@ -255,7 +294,6 @@ h4 {
 	background-color: #FFEFBF;
 }
 
-
 .PRESSED {
 	-webkit-box-shadow: 0px 0px 1px #A09B8C;
 	-moz-box-shadow: 0px 0px 1px #A09B8C;
@@ -273,6 +311,7 @@ h4 {
 }
 
 .ENABLED {
+	
 }
 
 /**---------------- demo ----------- */

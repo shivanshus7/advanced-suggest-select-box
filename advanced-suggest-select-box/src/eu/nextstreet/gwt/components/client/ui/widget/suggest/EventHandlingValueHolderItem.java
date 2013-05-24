@@ -30,4 +30,9 @@ import com.google.gwt.event.dom.client.HasDoubleClickHandlers;
  *          the type of the item value
  */
 public interface EventHandlingValueHolderItem<T> extends ValueHolderItem<T>, HasAllMouseHandlers, HasClickHandlers, HasDoubleClickHandlers {
+	void setStyleName(String style);
+
+	void addStyleName(String style);
+
+	void removeStyleName(String style);
 }

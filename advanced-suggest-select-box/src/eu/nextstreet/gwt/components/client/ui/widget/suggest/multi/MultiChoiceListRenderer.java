@@ -17,7 +17,7 @@
 
 package eu.nextstreet.gwt.components.client.ui.widget.suggest.multi;
 
-import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.FlowPanel;
 
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.AbstractSuggestBox;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.EventHandlingValueHolderItem;
@@ -28,13 +28,12 @@ import eu.nextstreet.gwt.components.client.ui.widget.suggest.multi.impl.MultiCho
  * @author Zied Hamdi
  * 
  */
-public class MultiChoiceListRenderer<T, C extends MultiChoiceValueHolderItem<T, C>> extends HorizontalPanel implements ListRenderer<T, C> {
+public class MultiChoiceListRenderer<T, C extends MultiChoiceValueHolderItem<T, C>> extends FlowPanel implements ListRenderer<T, C> {
 
 	protected AbstractSuggestBox<T, EventHandlingValueHolderItem<T>> suggestBox;
 
 	public MultiChoiceListRenderer() {
 		super();
-		setSpacing(2);
 	}
 
 	public MultiChoiceListRenderer(AbstractSuggestBox<T, EventHandlingValueHolderItem<T>> suggestBox) {

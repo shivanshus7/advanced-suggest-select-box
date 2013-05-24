@@ -331,4 +331,16 @@ public class SimpleTableRowItemRenderer<T> extends BasicWidgetListHolder impleme
 	public HandlerRegistration addDoubleClickHandler(DoubleClickHandler handler) {
 		throw new UnsupportedOperationException("not supported yet");
 	}
+
+	@Override
+	public void addStyleName(String style) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void removeStyleName(String style) {
+		// TODO Auto-generated method stub
+
+	}
 }
