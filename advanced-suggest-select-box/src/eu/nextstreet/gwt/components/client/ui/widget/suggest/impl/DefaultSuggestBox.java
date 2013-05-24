@@ -53,17 +53,17 @@ public class DefaultSuggestBox<T, W extends EventHandlingValueHolderItem<T>> ext
 	interface SuggestBoxUiBinder extends UiBinder<Widget, DefaultSuggestBox> {
 	}
 
-	private static SuggestBoxUiBinder	uiBinder						= GWT.create(SuggestBoxUiBinder.class);
+	private static SuggestBoxUiBinder uiBinder = GWT.create(SuggestBoxUiBinder.class);
 
 	protected @UiField
-	SuggestTextBoxWidgetImpl<T, W>		textField;
+	SuggestTextBoxWidgetImpl<T, W> textField;
 
-	protected int											suggestionMaxCount	= 10;
-	protected SuggestOracle<T>				suggestOracle;
+	protected int suggestionMaxCount = 10;
+	protected SuggestOracle<T> suggestOracle;
 
 	@SuppressWarnings({ "unused", "rawtypes" })
 	private final class CallBackHandler implements SuggestOracle.Callback {
-		private SuggestPossibilitiesCallBack<T>	innerCallBack;
+		private SuggestPossibilitiesCallBack<T> innerCallBack;
 
 		@SuppressWarnings("unchecked")
 		public void onSuggestionsReady(SuggestOracle.Request request, SuggestOracle.Response response) {
@@ -87,7 +87,7 @@ public class DefaultSuggestBox<T, W extends EventHandlingValueHolderItem<T>> ext
 
 	};
 
-	private CallBackHandler	callback	= new CallBackHandler();
+	private CallBackHandler callback = new CallBackHandler();
 
 	public DefaultSuggestBox() {
 		this(null);

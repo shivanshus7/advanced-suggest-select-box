@@ -28,8 +28,10 @@ import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.DockPanel;
+import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.IsWidget;
+import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.SimplePanel;
 
 import eu.nextstreet.gwt.components.client.ui.widget.AdvancedTextBox;
@@ -50,13 +52,14 @@ import eu.nextstreet.gwt.components.shared.Validator;
 public class SuggestTextBoxWidgetImpl<T, W extends EventHandlingValueHolderItem<T>> extends Composite implements SuggestTextBoxWidget<T, W> {
 	/** the text field style name */
 	private static final String SUGGEST_FIELD = "eu-nextstreet-SuggestField";
-	private static final String SUGGEST_FIELD_TOP = "eu-nextstreet-SuggestField-top";
-	private static final String SUGGEST_FIELD_BOTTOM = "eu-nextstreet-SuggestField-bottom";
-	private static final String SUGGEST_FIELD_LEFT = "eu-nextstreet-SuggestField-left";
-	private static final String SUGGEST_FIELD_RIGHT = "eu-nextstreet-SuggestField-right";
+	private static final String SUGGEST_FIELD_TOP = "top";
+	private static final String SUGGEST_FIELD_BOTTOM = "bottom";
+	private static final String SUGGEST_FIELD_LEFT = "left";
+	private static final String SUGGEST_FIELD_RIGHT = "right";
+	private static final String SUGGEST_FIELD_CENTRAL = "vCentral";
 
 	/** the main panel */
-	protected DockPanel panel = new DockPanel();
+	protected Panel panel = new HTMLPanel("");
 	/** the main component */
 	protected AdvancedTextBox advancedTextBox = new AdvancedTextBox();
 
@@ -89,6 +92,8 @@ public class SuggestTextBoxWidgetImpl<T, W extends EventHandlingValueHolderItem<
 
 	};
 
+	/** groups the text box and its left and right elements */
+	protected FlowPanel vCentral = new FlowPanel();
 	/** left of the text box */
 	protected SimplePanel left = new SimplePanel();
 	/** right of the text box */
@@ -132,16 +137,20 @@ public class SuggestTextBoxWidgetImpl<T, W extends EventHandlingValueHolderItem<
 	}
 
 	private void initPanels() {
-		panel.add(advancedTextBox, DockPanel.CENTER);
-		panel.add(top, DockPanel.NORTH);
 		top.setStyleName(SUGGEST_FIELD_TOP);
-		panel.add(bottom, DockPanel.SOUTH);
-		bottom.setStyleName(SUGGEST_FIELD_BOTTOM);
-		advancedTextBox.setStyleName(SUGGEST_FIELD);
+		panel.add(top);
+
 		left.setStyleName(SUGGEST_FIELD_LEFT);
-		panel.add(left, DockPanel.WEST);
+		vCentral.add(left);
+		advancedTextBox.setStyleName(SUGGEST_FIELD);
+		vCentral.add(advancedTextBox);
 		right.setStyleName(SUGGEST_FIELD_RIGHT);
-		panel.add(right, DockPanel.EAST);
+		vCentral.add(right);
+		vCentral.setStyleName(SUGGEST_FIELD_CENTRAL);
+		panel.add(vCentral);
+
+		bottom.setStyleName(SUGGEST_FIELD_BOTTOM);
+		panel.add(bottom);
 	}
 
 	/**
@@ -430,11 +439,11 @@ public class SuggestTextBoxWidgetImpl<T, W extends EventHandlingValueHolderItem<
 	}
 
 	// --------------------- layout widgets accessors -------------------------
-	public DockPanel getPanel() {
+	public Panel getPanel() {
 		return panel;
 	}
 
-	public void setPanel(DockPanel panel) {
+	public void setPanel(Panel panel) {
 		this.panel = panel;
 	}
 

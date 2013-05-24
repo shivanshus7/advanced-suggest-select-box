@@ -1,28 +1,8 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
-	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:into="urn:import:eu.nextstreet.gwt.components.client.ui.widget.suggest">
-	<g:HTMLPanel>
-		<table cellspacing="0" cellpadding="0"
-			class="eu-nextstreet-SuggestFieldPanel">
-			<tbody>
-				<tr>
-					<!-- cellule pour le bord gauche -->
-					<td class="eu-nextstreet-SuggestFieldPanel-left">
-						<!-- une div pour etre sur que son parent va s'afficher -->
-						<div class="eu-nextstreet-SuggestFieldPanel-leftInner">&nbsp;</div>
-					</td>
-					<!-- permet de prévenir d'eventuel besoin du designer -->
-					<td align="left" style="vertical-align: top;" class="eu-nextstreet-SuggestFieldPanel-content">
-						<!-- le widget -->
-						<into:SuggestTextBoxWidgetImpl ui:field="textField"></into:SuggestTextBoxWidgetImpl>
-					</td>
-					<!-- cellule pour le bord droit -->
-					<td class="eu-nextstreet-SuggestFieldPanel-right">
-						<!-- une div pour etre sur que son parent va s'afficher -->
-						<div class="eu-nextstreet-SuggestFieldPanel-rightInner">&nbsp;</div>
-					</td>
-				</tr>
-			</tbody>
-		</table>
+	xmlns:g="urn:import:com.google.gwt.user.client.ui"
+	xmlns:into="urn:import:eu.nextstreet.gwt.components.client.ui.widget.suggest">
+	<g:HTMLPanel styleName="eu-nextstreet-SuggestFieldPanel">
+		<into:SuggestTextBoxWidgetImpl ui:field="textField"/>
 	</g:HTMLPanel>
 </ui:UiBinder> 

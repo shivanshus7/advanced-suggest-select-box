@@ -1,8 +1,6 @@
 package eu.nextstreet.gwt.components.client.ui.widget.suggest.iconed.impl;
 
-import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.Image;
-import com.google.gwt.user.client.ui.SimplePanel;
 
 import eu.nextstreet.gwt.components.client.ui.common.data.ValueRepresentationTransformer;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.iconed.IconedValueHolderItem;
@@ -18,25 +16,21 @@ import eu.nextstreet.gwt.components.client.ui.widget.suggest.impl.DefaultSuggest
  * @param <W>
  *          renderer
  */
-public class DefaultIconedSuggestBox<T, W extends IconedValueHolderItem<T>>
-		extends DefaultSuggestBox<T, W> {
+public class DefaultIconedSuggestBox<T, W extends IconedValueHolderItem<T>> extends DefaultSuggestBox<T, W> {
 	/** Gives an image for each value */
 	@SuppressWarnings("unchecked")
 	protected ValueRepresentationTransformer<T, Image> iconLinker = ValueRepresentationTransformer.NULL_TRANSFORMER;
 
 	public DefaultIconedSuggestBox(String defaultText) {
 		super(defaultText);
-		SimplePanel iconPanel = textField.getLeft();
-		DockPanel widgetPanel = textField.getPanel();
-		widgetPanel.setCellHorizontalAlignment(iconPanel, DockPanel.ALIGN_CENTER);
-		widgetPanel.setCellVerticalAlignment(iconPanel, DockPanel.ALIGN_MIDDLE);
+		// SimplePanel iconPanel = textField.getLeft();
+		// Panel widgetPanel = textField.getPanel();
 	}
 
 	@Override
 	protected void init(String defaultText) {
 		super.init(defaultText);
-		IconedValueRendererFactory<T, W> unifiedValueRendererFactory = new IconedValueRendererFactory<T, W>(
-				iconLinker);
+		IconedValueRendererFactory<T, W> unifiedValueRendererFactory = new IconedValueRendererFactory<T, W>(iconLinker);
 		setValueRendererFactory(unifiedValueRendererFactory);
 	}
 
@@ -80,8 +74,7 @@ public class DefaultIconedSuggestBox<T, W extends IconedValueHolderItem<T>>
 
 	public void setIconLinker(ValueRepresentationTransformer<T, Image> iconLinker) {
 		this.iconLinker = iconLinker;
-		((IconedValueRendererFactory<T, W>) valueRendererFactory)
-				.setIconLinker(iconLinker);
+		((IconedValueRendererFactory<T, W>) valueRendererFactory).setIconLinker(iconLinker);
 	}
 
 	protected void setSelectedValue(T selected) {

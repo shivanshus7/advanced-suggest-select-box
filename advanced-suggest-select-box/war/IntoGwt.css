@@ -99,7 +99,9 @@ h4 {
 	-moz-border-radius: 6px;
 	border-radius: 6px;
 	text-shadow: 1px 1px 1px #949dff;
-	filter: dropshadow(color =         #949dff, offx =         1, offy =         1);
+	filter: dropshadow(color =               #949dff, offx =               1, offy =
+		 
+		            1);
 	background-color: #cbddfa;
 	color: black;
 }
@@ -114,35 +116,50 @@ h4 {
 .eu-nextstreet-SuggestMatchingString {
 	color: #0f8a04;
 	text-shadow: 1px 1px 1px #95ff8f;
-	filter: dropshadow(color =         #95ff8f, offx =         1, offy =         1);
+	filter: dropshadow(color =               #95ff8f, offx =               1, offy =
+		 
+		            1);
 }
 
-.eu-nextstreet-SuggestField-top {
-	border: 1px solid white;
+.eu-nextstreet-SuggestFieldComp {
+	clear: both;
 }
 
-.eu-nextstreet-SuggestField-bottom {
-	border: 1px solid white;
+.eu-nextstreet-SuggestFieldDetail {
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	border: 1px solid #F4F4F4;
 }
 
-.eu-nextstreet-SuggestField-left {
-	border: 1px solid white;
+.eu-nextstreet-SuggestFieldDetail .top {
+	clear: both;
 }
 
-.eu-nextstreet-SuggestField-right {
-	border: 1px solid white;
+.eu-nextstreet-SuggestFieldDetail .bottom {
+	clear: both;
+}
+
+.eu-nextstreet-SuggestFieldDetail .vCentral {
+	display: inline;
+	padding-top: 2px;
+	padding-left: 2px;
+}
+
+.eu-nextstreet-SuggestFieldDetail .left {
+	float: left;
 }
 
 .eu-nextstreet-SuggestField {
-	margin: 2px 0 0 0;
-	background: transparent url('img/arrow.png') no-repeat right 5px;
-	border: none;
-	height: 16px;
-	padding-right: 10px; /*for the arrow image on the right*/
-	text-shadow: 1px 1px 1px #9fa7eb;
-	filter: dropshadow(color =           #9fa7eb, offx =           1, offy =
-		          1);
-	width: 95%;
+	background: url("img/arrow.png") no-repeat scroll right 5px transparent;
+	border: medium none;
+	float: left;
+	padding-left: 5px;
+	padding-right: 10px;
+	width: 92%;
+}
+
+.eu-nextstreet-SuggestFieldDetail .right {
+	float: left;
 }
 
 .eu-nextstreet-SuggestPopup {
@@ -182,7 +199,9 @@ h4 {
 	-moz-border-radius: 6px;
 	border-radius: 6px;
 	text-shadow: 1px 1px 1px #a90329;
-	filter: dropshadow(color =         #a90329, offx =         1, offy =         1);
+	filter: dropshadow(color =               #a90329, offx =               1, offy =
+		 
+		            1);
 	background-color: #ffc2c2;
 	color: black;
 }
@@ -223,18 +242,24 @@ h4 {
 .eu-nextstreet-SuggestFieldPopupSimpleTableCell-selected {
 	background-color: #b5b5b5;
 	text-shadow: 1px 1px 1px #d5d5d5;
-	filter: dropshadow(color =         #d5d5d5, offx =         1, offy =         1);
+	filter: dropshadow(color =               #d5d5d5, offx =               1, offy =
+		 
+		            1);
 }
 
 .eu-nextstreet-SuggestFieldPopupSimpleTableCell-hover {
 	text-shadow: 1px 1px 1px #707cba;
-	filter: dropshadow(color =         #707cba, offx =         1, offy =         1);
+	filter: dropshadow(color =               #707cba, offx =               1, offy =
+		 
+		            1);
 }
 
 .eu-nextstreet-SuggestTableMatchingString {
 	background-color: #b0fc24;
 	text-shadow: 1px 1px 1px #25e1fa;
-	filter: dropshadow(color =         #25e1fa, offx =         1, offy =         1);
+	filter: dropshadow(color =               #25e1fa, offx =               1, offy =
+		 
+		            1);
 }
 
 .eu-nextstreet-MultiChoiceItem {
@@ -273,7 +298,6 @@ h4 {
 }
 
 .eu-nextstreet-MultiChoiceSelection {
-	border-bottom: 1px solid #d5d5d5;
 }
 
 .eu-nextstreet-MultiItem {
