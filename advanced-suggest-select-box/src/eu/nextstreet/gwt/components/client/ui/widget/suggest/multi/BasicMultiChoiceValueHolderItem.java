@@ -55,7 +55,7 @@ public abstract class BasicMultiChoiceValueHolderItem<T, R extends IsWidget, C e
 	private static final String SELECTED = "eu-nextstreet-MultiItemSelected";
 	/** Css style for hover */
 	private static final String ITEM_HOVER = "eu-nextstreet-MultiItemHover";
-	private static final String ITEM = "eu-nextstreet-MultiItem";
+	private static final String ITEM = "item";
 	private static final String REMOVE_BUTTON = "remove";
 
 	protected FlowPanel containerPanel = new FlowPanel();
@@ -86,6 +86,7 @@ public abstract class BasicMultiChoiceValueHolderItem<T, R extends IsWidget, C e
 		createRemoveButton();
 		panel.add(concreteWidget);
 		panel.add(removeButton);
+
 		containerPanel.setStyleName(LINE);
 		containerPanel.add(panel);
 		endingPanel.setStyleName(LINE_BREAK);

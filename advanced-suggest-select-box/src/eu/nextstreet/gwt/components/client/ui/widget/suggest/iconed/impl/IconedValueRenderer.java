@@ -77,6 +77,7 @@ public class IconedValueRenderer<T> extends Composite implements IconedValueHold
 		this.icon = icon;
 		surroundingPanel.setStyleName(SURROUNDING_PANEL);
 		containerPanel.setStyleName(CONTAINER_PANEL);
+		endingPanel.setStyleName(ENDING_PANEL);
 		icon.addStyleName(ICON);
 		label.addStyleName(LABEL);
 		initWidget(surroundingPanel);
