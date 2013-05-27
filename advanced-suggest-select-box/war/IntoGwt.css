@@ -268,11 +268,7 @@ h4 {
 }
 
 .eu-nextstreet-MultiChoiceItem .eu-nextstreet-MultiItem {
-	-webkit-border-radius: 3px 3px 3px 3px;
-	-moz-border-radius: 3px 3px 3px 3px;
-	border-radius: 3px 3px 3px 3px;
-	background-color: #CBDDFA;
-	padding: 2px;
+
 }
 
 .eu-nextstreet-SuggestItem-Elem {
@@ -302,6 +298,18 @@ h4 {
 
 .eu-nextstreet-MultiItem {
 	vertical-align: middle;
+}
+
+.eu-nextstreet-MultiItem .line {
+	-webkit-border-radius: 3px 3px 3px 3px;
+	-moz-border-radius: 3px 3px 3px 3px;
+	border-radius: 3px 3px 3px 3px;
+	background-color: #CBDDFA;
+	padding: 2px;
+}
+
+.eu-nextstreet-MultiItem .lineBreak {
+	clear: both;
 }
 
 .eu-nextstreet-AdvancedTextBoxDefaultText-loading {
