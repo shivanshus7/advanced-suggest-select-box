@@ -27,6 +27,7 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Widget;
 
+import eu.nextstreet.gwt.components.client.ui.common.event.KeyUpRequestingHandler;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.AbstractSuggestBox;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.EventHandlingValueHolderItem;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.SuggestOracle;
@@ -87,6 +88,27 @@ public class DefaultSuggestBox<T, W extends EventHandlingValueHolderItem<T>> ext
 
 	};
 
+	protected class KeyEventManager extends KeyUpRequestingHandler {
+		int keyCode;
+
+		@Override
+		protected void executeRequest(String query) {
+			onKeyUp(keyCode);
+		}
+
+		@Override
+		protected String getText() {
+			return textField.getText();
+		}
+
+		public void setLastEvent(int keyCode) {
+			this.keyCode = keyCode;
+		}
+
+	}
+
+	protected KeyEventManager keyEventManager = new KeyEventManager();
+
 	private CallBackHandler callback = new CallBackHandler();
 
 	public DefaultSuggestBox() {
@@ -108,8 +130,9 @@ public class DefaultSuggestBox<T, W extends EventHandlingValueHolderItem<T>> ext
 
 	// ------------------ default event handling -----------------------
 	@UiHandler("textField")
-	public void onKeyUp(KeyUpEvent keyUpEvent) {
-		super.onKeyUp(keyUpEvent);
+	public void keyUp(KeyUpEvent keyUpEvent) {
+		keyEventManager.setLastEvent(keyUpEvent.getNativeKeyCode());
+		keyEventManager.handleKeyUp(textField.getText());
 	}
 
 	@UiHandler("textField")
@@ -172,6 +195,14 @@ public class DefaultSuggestBox<T, W extends EventHandlingValueHolderItem<T>> ext
 
 	public void setPropositionsMaxCount(int propositionsMaxCount) {
 		this.suggestionMaxCount = propositionsMaxCount;
+	}
+
+	public KeyEventManager getKeyEventManager() {
+		return keyEventManager;
+	}
+
+	public void setKeyEventManager(KeyEventManager keyEventManager) {
+		this.keyEventManager = keyEventManager;
 	}
 
 }

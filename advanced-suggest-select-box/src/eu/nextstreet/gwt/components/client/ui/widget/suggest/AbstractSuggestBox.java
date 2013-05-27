@@ -178,7 +178,10 @@ public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderIt
 	// @UiHandler("textField")
 	public void onKeyUp(KeyUpEvent keyUpEvent) {
 		final int keyCode = keyUpEvent.getNativeKeyCode();
+		onKeyUp(keyCode);
+	}
 
+	public void onKeyUp(final int keyCode) {
 		if (keyCode == KeyCodes.KEY_TAB || keyCode == KeyCodes.KEY_ALT || keyCode == KeyCodes.KEY_CTRL || keyCode == KeyCodes.KEY_SHIFT
 				|| keyCode == KeyCodes.KEY_HOME || keyCode == KeyCodes.KEY_END) {
 			return;
@@ -202,6 +205,7 @@ public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderIt
 
 				@Override
 				public void setPossibilities(List<T> possibilities) {
+					suggestPossibilitiesCalledBack(possibilities);
 					// the value was already set by the previous handler
 					if (possibilities.size() == 1 && keyCode != KeyCodes.KEY_ENTER)
 						return;
@@ -242,6 +246,9 @@ public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderIt
 			};
 			recomputePopupContent(keyCode, callBack);
 		}
+	}
+
+	protected void suggestPossibilitiesCalledBack(List<T> possibilities) {
 
 	}
 
