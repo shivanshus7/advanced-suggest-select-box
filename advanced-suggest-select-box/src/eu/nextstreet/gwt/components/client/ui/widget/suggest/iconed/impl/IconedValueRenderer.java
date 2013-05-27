@@ -57,13 +57,15 @@ public class IconedValueRenderer<T> extends Composite implements IconedValueHold
 	public static final String SELECTED = "eu-nextstreet-SuggestItemSelected";
 	public static final String SURROUNDING_PANEL = "eu-nextstreet-SuggestItem-Elem";
 	public static final String CONTAINER_PANEL = "container";
+	public static final String ENDING_PANEL = "endingPanel";
 	public static final String ICON = "icon";
 	public static final String LABEL = "label";
 
-	protected SimplePanel surroundingPanel = new SimplePanel();
+	protected FlowPanel surroundingPanel = new FlowPanel();
 	protected FlowPanel containerPanel = new FlowPanel();
 	protected Image icon;
 	protected EventHandlingValueHolderItem<T> label;
+	protected SimplePanel endingPanel = new SimplePanel();
 	protected ValueRendererFactory<T, ? extends ValueHolderItem<T>> valueRendererFactory;
 
 	public IconedValueRenderer(T value, Image icon, EventHandlingValueHolderItem<T> label, String filterText, boolean caseSensitive,
@@ -168,7 +170,8 @@ public class IconedValueRenderer<T> extends Composite implements IconedValueHold
 	public void initWidget() {
 		containerPanel.add(icon);
 		containerPanel.add(label);
-		surroundingPanel.setWidget(containerPanel);
+		surroundingPanel.add(containerPanel);
+		surroundingPanel.add(endingPanel);
 	}
 
 }

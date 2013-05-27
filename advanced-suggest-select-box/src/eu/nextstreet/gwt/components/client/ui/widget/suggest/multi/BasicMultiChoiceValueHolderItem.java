@@ -23,6 +23,7 @@ import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.IsWidget;
+import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.UIObject;
 
 import eu.nextstreet.gwt.components.client.ui.common.data.ValueRepresentationTransformer;
@@ -47,6 +48,8 @@ public abstract class BasicMultiChoiceValueHolderItem<T, R extends IsWidget, C e
 		AbstractMultiChoiceValueHolderItem<T, C> implements ValueRepresentationTransformer<T, R> {
 
 	/** Css style for multi item */
+	private static final String LINE = "line";
+	private static final String LINE_BREAK = "lineBreak";
 	private static final String STYLE = "eu-nextstreet-MultiItem";
 	/** Css style for selected */
 	private static final String SELECTED = "eu-nextstreet-MultiItemSelected";
@@ -55,9 +58,11 @@ public abstract class BasicMultiChoiceValueHolderItem<T, R extends IsWidget, C e
 	private static final String ITEM = "eu-nextstreet-MultiItem";
 	private static final String REMOVE_BUTTON = "remove";
 
+	protected FlowPanel containerPanel = new FlowPanel();
 	protected FlowPanel panel = new FlowPanel();
 	protected R concreteWidget;
 	protected IsWidget removeButton;
+	protected SimplePanel endingPanel = new SimplePanel();
 	protected ValueRendererFactory<T, ? extends ValueHolderItem<T>> valueRendererFactory;
 
 	/**
@@ -77,11 +82,15 @@ public abstract class BasicMultiChoiceValueHolderItem<T, R extends IsWidget, C e
 	public void initWidget() {
 		concreteWidget = transform(value);
 		panel.setStyleName(ITEM);
-		setWidget(panel);
 		setStyleName(STYLE);
 		createRemoveButton();
 		panel.add(concreteWidget);
 		panel.add(removeButton);
+		containerPanel.setStyleName(LINE);
+		containerPanel.add(panel);
+		endingPanel.setStyleName(LINE_BREAK);
+		containerPanel.add(endingPanel);
+		setWidget(containerPanel);
 	}
 
 	/*
