@@ -148,7 +148,7 @@ public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderIt
 				String currentText = getText();
 				if (typed == null || !typed.equals(currentText)) {
 					if (strictMode) {
-						clearSelection();
+						clearSelection(false);
 					} else {
 						valueTyped(currentText);
 					}
@@ -816,8 +816,13 @@ public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderIt
 	}
 
 	public void clearSelection() {
+		clearSelection(true);
+	}
+
+	protected void clearSelection(boolean fireEvent) {
 		setText("");
-		valueTyped("");
+		if (fireEvent)
+			valueTyped("");
 	}
 
 	protected void handleKeyEnter() {

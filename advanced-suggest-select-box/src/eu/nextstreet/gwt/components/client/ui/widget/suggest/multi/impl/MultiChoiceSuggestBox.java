@@ -131,7 +131,7 @@ public class MultiChoiceSuggestBox<T, W extends IconedValueHolderItem<T>, C exte
 	}
 
 	public void setValues(List<T> toSet) {
-		clearSelection();
+		clearSelection(false);
 		removedValues.clear();
 		for (T value : toSet) {
 			selectedValuesPanel.add(choiceItemsRendererFactory.createValueRenderer(value, DEBUG_ID_PREFIX, getOptions()));
@@ -139,8 +139,12 @@ public class MultiChoiceSuggestBox<T, W extends IconedValueHolderItem<T>, C exte
 	}
 
 	public void clearSelection() {
+		clearSelection(true);
+	}
+
+	protected void clearSelection(boolean fireEvents) {
 		selectedValuesPanel.clear();
-		super.clearSelection();
+		super.clearSelection(fireEvents);
 	}
 
 	protected DockPanel.DockLayoutConstant getPosition() {
