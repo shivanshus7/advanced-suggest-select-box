@@ -29,10 +29,12 @@ import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.DockPanel;
+import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -216,15 +218,28 @@ public class ValidationTest {
 		StatePanel<SimplePanelState> statePanel = new StatePanel<SimplePanelState>("UNPRESSED", "PRESSED", "flat", "green");
 		statePanel.setStyleName("sPanel");
 
-		final HTML stateListenerLabel = new HTML("Click on this panel to change its state. Current: " + statePanel.getState().name());
-		statePanel.add(stateListenerLabel);
+		FlowPanel innerPanels = new FlowPanel();
+		statePanel.setWidget(innerPanels);
+
+		final HTML stateListenerLabel = new HTML("Click anywhere on this panel to change its parent's state. <br/>");
+		innerPanels.add(stateListenerLabel);
+
+		TextBox textBox = new TextBox();
+		textBox.setText("Clicking in the text box is safe");
+		textBox.setWidth("300px");
+		innerPanels.add(textBox);
+
+		final HTML stateListenerLabel2 = new HTML("Current state: " + statePanel.getState().name());
+		innerPanels.add(stateListenerLabel2);
+
+		statePanel.setSkipElements(textBox);
+
 		stateListenerLabel.getElement().setAttribute("style", "color:gray;");
 		statePanel.addValueChangeHandler(new ValueChangeHandler<SimplePanelState>() {
 
 			@Override
 			public void onValueChange(ValueChangeEvent<SimplePanelState> event) {
-				stateListenerLabel.setHTML(" state changed to : <b>" + event.getValue().name()
-						+ "</b>, you can configure as many states as you like and handle their transitions through your own implementation of <b>StatePanelManager</b>");
+				stateListenerLabel2.setHTML("Current state: " + event.getValue().name());
 			}
 		});
 		RootPanel statePanelHolder = RootPanel.get("statePanel");

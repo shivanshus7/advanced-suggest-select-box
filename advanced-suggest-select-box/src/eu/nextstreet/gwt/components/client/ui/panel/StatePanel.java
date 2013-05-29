@@ -1,15 +1,21 @@
 package eu.nextstreet.gwt.components.client.ui.panel;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.MouseEvent;
 import com.google.gwt.event.logical.shared.HasValueChangeHandlers;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
-import com.google.gwt.user.client.ui.FocusPanel;
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.SimplePanel;
+import com.google.gwt.user.client.ui.UIObject;
+
+import eu.nextstreet.gwt.components.client.ui.widget.util.WidgetUtil;
 
 /**
  * This class is a panel with possible {@link PanelState} each expressed through
@@ -30,7 +36,7 @@ import com.google.gwt.user.client.ui.FocusPanel;
  * @author Zied Hamdi http://1vu.fr
  * 
  */
-public class StatePanel<T extends StatePanel.PanelState> extends FocusPanel implements HasValueChangeHandlers<T> {
+public class StatePanel<T extends StatePanel.PanelState> extends SimplePanel implements HasValueChangeHandlers<T> {
 	public enum EnabledStatus {
 		ENABLED, DISABLED
 	}
@@ -97,6 +103,7 @@ public class StatePanel<T extends StatePanel.PanelState> extends FocusPanel impl
 	protected StatePanelManager<T> panelManager;
 	protected boolean enabled = true;
 	protected List<ValueChangeHandler<T>> handlerList;
+	protected List<UIObject> skipElements = new ArrayList<UIObject>();
 
 	/**
 	 * Constructs the panel with two default values ("UNPRESSED", "PRESSED") and
@@ -141,13 +148,14 @@ public class StatePanel<T extends StatePanel.PanelState> extends FocusPanel impl
 	}
 
 	protected void initHandlers() {
-		addClickHandler(new ClickHandler() {
+		addDomHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				requestStateChange();
+				if (!skip(event))
+					requestStateChange();
 			}
-		});
+		}, ClickEvent.getType());
 	}
 
 	public PanelState getState() {
@@ -224,6 +232,47 @@ public class StatePanel<T extends StatePanel.PanelState> extends FocusPanel impl
 	@Override
 	public HandlerRegistration addValueChangeHandler(ValueChangeHandler<T> handler) {
 		return super.addHandler(handler, ValueChangeEvent.getType());
+	}
+
+	/**
+	 * Utility method used to skip some children from mouse events
+	 * 
+	 * @param x
+	 * @param y
+	 * @return true if the x, y absolute window coordinates are in one of
+	 *         {@link #skipElements} {@link UIObject}s
+	 */
+	protected boolean skip(int x, int y) {
+		for (UIObject toSkip : skipElements) {
+			if (WidgetUtil.inBounds(toSkip, x, y))
+				return true;
+		}
+		return false;
+	}
+
+	/**
+	 * Utility method used to skip some children from mouse events
+	 * 
+	 * @param event
+	 * @return true if the mouse event is in one of {@link #skipElements}
+	 *         {@link UIObject}s
+	 */
+	@SuppressWarnings("rawtypes")
+	protected boolean skip(MouseEvent event) {
+		return skip(event.getClientX(), event.getClientY() + Window.getScrollTop());
+	}
+
+	public void setSkipElements(UIObject... elements) {
+		skipElements.clear();
+		addSkipElements(elements);
+	}
+
+	public void addSkipElements(UIObject... elements) {
+		skipElements.addAll(Arrays.asList(elements));
+	}
+
+	public void removeSkipElements(UIObject... elements) {
+		skipElements.removeAll(Arrays.asList(elements));
 	}
 
 }

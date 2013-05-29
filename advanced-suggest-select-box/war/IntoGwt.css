@@ -99,9 +99,10 @@ h4 {
 	-moz-border-radius: 6px;
 	border-radius: 6px;
 	text-shadow: 1px 1px 1px #949dff;
-	filter: dropshadow(color =               #949dff, offx =               1, offy =
+	filter: dropshadow(color =                 #949dff, offx =                 1,
+		offy = 
 		 
-		            1);
+		             1);
 	background-color: #cbddfa;
 	color: black;
 }
@@ -116,9 +117,10 @@ h4 {
 .eu-nextstreet-SuggestMatchingString {
 	color: #0f8a04;
 	text-shadow: 1px 1px 1px #95ff8f;
-	filter: dropshadow(color =               #95ff8f, offx =               1, offy =
+	filter: dropshadow(color =                 #95ff8f, offx =                 1,
+		offy = 
 		 
-		            1);
+		             1);
 }
 
 .eu-nextstreet-SuggestFieldComp {
@@ -199,9 +201,10 @@ h4 {
 	-moz-border-radius: 6px;
 	border-radius: 6px;
 	text-shadow: 1px 1px 1px #a90329;
-	filter: dropshadow(color =               #a90329, offx =               1, offy =
+	filter: dropshadow(color =                 #a90329, offx =                 1,
+		offy = 
 		 
-		            1);
+		             1);
 	background-color: #ffc2c2;
 	color: black;
 }
@@ -242,24 +245,27 @@ h4 {
 .eu-nextstreet-SuggestFieldPopupSimpleTableCell-selected {
 	background-color: #b5b5b5;
 	text-shadow: 1px 1px 1px #d5d5d5;
-	filter: dropshadow(color =               #d5d5d5, offx =               1, offy =
+	filter: dropshadow(color =                 #d5d5d5, offx =                 1,
+		offy = 
 		 
-		            1);
+		             1);
 }
 
 .eu-nextstreet-SuggestFieldPopupSimpleTableCell-hover {
 	text-shadow: 1px 1px 1px #707cba;
-	filter: dropshadow(color =               #707cba, offx =               1, offy =
+	filter: dropshadow(color =                 #707cba, offx =                 1,
+		offy = 
 		 
-		            1);
+		             1);
 }
 
 .eu-nextstreet-SuggestTableMatchingString {
 	background-color: #b0fc24;
 	text-shadow: 1px 1px 1px #25e1fa;
-	filter: dropshadow(color =               #25e1fa, offx =               1, offy =
+	filter: dropshadow(color =                 #25e1fa, offx =                 1,
+		offy = 
 		 
-		            1);
+		             1);
 }
 
 .eu-nextstreet-MultiChoiceItem {
@@ -268,7 +274,7 @@ h4 {
 }
 
 .eu-nextstreet-MultiChoiceItem .eu-nextstreet-MultiItem {
-
+	
 }
 
 .eu-nextstreet-SuggestItem-Elem {
@@ -294,6 +300,7 @@ h4 {
 }
 
 .eu-nextstreet-MultiChoiceSelection {
+	
 }
 
 .eu-nextstreet-MultiItem {
@@ -319,7 +326,7 @@ h4 {
 /**----------- StatePanel **********/
 .sPanel {
 	border-radius: 4px 4px 4px 4px;
-	height: 70px;
+	height: 80px;
 	text-align: center;
 	width: 450px;
 	padding: 10px;
