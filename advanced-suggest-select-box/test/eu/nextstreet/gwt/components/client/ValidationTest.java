@@ -178,6 +178,7 @@ public class ValidationTest {
 
 		multiBox.setStringFormulator(stringFormulator);
 		multiBox.putOption(new BooleanOption(DefaultOptions.STARTS_WITH.name(), true));
+		multiBox.setStrictMode(true);
 		multiBox.getTextField().getTop().setStyleName("eu-nextstreet-MultiChoiceSelection");
 		fillData(multiBox);
 		multiBox.setIconLinker(iconLinker);

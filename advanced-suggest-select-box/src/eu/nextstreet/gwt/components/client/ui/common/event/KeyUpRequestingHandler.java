@@ -33,6 +33,7 @@ public abstract class KeyUpRequestingHandler {
 		if (query.length() >= minTextLenth) {
 			// System.out.println("running shedule: " + isRunningSchedule);
 			if (!isRunningSchedule) {
+				isRunningSchedule = true;
 				Scheduler scheduler = Scheduler.get();
 				scheduler.scheduleFixedDelay(new Scheduler.RepeatingCommand() {
 
@@ -43,7 +44,6 @@ public abstract class KeyUpRequestingHandler {
 							// System.out.println("started running schedule with " + query +
 							// " but text is still being requested " + textBeingRequested);
 							textBeingRequested = query;
-							isRunningSchedule = true;
 							return true;
 						}
 						// System.out.println("executing with " + query);

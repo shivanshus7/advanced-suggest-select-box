@@ -59,7 +59,7 @@ public class DefaultSuggestBox<T, W extends EventHandlingValueHolderItem<T>> ext
 	protected @UiField
 	SuggestTextBoxWidgetImpl<T, W> textField;
 
-	protected int suggestionMaxCount = 10;
+	protected int propositionsMaxCount = 10;
 	protected SuggestOracle<T> suggestOracle;
 
 	@SuppressWarnings({ "unused", "rawtypes" })
@@ -149,7 +149,7 @@ public class DefaultSuggestBox<T, W extends EventHandlingValueHolderItem<T>> ext
 
 	@Override
 	protected void computeFiltredPossibilities(final String text, final SuggestPossibilitiesCallBack<T> suggestPossibilitiesCallBack) {
-		Request request = new Request(text, suggestionMaxCount);
+		Request request = new Request(text, propositionsMaxCount);
 		callback.setInnerCallBack(suggestPossibilitiesCallBack);
 		suggestOracle.requestSuggestions(request, callback);
 	}
@@ -190,11 +190,11 @@ public class DefaultSuggestBox<T, W extends EventHandlingValueHolderItem<T>> ext
 	}
 
 	public int getPropositionsMaxCount() {
-		return suggestionMaxCount;
+		return propositionsMaxCount;
 	}
 
 	public void setPropositionsMaxCount(int propositionsMaxCount) {
-		this.suggestionMaxCount = propositionsMaxCount;
+		this.propositionsMaxCount = propositionsMaxCount;
 	}
 
 	public KeyEventManager getKeyEventManager() {

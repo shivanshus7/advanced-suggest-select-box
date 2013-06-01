@@ -24,16 +24,20 @@ import eu.nextstreet.gwt.components.client.ui.widget.suggest.param.BooleanOption
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.param.Option;
 
 public class DefaultSuggestOracle<T> extends SuggestOracle<T> {
-	protected List<T>	possiblilities	= new ArrayList<T>();
+	protected List<T> possiblilities = new ArrayList<T>();
 
 	@Override
 	public void requestSuggestions(eu.nextstreet.gwt.components.client.ui.widget.suggest.SuggestOracle.Request request,
 			eu.nextstreet.gwt.components.client.ui.widget.suggest.SuggestOracle.Callback<T> callback) {
 		String text = request.getQuery();
+		int limit = request.getLimit();
 		List<T> toReturn = new ArrayList<T>();
 		for (T t : possiblilities) {
-			if (accept(text, t))
+			if (accept(text, t)) {
 				toReturn.add(t);
+				if (toReturn.size() == limit)
+					break;
+			}
 		}
 		callback.onSuggestionsReady(request, new Response<T>(toReturn));
 

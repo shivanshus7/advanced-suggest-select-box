@@ -499,7 +499,8 @@ public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderIt
 		} else {
 			// the change is not notified immediately since we just suggest the
 			// value t. We keep a flag to know there was no notification
-			fireChangeOnBlur = true;
+			if (!strictMode)
+				fireChangeOnBlur = true;
 		}
 		return true;
 	}
