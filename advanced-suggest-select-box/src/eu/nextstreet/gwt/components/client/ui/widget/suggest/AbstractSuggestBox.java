@@ -63,6 +63,7 @@ import eu.nextstreet.gwt.components.shared.Validator;
 public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderItem<T>> extends ChangeEventHandlerHolder<Boolean, SuggestChangeEvent<T, W>>
 		implements StringFormulator<T> {
 
+	private static final String READ_ONLY = "rOnly";
 	private static final String SUGGEST_FIELD_COMP = "eu-nextstreet-SuggestFieldComp";
 	private static final String SUGGEST_FIELD = "eu-nextstreet-SuggestFieldDetail";
 	private static final String SUGGEST_FIELD_HOVER = "eu-nextstreet-SuggestFieldHover";
@@ -789,6 +790,10 @@ public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderIt
 	}
 
 	public void setReadOnly(boolean readOnly) {
+		if (readOnly)
+			addStyleName(READ_ONLY);
+		else
+			removeStyleName(READ_ONLY);
 		getTextField().setReadOnly(readOnly);
 	}
 

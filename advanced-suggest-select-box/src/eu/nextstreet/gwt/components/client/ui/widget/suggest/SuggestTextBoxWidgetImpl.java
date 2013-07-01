@@ -57,6 +57,7 @@ public class SuggestTextBoxWidgetImpl<T, W extends EventHandlingValueHolderItem<
 	private static final String SUGGEST_FIELD_LEFT = "left";
 	private static final String SUGGEST_FIELD_RIGHT = "right";
 	private static final String SUGGEST_FIELD_CENTRAL = "vCentral";
+	private static final String SUGGEST_FIELD_CENTRAL_END = "vCentralEnd";
 
 	/** the main panel */
 	protected Panel panel = new HTMLPanel("");
@@ -98,6 +99,8 @@ public class SuggestTextBoxWidgetImpl<T, W extends EventHandlingValueHolderItem<
 	protected SimplePanel left = new SimplePanel();
 	/** right of the text box */
 	protected SimplePanel right = new SimplePanel();
+	/** added to allow putting a clear:both to close the panel */
+	protected SimplePanel vCentralEnd = new SimplePanel();
 	/** top of the text box */
 	protected SimplePanel top = new SimplePanel();
 	/** bottom of the text box */
@@ -147,6 +150,8 @@ public class SuggestTextBoxWidgetImpl<T, W extends EventHandlingValueHolderItem<
 		right.setStyleName(SUGGEST_FIELD_RIGHT);
 		vCentral.add(right);
 		vCentral.setStyleName(SUGGEST_FIELD_CENTRAL);
+		vCentralEnd.setStyleName(SUGGEST_FIELD_CENTRAL_END);
+		vCentral.add(vCentralEnd);
 		panel.add(vCentral);
 
 		bottom.setStyleName(SUGGEST_FIELD_BOTTOM);
