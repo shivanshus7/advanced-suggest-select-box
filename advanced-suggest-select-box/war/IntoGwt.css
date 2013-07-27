@@ -127,6 +127,17 @@ h4 {
 	clear: both;
 }
 
+
+.eu-nextstreet-SuggestFieldComp.rOnly {
+    background-color: #DDDDDD;
+    -webkit-border-radius: 3px;
+	border-radius: 3px;
+}
+
+.rOnly .eu-nextstreet-SuggestFieldDetail {
+	border: none;
+}
+
 .eu-nextstreet-SuggestFieldDetail {
 	-webkit-border-radius: 3px;
 	border-radius: 3px;
@@ -218,6 +229,14 @@ h4 {
 	-moz-box-shadow: 1px 1px 8px #ff9999;
 	box-shadow: 1px 1px 8px #ff9999;
 }
+.rOnly .eu-nextstreet-SuggestField.eu-nextstreet-SuggestField-readonly {
+	-moz-border-radius: 0px;
+	border-radius: 0px;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+	background: none;
+}
 
 .eu-nextstreet-AdvancedTextBoxReadOnlyText {
 	background-color: #dddddd;
@@ -245,10 +264,7 @@ h4 {
 .eu-nextstreet-SuggestFieldPopupSimpleTableCell-selected {
 	background-color: #b5b5b5;
 	text-shadow: 1px 1px 1px #d5d5d5;
-	filter: dropshadow(color =                 #d5d5d5, offx =                 1,
-		offy = 
-		 
-		             1);
+	filter: dropshadow(color =#d5d5d5, offx =1,offy =1);
 }
 
 .eu-nextstreet-SuggestFieldPopupSimpleTableCell-hover {
@@ -361,3 +377,4 @@ h4 {
 .green {
 	background-color: #E6FFA2;
 }
+
