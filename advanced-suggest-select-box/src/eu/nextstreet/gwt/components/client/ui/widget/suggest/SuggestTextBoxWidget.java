@@ -34,70 +34,74 @@ import eu.nextstreet.gwt.components.shared.Validator;
 public interface SuggestTextBoxWidget<T, W extends EventHandlingValueHolderItem<T>> extends IsWidget, MouseDownHandler, MouseMoveHandler, MouseOutHandler,
 		HasKeyUpHandlers, HasKeyDownHandlers, HasDoubleClickHandlers, HasBlurHandlers {
 
-	public abstract String getText();
+	String getText();
 
-	public abstract void setReadOnly(boolean readOnly);
+	void setReadOnly(boolean readOnly);
 
-	public abstract void setReadOnlyTextStyle(String readOnlyTextStyle);
+	void setReadOnlyTextStyle(String readOnlyTextStyle);
 
-	public abstract String getReadOnlyTextStyle();
+	String getReadOnlyTextStyle();
 
-	public abstract void setErrorTextStyle(String errorTextStyle);
+	void setErrorTextStyle(String errorTextStyle);
 
-	public abstract String getErrorTextStyle();
+	String getErrorTextStyle();
 
-	public abstract boolean isReadOnly();
+	boolean isReadOnly();
 
-	public abstract void setDefaultTextStyle(String defaultTextStyle);
+	void setDefaultTextStyle(String defaultTextStyle);
 
-	public abstract void setMandatoryTextStyle(String defaultMandatoryTextStyle);
+	void setMandatoryTextStyle(String defaultMandatoryTextStyle);
 
-	public abstract String getMandatoryTextStyle();
+	String getMandatoryTextStyle();
 
-	public abstract void setMandatory(boolean mandatory);
+	void setMandatory(boolean mandatory);
 
-	public abstract boolean isMandatory();
+	boolean isMandatory();
 
-	public abstract String getDefaultTextStyle();
+	String getDefaultTextStyle();
 
-	public abstract void setValidator(Validator<String> validator);
+	void setValidator(Validator<String> validator);
 
-	public abstract Validator<String> getValidator();
+	Validator<String> getValidator();
 
-	public abstract void setSelectionRange(int i, int length);
+	void setSelectionRange(int i, int length);
 
-	public abstract String getDefaultText();
+	String getDefaultText();
 
-	public abstract void setEnabled(boolean enabled);
+	void setEnabled(boolean enabled);
 
-	public abstract String getTextValue();
+	String getTextValue();
 
-	public abstract void setFocus(boolean b);
+	void setFocus(boolean b);
 
-	public abstract void setDefaultText(String defaultText);
+	void setDefaultText(String defaultText);
 
-	public abstract void setRepresenter(AbstractSuggestBox<T, W> abstractSuggestBox);
+	void setRepresenter(AbstractSuggestBox<T, W> abstractSuggestBox);
 
-	public abstract AbstractSuggestBox<T, W> getRepresenter();
+	AbstractSuggestBox<T, W> getRepresenter();
 
-	public abstract void setText(String value);
+	void setText(String value);
 
-	public abstract void setValue(T value);
+	void setValue(T value);
 
-	public abstract void setStyleName(String suggestField);
+	void setStyleName(String suggestField);
 
 	// ------------------- used to position the popup ------------------
 
-	public abstract int getAbsoluteLeft();
+	int getAbsoluteLeft();
 
-	public abstract int getAbsoluteTop();
+	int getAbsoluteTop();
 
-	public abstract int getOffsetHeight();
+	int getTextWidgetOffsetWidth();
+
+	int getOffsetWidth();
+
+	int getOffsetHeight();
 
 	// ------------------- style handling -------------------
-	public abstract void addStyleName(String suggestFieldHover);
+	void addStyleName(String suggestFieldHover);
 
-	public abstract void removeStyleName(String suggestFieldHover);
+	void removeStyleName(String suggestFieldHover);
 
 	void onDoubleClick(DoubleClickEvent event);
 

@@ -44,4 +44,11 @@ public interface SuggestWidget<T> {
 	 */
 	void adjustPosition(int absoluteLeft, int absoluteTop);
 
+	/**
+	 * sets the style min-width attribute
+	 * 
+	 * @param pixels
+	 */
+	void setMinWidth(int pixels);
+
 }

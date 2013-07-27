@@ -16,6 +16,7 @@
  */
 package eu.nextstreet.gwt.components.client.ui.widget.suggest.impl;
 
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.ScrollPanel;
 
@@ -52,6 +53,11 @@ public class DefaultSuggestionPopup<T> extends PopupPanel implements SuggestWidg
 	@Override
 	public void adjustPosition(int absoluteLeft, int absoluteTop) {
 		super.setPopupPosition(absoluteLeft, absoluteTop);
+	}
+
+	public void setMinWidth(int pixels) {
+		Element elem = getElement();
+		elem.getStyle().setPropertyPx("minWidth", pixels);
 	}
 
 	@Override

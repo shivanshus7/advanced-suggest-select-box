@@ -385,6 +385,7 @@ public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderIt
 
 	protected void showSuggestList() {
 		suggestWidget.adjustPosition(getTextField().getAbsoluteLeft(), getTextField().getAbsoluteTop() + getTextField().getOffsetHeight());
+		suggestWidget.setMinWidth(getTextField().getTextWidgetOffsetWidth());
 		highlightSelectedValue(-1, selectedIndex);
 		suggestWidget.show();
 	}

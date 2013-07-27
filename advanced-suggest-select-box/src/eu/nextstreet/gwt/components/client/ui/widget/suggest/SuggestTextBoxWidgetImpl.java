@@ -501,5 +501,9 @@ public class SuggestTextBoxWidgetImpl<T, W extends EventHandlingValueHolderItem<
 		representer.onDoubleClick(event);
 	}
 
+	public int getTextWidgetOffsetWidth() {
+		return advancedTextBox.getOffsetWidth();
+	}
+
 	// ------------------------------------------------------- end.
 }
