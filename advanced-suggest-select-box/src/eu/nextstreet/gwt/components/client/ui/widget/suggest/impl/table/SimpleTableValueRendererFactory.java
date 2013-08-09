@@ -24,9 +24,8 @@ import eu.nextstreet.gwt.components.client.ui.widget.suggest.param.BooleanOption
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.param.Option;
 
 /**
- * The factory for the inclueded table popup content builder. You should
- * override {@link #newInstance(Object, String, boolean)} to give your instance
- * to the factory and have it handle the rest of the work
+ * The factory for the inclueded table popup content builder. You should override {@link #newInstance(Object, String, boolean)} to give your instance to the
+ * factory and have it handle the rest of the work
  * 
  * @author Zied Hamdi founder of http://1vu.fr founder of http://into-i.fr
  * 
@@ -35,31 +34,27 @@ import eu.nextstreet.gwt.components.client.ui.widget.suggest.param.Option;
  * @param <W>
  *          the view object representing the value row
  */
-public class SimpleTableValueRendererFactory<T, W extends SimpleTableRowItemRenderer<T>>
-		extends AbstractValueRendererFactory<T, W> {
+public class SimpleTableValueRendererFactory<T, W extends SimpleTableRowItemRenderer<T>> extends AbstractValueRendererFactory<T, W> {
 	private String tableStyle = "eu-nextstreet-SuggestFieldPopupSimpleTable";
 	private String cellStyle = "eu-nextstreet-SuggestFieldPopupSimpleTableCell";
 
 	@Override
 	public SimpleTableListRenderer<T, W> createListRenderer() {
-		SimpleTableListRenderer<T, W> simpleTableListRenderer = new SimpleTableListRenderer<T, W>();
+		SimpleTableListRenderer<T, W> simpleTableListRenderer = new SimpleTableListRenderer<T, W>(this);
 		simpleTableListRenderer.setStyleName(tableStyle);
 		return simpleTableListRenderer;
 	}
 
 	@Override
-	public W createValueRenderer(T value, String filterText,
-			Map<String, Option<?>> options) {
-		W toReturn = newInstance(value, filterText,
-				BooleanOption.isEnabled(DefaultOptions.CASE_SENSITIVE.name(), options));
+	public W createValueRenderer(T value, String filterText, Map<String, Option<?>> options) {
+		W toReturn = newInstance(value, filterText, BooleanOption.isEnabled(DefaultOptions.CASE_SENSITIVE.name(), options));
 		toReturn.setStyleName(cellStyle);
 		return toReturn;
 	}
 
 	@SuppressWarnings("unchecked")
 	protected W newInstance(T value, String filterText, boolean caseSensitive) {
-		W toReturn = (W) new SimpleTableRowItemRenderer<T>(value, filterText,
-				caseSensitive, this);
+		W toReturn = (W) new SimpleTableRowItemRenderer<T>(value, filterText, caseSensitive, this);
 		toReturn.initWidget();
 		return toReturn;
 	}
@@ -83,9 +78,7 @@ public class SimpleTableValueRendererFactory<T, W extends SimpleTableRowItemRend
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueRendererFactory
-	 * #toString(T)
+	 * @see eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueRendererFactory #toString(T)
 	 */
 	public String toString(T value) {
 		return null;

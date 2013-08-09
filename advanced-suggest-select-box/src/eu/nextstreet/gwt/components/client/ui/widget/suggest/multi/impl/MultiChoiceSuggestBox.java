@@ -49,10 +49,6 @@ public class MultiChoiceSuggestBox<T, W extends IconedValueHolderItem<T>, C exte
 	protected List<C> selectedValues = new ArrayList<C>();
 
 	/**
-	 * Remembers the removed elements
-	 */
-	protected List<T> removedValues = new ArrayList<T>();
-	/**
 	 * Contains the list of widgets for the selected values in their addition order
 	 */
 	protected ListRenderer<T, C> selectedValuesPanel;
@@ -70,6 +66,7 @@ public class MultiChoiceSuggestBox<T, W extends IconedValueHolderItem<T>, C exte
 		this.position = position;
 		setChoiceItemsRendererFactory(choiceItemsRendererFactory);
 		setChoicesPanel();
+		setMaxSelected(-1);
 	}
 
 	@Override
@@ -96,10 +93,11 @@ public class MultiChoiceSuggestBox<T, W extends IconedValueHolderItem<T>, C exte
 		emptyIcon();
 	}
 
-	public void valueRemoved(T value) {
-		removedValues.add(value);
+	public boolean removeSelection(T value) {
+		boolean removed = super.removeSelection(value);
 		SuggestChangeEvent<T, W> changeEvent = new SuggestChangeEvent<T, W>(this, value, true);
 		changeOccured(changeEvent);
+		return removed;
 	}
 
 	protected ValueRendererFactory<T, C> getChoiceItemsRendererFactory() {
@@ -114,26 +112,22 @@ public class MultiChoiceSuggestBox<T, W extends IconedValueHolderItem<T>, C exte
 		setChoicesPanel();
 	}
 
-	public List<T> getValues() {
-		int widgetCount = selectedValuesPanel.getWidgetCount();
-		List<T> toReturn = new ArrayList<T>();
-		for (int i = 0; i < widgetCount; i++) {
-			C selected = selectedValuesPanel.getAt(i);
-			toReturn.add(selected.getValue());
-		}
-		return toReturn;
-	}
+	// public List<T> getSelection() {
+	// int widgetCount = selectedValuesPanel.getWidgetCount();
+	// List<T> toReturn = new ArrayList<T>();
+	// for (int i = 0; i < widgetCount; i++) {
+	// C selected = selectedValuesPanel.getAt(i);
+	// toReturn.add(selected.getValue());
+	// }
+	// return toReturn;
+	// }
 
-	public void setValues(List<T> toSet) {
+	public void setSelection(List<T> toSet) {
 		clearSelection(false);
 		removedValues.clear();
 		for (T value : toSet) {
 			selectedValuesPanel.add(value, choiceItemsRendererFactory.createValueRenderer(value, DEBUG_ID_PREFIX, getOptions()));
 		}
-	}
-
-	public void clearSelection() {
-		clearSelection(true);
 	}
 
 	protected void clearSelection(boolean fireEvents) {
@@ -170,10 +164,6 @@ public class MultiChoiceSuggestBox<T, W extends IconedValueHolderItem<T>, C exte
 			textField.setTopWidget(widget);
 		else if (position == DockPanel.SOUTH)
 			textField.setBottomWidget(widget);
-	}
-
-	public List<T> getRemovedValues() {
-		return removedValues;
 	}
 
 }

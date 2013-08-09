@@ -1,8 +1,13 @@
 package eu.nextstreet.gwt.components.client.ui.widget.select;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-import eu.nextstreet.gwt.components.client.ui.widget.WidgetController;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.*;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.SuggestOracle.Callback;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.SuggestOracle.Request;
@@ -20,17 +25,14 @@ import eu.nextstreet.gwt.components.client.ui.widget.suggest.param.Option;
  * @param <W>
  *          the item list representer: the widget that displays the value in the list
  */
-public abstract class AbstractPanelValueSelector<T, W extends EventHandlingValueHolderItem<T>> extends AbstractBaseWidget<T, T, PanelSelectedEvent<T>>
-		implements WidgetController<T> {
+public abstract class AbstractPanelValueSelector<T, W extends EventHandlingValueHolderItem<T>> extends AbstractBaseWidget<T, T, PanelSelectedEvent<T>> {
 	public enum LabelDiplayOptions {
 		INSIDE, RANGE, ABOVE;
 	}
 
-	protected List<T> selected = new ArrayList<T>();
 	protected ValueRendererFactory<T, W> valueRendererFactory;
 	protected Map<String, Option<?>> options = new HashMap<String, Option<?>>();
 	protected ListRenderer<T, W> listRenderer;
-	protected int maxSelected = 1;
 
 	public AbstractPanelValueSelector(SuggestOracle<T> suggestOracle, ValueRendererFactory<T, W> valueRendererFactory) {
 		this.suggestOracle = suggestOracle;
@@ -54,8 +56,15 @@ public abstract class AbstractPanelValueSelector<T, W extends EventHandlingValue
 	protected abstract void uiSetListPanel(ListRenderer<T, W> listRenderer);
 
 	protected void init(Collection<T> suggestions) {
-		for (T value : suggestions) {
+		for (final T value : suggestions) {
 			W valueRenderer = valueRendererFactory.createValueRenderer(value, null, options);
+			valueRenderer.addClickHandler(new ClickHandler() {
+
+				@Override
+				public void onClick(ClickEvent event) {
+					valueRendererFactory.getWidgetController().valueSelected(value);
+				}
+			});
 			uiAddPanel(value, valueRenderer);
 		}
 		uiUpdateSelection();
@@ -80,11 +89,34 @@ public abstract class AbstractPanelValueSelector<T, W extends EventHandlingValue
 
 	@Override
 	public void valueSelected(T value) {
-		selected.add(value);
-		if (maxSelected > 0) {
-			if (selected.size() > maxSelected)
-				selected.remove(0);
-		}
+		super.valueSelected(value);
+		fireChangeOccured(value);
+		uiUpdateSelection();
+	}
+
+	@Override
+	public void setSelection(List<T> toSet) {
+		super.setSelection(toSet);
+		uiUpdateSelection();
+	}
+
+	@Override
+	public void toggleSelection(T value) {
+		super.toggleSelection(value);
+		uiUpdateSelection();
+	}
+
+	@Override
+	public boolean removeSelection(T value) {
+		boolean removed = super.removeSelection(value);
+		fireChangeOccured(value);
+		uiUpdateSelection();
+		return removed;
+	}
+
+	@Override
+	public void clearSelection() {
+		super.clearSelection();
 		uiUpdateSelection();
 	}
 
@@ -93,25 +125,4 @@ public abstract class AbstractPanelValueSelector<T, W extends EventHandlingValue
 	 */
 	protected abstract void uiUpdateSelection();
 
-	public int getMaxSelected() {
-		return maxSelected;
-	}
-
-	/**
-	 * sets the maximum number of simultaneous selections. -1 means no limit. Default is 1
-	 * 
-	 * @param maxSelected
-	 */
-	public void setMaxSelected(int maxSelected) {
-		this.maxSelected = maxSelected;
-		if (maxSelected == -1)
-			return;
-
-		int selCount = selected.size() - maxSelected;
-		if (selCount > 0) {
-			for (int i = 0; i < selCount; i++) {
-				selected.remove(0);
-			}
-		}
-	}
 }

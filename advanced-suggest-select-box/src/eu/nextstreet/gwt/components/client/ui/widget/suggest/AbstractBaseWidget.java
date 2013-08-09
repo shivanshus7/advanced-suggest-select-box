@@ -16,15 +16,13 @@
  */
 package eu.nextstreet.gwt.components.client.ui.widget.suggest;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.user.client.ui.Composite;
 
+import eu.nextstreet.gwt.components.client.ui.widget.WidgetController;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.impl.simple.DefaultStringFormulator;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.param.Option;
 
@@ -43,12 +41,19 @@ import eu.nextstreet.gwt.components.client.ui.widget.suggest.param.Option;
  * @param <E>
  *          the concrete type of event
  */
-public abstract class AbstractBaseWidget<T, P, E extends ChangeEvent> extends Composite implements StringFormulator<T> {
+public abstract class AbstractBaseWidget<T, P, E extends ChangeEvent> extends Composite implements StringFormulator<T>, WidgetController<T> {
 	protected Map<String, Option<?>> options = new HashMap<String, Option<?>>();
 	protected SuggestOracle<T> suggestOracle;
 	protected List<ChangeHandler> changeHandlerList = new ArrayList<ChangeHandler>();
 
 	protected StringFormulator<T> stringFormulator = new DefaultStringFormulator<T>();
+	protected List<T> selectedItems = new ArrayList<T>();
+	protected int maxSelected = 1;
+
+	/**
+	 * Remembers the removed elements
+	 */
+	protected List<T> removedValues = new ArrayList<T>();
 
 	public Option<?> getOption(String key) {
 		return options.get(key);
@@ -133,5 +138,80 @@ public abstract class AbstractBaseWidget<T, P, E extends ChangeEvent> extends Co
 
 	public void setStringFormulator(StringFormulator<T> stringFormulator) {
 		this.stringFormulator = stringFormulator;
+	}
+
+	/**
+	 * Called when a value is selected from the list, if the value is typed on the keyboard and only one possible element corresponds, this method will be called
+	 * immediately only if <code>multipleChangeEvent</code> is true. Otherwise it will wait until a blur event occurs Notice that if
+	 * <code>multipleChangeEvent</code> is true, this method will be called also each time the enter key is typed
+	 * 
+	 * @param value
+	 */
+	@Override
+	public void valueSelected(T value) {
+		selectedItems.add(value);
+		if (maxSelected > 0) {
+			if (selectedItems.size() > maxSelected)
+				selectedItems.remove(0);
+		}
+	}
+
+	@Override
+	public void setSelection(List<T> toSet) {
+		clearSelection();
+		removedValues.clear();
+		selectedItems.addAll(toSet);
+	}
+
+	public void setSelection(T... values) {
+		setSelection(Arrays.asList(values));
+	}
+
+	public void toggleSelection(T value) {
+		if (!removeSelection(value))
+			valueSelected(value);
+	}
+
+	@Override
+	public boolean removeSelection(T value) {
+		removedValues.add(value);
+		return selectedItems.remove(value);
+	}
+
+	@Override
+	public void clearSelection() {
+		selectedItems.clear();
+	}
+
+	public int getMaxSelected() {
+		return maxSelected;
+	}
+
+	/**
+	 * sets the maximum number of simultaneous selections. -1 means no limit. Default is 1
+	 * 
+	 * @param maxSelected
+	 */
+	public void setMaxSelected(int maxSelected) {
+		this.maxSelected = maxSelected;
+		if (maxSelected == -1)
+			return;
+
+		int selCount = selectedItems.size() - maxSelected;
+		if (selCount > 0) {
+			for (int i = 0; i < selCount; i++) {
+				selectedItems.remove(0);
+			}
+		}
+	}
+
+	public List<T> getRemovedValues() {
+		removedValues.removeAll(selectedItems);
+		return removedValues;
+	}
+
+	@Override
+	public List<T> getSelection() {
+		return selectedItems;
 	}
 }

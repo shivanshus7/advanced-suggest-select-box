@@ -16,11 +16,12 @@
  */
 package eu.nextstreet.gwt.components.client.ui.widget.suggest.impl.simple;
 
-import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import eu.nextstreet.gwt.components.client.ui.widget.common.WidgetValueMemory;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.EventHandlingValueHolderItem;
+import eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueRendererFactory;
 
 /**
  * The default list renderer has all needed methods implemented by its parent class
@@ -31,11 +32,12 @@ import eu.nextstreet.gwt.components.client.ui.widget.suggest.EventHandlingValueH
  */
 public class DefaultListRenderer<T, W extends EventHandlingValueHolderItem<T>> extends WidgetValueMemory<T, W> {
 
-	protected VerticalPanel panel = new VerticalPanel();
+	protected FlowPanel panel = new FlowPanel();
 
-	public DefaultListRenderer() {
+	public DefaultListRenderer(ValueRendererFactory<T, ?> factory) {
+		super(factory);
 		initWidget(panel);
-		panel.setSpacing(0);
+		panel.setStyleName("defaultListRenderer");
 	}
 
 	@Override

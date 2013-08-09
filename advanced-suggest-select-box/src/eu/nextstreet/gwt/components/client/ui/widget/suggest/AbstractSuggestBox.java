@@ -25,7 +25,6 @@ import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.UIObject;
 import com.google.gwt.user.client.ui.Widget;
 
-import eu.nextstreet.gwt.components.client.ui.widget.WidgetController;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueRendererFactory.ListRenderer;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.impl.DefaultSuggestBox;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.impl.DefaultSuggestionPopup;
@@ -47,8 +46,7 @@ import eu.nextstreet.gwt.components.shared.Validator;
  * @param <W>
  *          the item list representer: the widget that displays the value in the list
  */
-public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderItem<T>> extends AbstractBaseWidget<T, Boolean, SuggestChangeEvent<T, W>>
-		implements WidgetController<T> {
+public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderItem<T>> extends AbstractBaseWidget<T, Boolean, SuggestChangeEvent<T, W>> {
 
 	private static final String READ_ONLY = "rOnly";
 	private static final String SUGGEST_FIELD_COMP = "eu-nextstreet-SuggestFieldComp";
@@ -468,7 +466,9 @@ public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderIt
 	 * 
 	 * @param value
 	 */
+	@Override
 	public void valueSelected(T value) {
+		super.valueSelected(value);
 		fireChangeOccured(true);
 	}
 

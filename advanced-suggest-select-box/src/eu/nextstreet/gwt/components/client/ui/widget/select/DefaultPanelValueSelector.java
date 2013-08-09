@@ -84,10 +84,13 @@ public class DefaultPanelValueSelector<T> extends AbstractPanelValueSelector<T, 
 
 	@Override
 	protected void uiUpdateSelection() {
+		if (listRenderer == null)
+			throw new IllegalStateException("Did you initialize the values before calling uiUpdateSelection() ?");
+
 		Set<T> values = listRenderer.getValues();
 		for (T t : values) {
 			EventHandlingValueHolderItem<T> item = listRenderer.getItem(t);
-			if (selected.contains(t)) {
+			if (selectedItems.contains(t)) {
 				item.addStyleName(panelStyles.selected());
 			} else {
 				item.removeStyleName(panelStyles.selected());
@@ -97,7 +100,7 @@ public class DefaultPanelValueSelector<T> extends AbstractPanelValueSelector<T, 
 
 	@Override
 	protected PanelSelectedEvent<T> changedValue(T item) {
-		return new PanelSelectedEvent<T>(item);
+		return new PanelSelectedEvent<T>(item, listRenderer);
 	}
 
 }

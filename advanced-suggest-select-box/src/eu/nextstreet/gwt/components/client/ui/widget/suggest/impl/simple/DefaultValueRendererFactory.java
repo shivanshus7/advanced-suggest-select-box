@@ -57,7 +57,7 @@ public class DefaultValueRendererFactory<T, W extends EventHandlingValueHolderIt
 
 	@Override
 	public ValueRendererFactory.ListRenderer<T, W> createListRenderer() {
-		DefaultListRenderer<T, W> defaultListRenderer = new DefaultListRenderer<T, W>();
+		DefaultListRenderer<T, W> defaultListRenderer = new DefaultListRenderer<T, W>(this);
 		return defaultListRenderer;
 	}
 

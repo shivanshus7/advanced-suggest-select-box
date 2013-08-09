@@ -172,6 +172,11 @@ h4 {
 	width: 99%;
 }
 
+#selectionPanelState {
+    background-color: #085123;
+    color: yellow;
+}
+
 #suggestBoxContainer .eu-nextstreet-SuggestField {
 	width: 94%;
 } 

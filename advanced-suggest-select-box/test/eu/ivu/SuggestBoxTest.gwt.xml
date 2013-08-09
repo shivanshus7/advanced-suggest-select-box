@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit 2.4.0//EN" "http://google-web-toolkit.googlecode.com/svn/tags/2.4.0/distro-source/core/src/gwt-module.dtd">
+<module rename-to="intogwttest">
+	<inherits name="com.google.gwt.user.User" />
+	<inherits name="eu.nextstreet.gwt.components.IntoGwt" />
+	<source path="client" />
+	<entry-point
+		class="eu.ivu.client.SuggestBoxTest" />
+</module>

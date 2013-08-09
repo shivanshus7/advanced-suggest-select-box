@@ -16,8 +16,6 @@
  */
 package eu.nextstreet.gwt.components.client.ui.widget.suggest.impl.simple;
 
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.UIObject;
 
@@ -47,13 +45,6 @@ public class DefaultValueRenderer<T> extends HTML implements EventHandlingValueH
 		this.caseSensitive = caseSensitive;
 		this.valueRendererFactory = valueRendererFactory;
 		fillHtml(value, filterText, caseSensitive);
-		addClickHandler(new ClickHandler() {
-
-			@Override
-			public void onClick(ClickEvent event) {
-				valueRendererFactory.getWidgetController().valueSelected(value);
-			}
-		});
 	}
 
 	protected void fillHtml(T value, String filterText, boolean caseSensitive) {

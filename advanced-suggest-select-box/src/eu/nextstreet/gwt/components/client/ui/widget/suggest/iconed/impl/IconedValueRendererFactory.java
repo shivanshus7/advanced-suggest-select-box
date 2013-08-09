@@ -67,7 +67,7 @@ public class IconedValueRendererFactory<T, W extends IconedValueHolderItem<T>> e
 
 	@Override
 	public eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueRendererFactory.ListRenderer<T, W> createListRenderer() {
-		DefaultListRenderer<T, W> defaultListRenderer = new DefaultListRenderer<T, W>();
+		DefaultListRenderer<T, W> defaultListRenderer = new DefaultListRenderer<T, W>(this);
 		return defaultListRenderer;
 	}
 

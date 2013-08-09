@@ -6,6 +6,7 @@ import java.util.Set;
 
 import com.google.gwt.user.client.ui.Composite;
 
+import eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueRendererFactory;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueRendererFactory.ListRenderer;
 
 /**
@@ -21,6 +22,12 @@ import eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueRendererFactor
 public abstract class WidgetValueMemory<T, W> extends Composite implements ListRenderer<T, W> {
 	protected Map<T, W> valueWidgetMapping = new HashMap<T, W>();
 	protected Map<W, T> valueWidgetInverseMapping = new HashMap<W, T>();
+
+	protected ValueRendererFactory<T, ?> factory;
+
+	public WidgetValueMemory(ValueRendererFactory<T, ?> factory) {
+		this.factory = factory;
+	}
 
 	@Override
 	public int getWidgetCount() {
@@ -65,5 +72,10 @@ public abstract class WidgetValueMemory<T, W> extends Composite implements ListR
 	}
 
 	public void valueRemoved(T value) {
+	}
+
+	@Override
+	public ValueRendererFactory<T, ?> getFactory() {
+		return factory;
 	}
 }

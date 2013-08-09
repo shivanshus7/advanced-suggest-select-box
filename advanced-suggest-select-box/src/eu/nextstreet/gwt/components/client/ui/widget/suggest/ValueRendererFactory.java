@@ -90,6 +90,8 @@ public interface ValueRendererFactory<T, W extends ValueHolderItem<T>> {
 		boolean containsValue(T value);
 
 		W getItem(T value);
+
+		ValueRendererFactory<T, ?> getFactory();
 	}
 
 	/**

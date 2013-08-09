@@ -22,6 +22,7 @@ import java.util.List;
 import com.google.gwt.user.client.ui.FlexTable;
 
 import eu.nextstreet.gwt.components.client.ui.widget.common.WidgetValueMemory;
+import eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueRendererFactory;
 
 /**
  * Designed to create a simlpe table around the items creating
@@ -39,7 +40,8 @@ public class SimpleTableListRenderer<T, W extends SimpleTableRowItemRenderer<T>>
 	protected FlexTable table = new FlexTable();
 	protected List<W> rows = new ArrayList<W>();
 
-	public SimpleTableListRenderer() {
+	public SimpleTableListRenderer(ValueRendererFactory<T, ?> factory) {
+		super(factory);
 		initWidget(table);
 	}
 
