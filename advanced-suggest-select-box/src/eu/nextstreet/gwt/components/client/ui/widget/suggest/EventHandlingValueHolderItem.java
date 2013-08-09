@@ -24,7 +24,7 @@ import com.google.gwt.event.dom.client.HasDoubleClickHandlers;
  * Representation of an item in the suggest list that handles events
  * independently
  * 
- * @author Zied Hamdi founder of http://into-i.fr
+ * @author Zied Hamdi founder of http://1vu.fr founder of http://into-i.fr
  * 
  * @param <T>
  *          the type of the item value

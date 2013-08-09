@@ -153,26 +153,33 @@ h4 {
 }
 
 .eu-nextstreet-SuggestFieldDetail .vCentral {
-	display: inline;
-	padding-top: 2px;
-	padding-left: 2px;
 }
 
 .eu-nextstreet-SuggestFieldDetail .left {
 	float: left;
+	min-height: 1em;
+	padding-right: 1%;
+	min-width: 1em;
 }
 
 .eu-nextstreet-SuggestField {
 	background: url("img/arrow.png") no-repeat scroll right 5px transparent;
 	border: medium none;
 	float: left;
-	padding-left: 5px;
-	padding-right: 10px;
-	width: 92%;
 }
+
+#suggestBoxMultiValueContainer .eu-nextstreet-SuggestField {
+	width: 99%;
+}
+
+#suggestBoxContainer .eu-nextstreet-SuggestField {
+	width: 94%;
+} 
 
 .eu-nextstreet-SuggestFieldDetail .right {
 	float: left;
+	min-height: 1em;
+	padding-left: 0.5%;
 }
 
 .eu-nextstreet-SuggestPopup {

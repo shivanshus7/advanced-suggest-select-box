@@ -21,7 +21,7 @@ import com.google.gwt.user.client.ui.ScrollPanel;
 /**
  * Widget representing the list of available suggestions (typicallay a popup)
  * 
- * @author Zied Hamdi founder of http://into-i.fr
+ * @author Zied Hamdi founder of http://1vu.fr founder of http://into-i.fr
  * 
  * @param <T>
  */

@@ -1,13 +1,12 @@
 package eu.nextstreet.gwt.components.client.ui.widget.suggest.impl.simple;
 
-import eu.nextstreet.gwt.components.client.ui.widget.suggest.AbstractSuggestBox;
+import eu.nextstreet.gwt.components.client.ui.widget.WidgetController;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.EventHandlingValueHolderItem;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.StringFormulator;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueRendererFactory;
 
-public abstract class AbstractValueRendererFactory<T, W extends EventHandlingValueHolderItem<T>>
-		implements ValueRendererFactory<T, W> {
-	protected AbstractSuggestBox<T, EventHandlingValueHolderItem<T>> suggestBox;
+public abstract class AbstractValueRendererFactory<T, W extends EventHandlingValueHolderItem<T>> implements ValueRendererFactory<T, W> {
+	protected WidgetController<T> widgetController;
 	protected StringFormulator<T> stringFormulator;
 
 	public AbstractValueRendererFactory() {
@@ -19,24 +18,23 @@ public abstract class AbstractValueRendererFactory<T, W extends EventHandlingVal
 	}
 
 	@Override
-	public AbstractSuggestBox<T, EventHandlingValueHolderItem<T>> getSuggestBox() {
-		return suggestBox;
+	public WidgetController<T> getWidgetController() {
+		return widgetController;
 	}
 
 	/**
 	 * You should never call this method manually
 	 * 
-	 * @param suggestBox
+	 * @param controller
 	 */
-	public void setSuggestBox(
-			AbstractSuggestBox<T, EventHandlingValueHolderItem<T>> suggestBox) {
-		this.suggestBox = suggestBox;
+	public void setWidgetController(WidgetController<T> controller) {
+		this.widgetController = controller;
 	}
 
 	@Override
 	public String toString(T value) {
 		if (stringFormulator == null)
-			return suggestBox.toString(value);
+			return ((StringFormulator<T>) widgetController).toString(value);
 
 		return stringFormulator.toString(value);
 	}

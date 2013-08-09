@@ -19,7 +19,7 @@ package eu.nextstreet.gwt.components.client.ui.widget.suggest.impl.simple;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.StringFormulator;
 
 /**
- * @author Zied Hamdi
+ * @author Zied Hamdi founder of http://1vu.fr
  * 
  */
 public class DefaultStringFormulator<T> implements StringFormulator<T> {

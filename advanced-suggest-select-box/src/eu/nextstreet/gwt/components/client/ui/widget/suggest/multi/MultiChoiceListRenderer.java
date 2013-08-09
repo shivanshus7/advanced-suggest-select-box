@@ -19,59 +19,61 @@ package eu.nextstreet.gwt.components.client.ui.widget.suggest.multi;
 
 import com.google.gwt.user.client.ui.FlowPanel;
 
+import eu.nextstreet.gwt.components.client.ui.widget.common.WidgetValueMemory;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.AbstractSuggestBox;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.EventHandlingValueHolderItem;
-import eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueRendererFactory.ListRenderer;
-import eu.nextstreet.gwt.components.client.ui.widget.suggest.multi.impl.MultiChoiceSuggestBox;
 
 /**
- * @author Zied Hamdi
+ * @author Zied Hamdi founder of http://1vu.fr
  * 
  */
-public class MultiChoiceListRenderer<T, C extends MultiChoiceValueHolderItem<T, C>> extends FlowPanel implements ListRenderer<T, C> {
+public class MultiChoiceListRenderer<T, C extends MultiChoiceValueHolderItem<T, C>> extends WidgetValueMemory<T, C> {
 
 	protected AbstractSuggestBox<T, EventHandlingValueHolderItem<T>> suggestBox;
+	protected FlowPanel panel = new FlowPanel();
 
 	public MultiChoiceListRenderer() {
-		super();
+		initWidget(panel);
 	}
 
 	public MultiChoiceListRenderer(AbstractSuggestBox<T, EventHandlingValueHolderItem<T>> suggestBox) {
+		initWidget(panel);
 		this.suggestBox = suggestBox;
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueRendererFactory
-	 * .ListRenderer#add(java.lang.Object)
+	 * @see eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueRendererFactory .ListRenderer#add
 	 */
 	@Override
-	public void add(C item) {
+	public void add(T value, C item) {
+		super.add(value, item);
+		panel.add(item);
 		item.addedTo(this);
-		super.add(item);
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueRendererFactory
-	 * .ListRenderer#getRow(int)
+	 * @see eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueRendererFactory .ListRenderer#getRow(int)
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public C getAt(int index) {
-		return (C) super.getWidget(index);
+		return (C) panel.getWidget(index);
 	}
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public boolean remove(C item) {
-		boolean removed = super.remove(item);
-		((MultiChoiceSuggestBox) suggestBox).valueRemoved(item.getValue());
-		return removed;
+		super.remove(item);
+		return panel.remove(item);
+	}
+
+	@Override
+	public void clear() {
+		super.clear();
+		panel.clear();
 	}
 
 }

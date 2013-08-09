@@ -7,7 +7,7 @@ import eu.nextstreet.gwt.components.client.ui.widget.suggest.EventHandlingValueH
 /**
  * Adds the parsing for icon values
  * 
- * @author Zied Hamdi
+ * @author Zied Hamdi founder of http://1vu.fr
  * 
  * @param <T>
  *          a value that can be represented by an icon

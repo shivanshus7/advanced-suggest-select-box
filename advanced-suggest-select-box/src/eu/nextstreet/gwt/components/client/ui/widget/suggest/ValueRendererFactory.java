@@ -17,17 +17,18 @@
 package eu.nextstreet.gwt.components.client.ui.widget.suggest;
 
 import java.util.Map;
+import java.util.Set;
 
 import com.google.gwt.user.client.ui.IsWidget;
 
+import eu.nextstreet.gwt.components.client.ui.widget.WidgetController;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.param.Option;
 
 /**
- * Isolates the creation of suggested items rendering widgets. An instance of
- * this calss's implementation is considered as a context. It is therefore
- * accessible from {@link ValueHolderItem#getValueRendererFactory()}
+ * Isolates the creation of suggested items rendering widgets. An instance of this calss's implementation is considered as a context. It is therefore accessible
+ * from {@link ValueHolderItem#getValueRendererFactory()}
  * 
- * @author Zied Hamdi founder of http://into-i.fr
+ * @author Zied Hamdi founder of http://1vu.fr founder of http://into-i.fr
  * 
  * @param <T>
  *          the represented value type
@@ -38,7 +39,7 @@ public interface ValueRendererFactory<T, W extends ValueHolderItem<T>> {
 	/**
 	 * Holds the items of the suggest box
 	 * 
-	 * @author Zied Hamdi founder of http://into-i.fr
+	 * @author Zied Hamdi founder of http://1vu.fr founder of http://into-i.fr
 	 * 
 	 * @param <T>
 	 *          the type of the value
@@ -60,10 +61,12 @@ public interface ValueRendererFactory<T, W extends ValueHolderItem<T>> {
 		/**
 		 * adds an item to the list
 		 * 
+		 * @param value
+		 *          the value to be added
 		 * @param item
-		 *          item
+		 *          Widget representing the value
 		 */
-		void add(W item);
+		void add(T value, W item);
 
 		/**
 		 * returns the item at position index
@@ -82,6 +85,11 @@ public interface ValueRendererFactory<T, W extends ValueHolderItem<T>> {
 		 */
 		boolean remove(W item);
 
+		Set<T> getValues();
+
+		boolean containsValue(T value);
+
+		W getItem(T value);
 	}
 
 	/**
@@ -92,12 +100,10 @@ public interface ValueRendererFactory<T, W extends ValueHolderItem<T>> {
 	 * @param filterText
 	 *          the text that was typed in the suggest box
 	 * @param options
-	 *          you can set options on the {@link AbstractSuggestBox} that you
-	 *          will find here
+	 *          you can set options on the {@link AbstractSuggestBox} that you will find here
 	 * @return the widget
 	 */
-	W createValueRenderer(T value, String filterText,
-			Map<String, Option<?>> options);
+	W createValueRenderer(T value, String filterText, Map<String, Option<?>> options);
 
 	/**
 	 * Creates the widget responsible for displaying the list of possible items
@@ -107,18 +113,16 @@ public interface ValueRendererFactory<T, W extends ValueHolderItem<T>> {
 	ListRenderer<T, W> createListRenderer();
 
 	/**
-	 * Returns the {@link AbstractSuggestBox} implementation that handles the
-	 * current renderer
+	 * Returns the {@link AbstractSuggestBox} implementation that handles the current renderer
 	 * 
 	 * @return
 	 */
-	AbstractSuggestBox<T, EventHandlingValueHolderItem<T>> getSuggestBox();
+	WidgetController<T> getWidgetController();
 
 	/**
 	 * This method is called by the framework, you should never use it manually
 	 */
-	void setSuggestBox(
-			AbstractSuggestBox<T, EventHandlingValueHolderItem<T>> suggestBox);
+	void setWidgetController(WidgetController<T> controller);
 
 	public String toString(T value);
 

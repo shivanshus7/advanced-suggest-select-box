@@ -9,7 +9,7 @@ import eu.nextstreet.gwt.components.client.ui.widget.suggest.impl.DefaultSuggest
 /**
  * A suggest box with Icon decorated values
  * 
- * @author Zied Hamdi
+ * @author Zied Hamdi founder of http://1vu.fr
  * 
  * @param <T>
  *          items type

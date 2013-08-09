@@ -23,7 +23,7 @@ import com.google.gwt.event.shared.HandlerRegistration;
 /**
  * Holds mutiple tied handlers to remove them together.
  * 
- * @author Zied Hamdi founder of http://into-i.fr
+ * @author Zied Hamdi founder of http://1vu.fr founder of http://into-i.fr
  * 
  */
 public class MultipleHandlerRegistration extends ArrayList<HandlerRegistration>

@@ -22,6 +22,7 @@ import java.util.Map;
 import com.google.gwt.user.client.ui.Image;
 
 import eu.nextstreet.gwt.components.client.ui.common.data.ValueRepresentationTransformer;
+import eu.nextstreet.gwt.components.client.ui.widget.WidgetController;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.AbstractSuggestBox;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.EventHandlingValueHolderItem;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueHolderItem;
@@ -34,15 +35,14 @@ import eu.nextstreet.gwt.components.client.ui.widget.suggest.param.Option;
 
 /**
  * 
- * @author Zied Hamdi
+ * @author Zied Hamdi founder of http://1vu.fr
  * 
  * @param <T>
  *          item value type
  * @param <C>
  *          concrete ValueHolderItem
  */
-public class MultiChoiceValueRendererFactory<T, C extends MultiChoiceValueHolderItem<T, C>>
-		extends AbstractValueRendererFactory<T, C> {
+public class MultiChoiceValueRendererFactory<T, C extends MultiChoiceValueHolderItem<T, C>> extends AbstractValueRendererFactory<T, C> {
 
 	/** transforms a value into its icon representation */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
@@ -53,32 +53,25 @@ public class MultiChoiceValueRendererFactory<T, C extends MultiChoiceValueHolder
 	 * @param iconLinker
 	 *          the value transformer into icons
 	 */
-	public MultiChoiceValueRendererFactory(
-			ValueRepresentationTransformer<T, Image> iconLinker,
-			ValueRendererFactory<T, ValueHolderItem<T>> textRendererFactory) {
+	public MultiChoiceValueRendererFactory(ValueRepresentationTransformer<T, Image> iconLinker, ValueRendererFactory<T, ValueHolderItem<T>> textRendererFactory) {
 		this.iconLinker = iconLinker;
 		if (textRendererFactory != null)
 			this.textRendererFactory = textRendererFactory;
 	}
 
-	public MultiChoiceValueRendererFactory(
-			ValueRepresentationTransformer<T, Image> iconLinker) {
+	public MultiChoiceValueRendererFactory(ValueRepresentationTransformer<T, Image> iconLinker) {
 		this(iconLinker, null);
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueRendererFactory
-	 * #createValueRenderer(java.lang.Object, java.lang.String, boolean)
+	 * @see eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueRendererFactory #createValueRenderer(java.lang.Object, java.lang.String, boolean)
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public C createValueRenderer(T value, String filterText,
-			Map<String, Option<?>> options) {
-		C toReturn = (C) new MultiChoiceValueHolderLabel<T>(value, this,
-				textRendererFactory);
+	public C createValueRenderer(T value, String filterText, Map<String, Option<?>> options) {
+		C toReturn = (C) new MultiChoiceValueHolderLabel<T>(value, this, textRendererFactory);
 		toReturn.initWidget();
 		return toReturn;
 	}
@@ -86,13 +79,11 @@ public class MultiChoiceValueRendererFactory<T, C extends MultiChoiceValueHolder
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueRendererFactory
-	 * #createListRenderer()
+	 * @see eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueRendererFactory #createListRenderer()
 	 */
 	@Override
 	public eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueRendererFactory.ListRenderer<T, C> createListRenderer() {
-		return new MultiChoiceListRenderer<T, C>(suggestBox);
+		return new MultiChoiceListRenderer<T, C>((AbstractSuggestBox<T, EventHandlingValueHolderItem<T>>) widgetController);
 	}
 
 	/**
@@ -105,18 +96,16 @@ public class MultiChoiceValueRendererFactory<T, C extends MultiChoiceValueHolder
 	}
 
 	@Override
-	public void setSuggestBox(
-			AbstractSuggestBox<T, EventHandlingValueHolderItem<T>> suggestBox) {
-		super.setSuggestBox(suggestBox);
-		textRendererFactory.setSuggestBox(suggestBox);
+	public void setWidgetController(WidgetController<T> suggestBox) {
+		super.setWidgetController(suggestBox);
+		textRendererFactory.setWidgetController(suggestBox);
 	}
 
 	public ValueRendererFactory<T, ValueHolderItem<T>> getTextRendererFactory() {
 		return textRendererFactory;
 	}
 
-	public void setTextRendererFactory(
-			ValueRendererFactory<T, ValueHolderItem<T>> textRendererFactory) {
+	public void setTextRendererFactory(ValueRendererFactory<T, ValueHolderItem<T>> textRendererFactory) {
 		this.textRendererFactory = textRendererFactory;
 	}
 

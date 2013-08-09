@@ -34,7 +34,7 @@ import eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueRendererFactor
  * Has no concrete widget for the displayed item, but prepares the space for it
  * and appends a functional 'remove' button on the right
  * 
- * @author Zied Hamdi
+ * @author Zied Hamdi founder of http://1vu.fr
  * 
  * 
  * @param <T>

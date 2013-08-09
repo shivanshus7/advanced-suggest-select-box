@@ -27,7 +27,7 @@ import com.google.gwt.user.client.ui.SimplePanel;
  *          item value type
  * @param <C>
  *          concrete ValueHolderItem
- * @author Zied Hamdi
+ * @author Zied Hamdi founder of http://1vu.fr
  * 
  */
 public abstract class AbstractMultiChoiceValueHolderItem<T, C extends MultiChoiceValueHolderItem<T, C>>

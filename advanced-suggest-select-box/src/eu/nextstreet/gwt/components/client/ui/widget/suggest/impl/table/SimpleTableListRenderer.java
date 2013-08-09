@@ -21,7 +21,7 @@ import java.util.List;
 
 import com.google.gwt.user.client.ui.FlexTable;
 
-import eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueRendererFactory.ListRenderer;
+import eu.nextstreet.gwt.components.client.ui.widget.common.WidgetValueMemory;
 
 /**
  * Designed to create a simlpe table around the items creating
@@ -31,20 +31,21 @@ import eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueRendererFactor
  * <td>col2</td>... etc. You can also add a first set with
  * <th>tags
  * 
- * @author Zied Hamdi founder of http://into-i.fr
+ * @author Zied Hamdi founder of http://1vu.fr founder of http://into-i.fr
  * 
  * @param <T>
  */
-public class SimpleTableListRenderer<T, W extends SimpleTableRowItemRenderer<T>>
-		extends FlexTable implements ListRenderer<T, W> {
+public class SimpleTableListRenderer<T, W extends SimpleTableRowItemRenderer<T>> extends WidgetValueMemory<T, W> {
+	protected FlexTable table = new FlexTable();
 	protected List<W> rows = new ArrayList<W>();
 
 	public SimpleTableListRenderer() {
-		super();
+		initWidget(table);
 	}
 
 	@Override
-	public void add(W item) {
+	public void add(T value, W item) {
+		super.add(value, item);
 		addRow(item);
 	}
 
@@ -53,7 +54,7 @@ public class SimpleTableListRenderer<T, W extends SimpleTableRowItemRenderer<T>>
 		int columnCount = row.size();
 		int rowNumber = rows.size() - 1;
 		for (int i = 0; i < columnCount; i++) {
-			setWidget(rowNumber, i, row.get(i));
+			table.setWidget(rowNumber, i, row.get(i));
 		}
 	}
 
@@ -61,7 +62,7 @@ public class SimpleTableListRenderer<T, W extends SimpleTableRowItemRenderer<T>>
 	public void clear() {
 		rows.clear();
 		super.clear();
-		super.removeAllRows();
+		table.removeAllRows();
 	}
 
 	@Override
@@ -76,6 +77,7 @@ public class SimpleTableListRenderer<T, W extends SimpleTableRowItemRenderer<T>>
 
 	@Override
 	public boolean remove(W item) {
+		super.remove(item);
 		return rows.remove(item);
 	}
 

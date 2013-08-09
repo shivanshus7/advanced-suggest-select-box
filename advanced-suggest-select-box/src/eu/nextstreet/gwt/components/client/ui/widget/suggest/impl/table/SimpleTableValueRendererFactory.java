@@ -28,7 +28,7 @@ import eu.nextstreet.gwt.components.client.ui.widget.suggest.param.Option;
  * override {@link #newInstance(Object, String, boolean)} to give your instance
  * to the factory and have it handle the rest of the work
  * 
- * @author Zied Hamdi founder of http://into-i.fr
+ * @author Zied Hamdi founder of http://1vu.fr founder of http://into-i.fr
  * 
  * @param <T>
  *          the value type (for each item)

@@ -1,0 +1,21 @@
+.hovered {
+	background-color: green lighter;
+}
+
+.item {
+	background-color: #CCCCCC;
+	border-radius: 3px 0 0 3px;
+	color: black;
+	font-size: 0.9em;
+	margin-bottom: 1px;
+	padding: 0.1em;
+	padding-left: 0.5em;
+	cursor: pointer;
+}
+
+@sprite .selected {
+	gwt-image: "itemSelectedBackground";
+	color: white;
+	cursor: auto;
+	height: 3em;
+}

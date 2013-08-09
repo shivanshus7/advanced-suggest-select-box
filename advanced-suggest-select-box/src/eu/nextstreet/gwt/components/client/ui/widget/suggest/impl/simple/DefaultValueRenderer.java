@@ -16,6 +16,8 @@
  */
 package eu.nextstreet.gwt.components.client.ui.widget.suggest.impl.simple;
 
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.UIObject;
 
@@ -23,8 +25,7 @@ import eu.nextstreet.gwt.components.client.ui.widget.suggest.EventHandlingValueH
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueRendererFactory;
 import eu.nextstreet.gwt.components.client.ui.widget.util.HtmlUtil;
 
-public class DefaultValueRenderer<T> extends HTML implements
-		EventHandlingValueHolderItem<T> {
+public class DefaultValueRenderer<T> extends HTML implements EventHandlingValueHolderItem<T> {
 	private static final String ITEM_HOVER = "eu-nextstreet-SuggestItemHover";
 	private static final String MATCHING_STRING = "eu-nextstreet-SuggestMatchingString";
 	public static final String SELECTED = "eu-nextstreet-SuggestItemSelected";
@@ -41,20 +42,24 @@ public class DefaultValueRenderer<T> extends HTML implements
 	 * @param valueRendererFactory
 	 *          the factory that created this instance
 	 */
-	public DefaultValueRenderer(T value, String filterText,
-			boolean caseSensitive, ValueRendererFactory<T, ?> valueRendererFactory) {
+	public DefaultValueRenderer(final T value, String filterText, boolean caseSensitive, final ValueRendererFactory<T, ?> valueRendererFactory) {
 		this.value = value;
 		this.caseSensitive = caseSensitive;
 		this.valueRendererFactory = valueRendererFactory;
 		fillHtml(value, filterText, caseSensitive);
+		addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				valueRendererFactory.getWidgetController().valueSelected(value);
+			}
+		});
 	}
 
 	protected void fillHtml(T value, String filterText, boolean caseSensitive) {
 		String html = toHtml(value);
 		if (html == null)
-			throw new IllegalStateException(
-					"toString(T value) cannot return null for " + value
-							+ " current renderer : " + valueRendererFactory.getClass());
+			throw new IllegalStateException("toString(T value) cannot return null for " + value + " current renderer : " + valueRendererFactory.getClass());
 		html = highlightMatchingSequence(html, filterText, caseSensitive);
 		setHTML(html);
 	}
@@ -81,10 +86,8 @@ public class DefaultValueRenderer<T> extends HTML implements
 	// return valueRendererFactory.toString(value);
 	// }
 
-	protected String highlightMatchingSequence(String html, String filterText,
-			boolean caseSensitive) {
-		return HtmlUtil.highlightMatchingSequence(html, filterText, caseSensitive,
-				MATCHING_STRING);
+	protected String highlightMatchingSequence(String html, String filterText, boolean caseSensitive) {
+		return HtmlUtil.highlightMatchingSequence(html, filterText, caseSensitive, MATCHING_STRING);
 	}
 
 	public T getValue() {

@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * Call back interface to handle asynchronous information handling
  * 
- * @author Zied Hamdi
+ * @author Zied Hamdi founder of http://1vu.fr
  * 
  * @param <T>
  */

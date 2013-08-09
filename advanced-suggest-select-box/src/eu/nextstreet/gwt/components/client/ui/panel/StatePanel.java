@@ -33,7 +33,7 @@ import eu.nextstreet.gwt.components.client.ui.widget.util.WidgetUtil;
  * In addition to the states, each state of the StatePanel can be in an enabled
  * or disabled status
  * 
- * @author Zied Hamdi http://1vu.fr
+ * @author Zied Hamdi founder of http://1vu.fr
  * 
  */
 public class StatePanel<T extends StatePanel.PanelState> extends SimplePanel implements HasValueChangeHandlers<T> {
@@ -44,7 +44,7 @@ public class StatePanel<T extends StatePanel.PanelState> extends SimplePanel imp
 	/**
 	 * Implement this interface to define your states
 	 * 
-	 * @author Zied Hamdi http://1vu.fr
+	 * @author Zied Hamdi founder of http://1vu.fr
 	 * 
 	 */
 	public static interface PanelState {
@@ -54,7 +54,7 @@ public class StatePanel<T extends StatePanel.PanelState> extends SimplePanel imp
 	/**
 	 * Implement this interface by the object tha manages this panel
 	 * 
-	 * @author Zied Hamdi http://1vu.fr
+	 * @author Zied Hamdi founder of http://1vu.fr
 	 * 
 	 */
 	public static interface StatePanelManager<T extends StatePanel.PanelState> {
@@ -72,7 +72,7 @@ public class StatePanel<T extends StatePanel.PanelState> extends SimplePanel imp
 
 	/**
 	 * 
-	 * @author Zied Hamdi http://1vu.fr
+	 * @author Zied Hamdi founder of http://1vu.fr
 	 * 
 	 */
 	public static class SimplePanelState implements PanelState {

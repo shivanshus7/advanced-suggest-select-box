@@ -4,7 +4,7 @@ package eu.nextstreet.gwt.components.client.ui.common.data;
  * Used to transform a value to one of its representations: icon, text, widget
  * etc...
  * 
- * @author Zied Hamdi
+ * @author Zied Hamdi founder of http://1vu.fr
  * 
  * @param <T>
  *          the value Type

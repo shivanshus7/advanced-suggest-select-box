@@ -24,7 +24,7 @@ import eu.nextstreet.gwt.components.shared.Validator;
  * TODO : javadoc comment the methods. To understand the rules look at the
  * unique implementation {@link SuggestTextBoxWidgetImpl}
  * 
- * @author Zied Hamdi
+ * @author Zied Hamdi founder of http://1vu.fr
  * 
  * @param <T>
  *          the suggest box items type

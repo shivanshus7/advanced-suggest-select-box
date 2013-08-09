@@ -24,7 +24,7 @@ import eu.nextstreet.gwt.components.client.ui.widget.suggest.SuggestWidget;
 
 /**
  * 
- * @author Zied Hamdi founder of http://into-i.fr
+ * @author Zied Hamdi founder of http://1vu.fr founder of http://into-i.fr
  * 
  * @param <T>
  */

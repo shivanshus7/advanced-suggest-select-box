@@ -22,7 +22,7 @@ import com.google.gwt.event.dom.client.ChangeEvent;
  * Represents a suggest box specific event change specifying if the value was
  * typed of selected and giving the type save selected value
  * 
- * @author Zied Hamdi founder of http://into-i.fr
+ * @author Zied Hamdi founder of http://1vu.fr founder of http://into-i.fr
  * 
  * @param <T>
  */

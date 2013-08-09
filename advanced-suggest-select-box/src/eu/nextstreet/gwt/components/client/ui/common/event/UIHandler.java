@@ -23,7 +23,7 @@ import eu.nextstreet.gwt.components.shared.ValidationException;
  * their internal behaviour that will be extensible by an external {@link UIHandler}. Notice that {@link UIHandler} can
  * be implemented as a set or list of {@link UIHandler}s
  * 
- * @author Zied Hamdi
+ * @author Zied Hamdi founder of http://1vu.fr
  * 
  */
 public interface UIHandler {

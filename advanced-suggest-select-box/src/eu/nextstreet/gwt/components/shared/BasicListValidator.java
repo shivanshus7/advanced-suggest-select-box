@@ -23,7 +23,7 @@ import java.util.List;
 
 /**
  * 
- * @author Zied Hamdi
+ * @author Zied Hamdi founder of http://1vu.fr
  * 
  * @param <T>
  */

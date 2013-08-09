@@ -36,7 +36,7 @@ import eu.nextstreet.gwt.components.client.ui.widget.suggest.multi.BasicMultiCho
 
 /**
  * 
- * @author Zied Hamdi
+ * @author Zied Hamdi founder of http://1vu.fr
  * @param <T>
  *          item value type
  */

@@ -5,7 +5,7 @@ package eu.nextstreet.gwt.components.client.ui.widget.suggest;
  * value which the user types to retrieve an element or the one displayed when
  * an element is selected
  * 
- * @author Zied Hamdi
+ * @author Zied Hamdi founder of http://1vu.fr
  * 
  * @param <T>
  */

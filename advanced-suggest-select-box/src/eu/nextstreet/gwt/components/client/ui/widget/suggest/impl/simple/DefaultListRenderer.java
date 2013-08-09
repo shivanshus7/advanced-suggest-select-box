@@ -19,32 +19,40 @@ package eu.nextstreet.gwt.components.client.ui.widget.suggest.impl.simple;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
+import eu.nextstreet.gwt.components.client.ui.widget.common.WidgetValueMemory;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.EventHandlingValueHolderItem;
-import eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueRendererFactory.ListRenderer;
 
 /**
- * The default list renderer has all needed methods implemented by its parent
- * class
+ * The default list renderer has all needed methods implemented by its parent class
  * 
- * @author Zied Hamdi founder of http://into-i.fr
+ * @author Zied Hamdi founder of http://1vu.fr founder of http://into-i.fr
  * 
  * @param <T>
  */
-public class DefaultListRenderer<T, W extends EventHandlingValueHolderItem<T>>
-		extends VerticalPanel implements ListRenderer<T, W> {
+public class DefaultListRenderer<T, W extends EventHandlingValueHolderItem<T>> extends WidgetValueMemory<T, W> {
+
+	protected VerticalPanel panel = new VerticalPanel();
+
+	public DefaultListRenderer() {
+		initWidget(panel);
+		panel.setSpacing(0);
+	}
 
 	@Override
-	public void add(W item) {
-		super.add((Widget) item);
+	public void add(T value, W item) {
+		super.add(value, item);
+		panel.add((Widget) item);
+	}
+
+	@Override
+	public void clear() {
+		super.clear();
+		panel.clear();
 	}
 
 	@SuppressWarnings("unchecked")
 	public W getAt(int index) {
-		return (W) super.getWidget(index);
+		return (W) panel.getWidget(index);
 	}
 
-	@Override
-	public boolean remove(W item) {
-		return super.remove(item);
-	}
 }

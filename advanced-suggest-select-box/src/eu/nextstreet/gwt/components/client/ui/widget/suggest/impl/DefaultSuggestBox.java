@@ -28,20 +28,14 @@ import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Widget;
 
 import eu.nextstreet.gwt.components.client.ui.common.event.KeyUpRequestingHandler;
-import eu.nextstreet.gwt.components.client.ui.widget.suggest.AbstractSuggestBox;
-import eu.nextstreet.gwt.components.client.ui.widget.suggest.EventHandlingValueHolderItem;
-import eu.nextstreet.gwt.components.client.ui.widget.suggest.SuggestOracle;
+import eu.nextstreet.gwt.components.client.ui.widget.suggest.*;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.SuggestOracle.Request;
-import eu.nextstreet.gwt.components.client.ui.widget.suggest.SuggestPossibilitiesCallBack;
-import eu.nextstreet.gwt.components.client.ui.widget.suggest.SuggestTextBoxWidget;
-import eu.nextstreet.gwt.components.client.ui.widget.suggest.SuggestTextBoxWidgetImpl;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.impl.simple.DefaultSuggestOracle;
 
 /**
- * Implements a simple value holding suggest box, more advanced implementations
- * can have a type safe model to hold and manage items.
+ * Implements a simple value holding suggest box, more advanced implementations can have a type safe model to hold and manage items.
  * 
- * @author Zied Hamdi
+ * @author Zied Hamdi founder of http://1vu.fr
  * 
  * @param <T>
  *          the class type of the items
@@ -60,7 +54,6 @@ public class DefaultSuggestBox<T, W extends EventHandlingValueHolderItem<T>> ext
 	SuggestTextBoxWidgetImpl<T, W> textField;
 
 	protected int propositionsMaxCount = 10;
-	protected SuggestOracle<T> suggestOracle;
 
 	@SuppressWarnings({ "unused", "rawtypes" })
 	private final class CallBackHandler implements SuggestOracle.Callback {
@@ -119,13 +112,13 @@ public class DefaultSuggestBox<T, W extends EventHandlingValueHolderItem<T>> ext
 		this(defaultText, new DefaultSuggestOracle<T>());
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public DefaultSuggestBox(String defaultText, SuggestOracle<T> suggestOracle) {
 		initWidget(uiBinder.createAndBindUi(this));
 		init(defaultText);
 
 		this.suggestOracle = suggestOracle;
-		suggestOracle.setSuggestBox((AbstractSuggestBox<T, EventHandlingValueHolderItem<T>>) this);
+		suggestOracle.setContextWidget((AbstractBaseWidget) this);
 	}
 
 	// ------------------ default event handling -----------------------
@@ -179,14 +172,6 @@ public class DefaultSuggestBox<T, W extends EventHandlingValueHolderItem<T>> ext
 
 	public void setTextField(SuggestTextBoxWidget<T, W> textField) {
 		this.textField = (SuggestTextBoxWidgetImpl<T, W>) textField;
-	}
-
-	public SuggestOracle<T> getSuggestOracle() {
-		return suggestOracle;
-	}
-
-	public void setSuggestOracle(SuggestOracle<T> suggestOracle) {
-		this.suggestOracle = suggestOracle;
 	}
 
 	public int getPropositionsMaxCount() {

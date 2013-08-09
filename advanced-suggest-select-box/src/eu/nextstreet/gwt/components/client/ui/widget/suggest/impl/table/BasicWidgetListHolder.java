@@ -23,7 +23,7 @@ import com.google.gwt.user.client.ui.Widget;
 /**
  * Holds a list of widgets
  * 
- * @author Zied Hamdi founder of http://into-i.fr
+ * @author Zied Hamdi founder of http://1vu.fr founder of http://into-i.fr
  * 
  */
 public class BasicWidgetListHolder extends ArrayList<Widget> {

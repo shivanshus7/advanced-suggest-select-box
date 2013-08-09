@@ -53,7 +53,7 @@ import eu.nextstreet.gwt.components.client.ui.widget.util.HtmlUtil;
  * widgets with the String content you returned in
  * {@link #explodeValueInColumns(Object, String, boolean)}
  * 
- * @author Zied Hamdi founder of http://into-i.fr
+ * @author Zied Hamdi founder of http://1vu.fr founder of http://into-i.fr
  * 
  * @param <T>
  *          the value to be represented in this row's type

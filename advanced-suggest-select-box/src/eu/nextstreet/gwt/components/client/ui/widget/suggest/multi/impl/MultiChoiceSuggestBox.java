@@ -22,11 +22,7 @@ import java.util.List;
 import com.google.gwt.user.client.ui.DockPanel;
 import com.google.gwt.user.client.ui.IsWidget;
 
-import eu.nextstreet.gwt.components.client.ui.widget.suggest.AbstractSuggestBox;
-import eu.nextstreet.gwt.components.client.ui.widget.suggest.EventHandlingValueHolderItem;
-import eu.nextstreet.gwt.components.client.ui.widget.suggest.SuggestChangeEvent;
-import eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueHolderItem;
-import eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueRendererFactory;
+import eu.nextstreet.gwt.components.client.ui.widget.suggest.*;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueRendererFactory.ListRenderer;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.iconed.IconedValueHolderItem;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.iconed.impl.DefaultIconedSuggestBox;
@@ -36,7 +32,7 @@ import eu.nextstreet.gwt.components.client.ui.widget.suggest.iconed.impl.IconedV
  * 
  * Suggest box for multiple choice values
  * 
- * @author Zied Hamdi
+ * @author Zied Hamdi founder of http://1vu.fr
  * 
  * @param <T>
  *          the item value type
@@ -48,8 +44,7 @@ import eu.nextstreet.gwt.components.client.ui.widget.suggest.iconed.impl.IconedV
 public class MultiChoiceSuggestBox<T, W extends IconedValueHolderItem<T>, C extends ValueHolderItem<T>> extends DefaultIconedSuggestBox<T, W> {
 
 	/**
-	 * Contains the list of widgets for the selected values in their addition
-	 * order
+	 * Contains the list of widgets for the selected values in their addition order
 	 */
 	protected List<C> selectedValues = new ArrayList<C>();
 
@@ -58,8 +53,7 @@ public class MultiChoiceSuggestBox<T, W extends IconedValueHolderItem<T>, C exte
 	 */
 	protected List<T> removedValues = new ArrayList<T>();
 	/**
-	 * Contains the list of widgets for the selected values in their addition
-	 * order
+	 * Contains the list of widgets for the selected values in their addition order
 	 */
 	protected ListRenderer<T, C> selectedValuesPanel;
 
@@ -95,7 +89,7 @@ public class MultiChoiceSuggestBox<T, W extends IconedValueHolderItem<T>, C exte
 
 	public void valueSelected(T value) {
 		if (value != null) {
-			selectedValuesPanel.add(choiceItemsRendererFactory.createValueRenderer(value, DEBUG_ID_PREFIX, getOptions()));
+			selectedValuesPanel.add(value, choiceItemsRendererFactory.createValueRenderer(value, DEBUG_ID_PREFIX, getOptions()));
 		}
 		super.valueSelected(value);
 		setText("");
@@ -115,7 +109,7 @@ public class MultiChoiceSuggestBox<T, W extends IconedValueHolderItem<T>, C exte
 	@SuppressWarnings("unchecked")
 	protected void setChoiceItemsRendererFactory(ValueRendererFactory<T, C> choiceItemsRendererFactory) {
 		this.choiceItemsRendererFactory = choiceItemsRendererFactory;
-		choiceItemsRendererFactory.setSuggestBox((AbstractSuggestBox<T, EventHandlingValueHolderItem<T>>) this);
+		choiceItemsRendererFactory.setWidgetController((AbstractSuggestBox<T, EventHandlingValueHolderItem<T>>) this);
 		selectedValuesPanel = choiceItemsRendererFactory.createListRenderer();
 		setChoicesPanel();
 	}
@@ -134,7 +128,7 @@ public class MultiChoiceSuggestBox<T, W extends IconedValueHolderItem<T>, C exte
 		clearSelection(false);
 		removedValues.clear();
 		for (T value : toSet) {
-			selectedValuesPanel.add(choiceItemsRendererFactory.createValueRenderer(value, DEBUG_ID_PREFIX, getOptions()));
+			selectedValuesPanel.add(value, choiceItemsRendererFactory.createValueRenderer(value, DEBUG_ID_PREFIX, getOptions()));
 		}
 	}
 

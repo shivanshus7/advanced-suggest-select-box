@@ -1,51 +1,23 @@
 package eu.nextstreet.gwt.components.client.ui.widget.suggest;
 
-import com.google.gwt.event.dom.client.BlurHandler;
-import com.google.gwt.event.dom.client.ChangeEvent;
-import com.google.gwt.event.dom.client.ChangeHandler;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.DoubleClickEvent;
-import com.google.gwt.event.dom.client.DoubleClickHandler;
-import com.google.gwt.event.dom.client.FocusHandler;
-import com.google.gwt.event.dom.client.GestureChangeHandler;
-import com.google.gwt.event.dom.client.GestureEndHandler;
-import com.google.gwt.event.dom.client.GestureStartHandler;
-import com.google.gwt.event.dom.client.KeyCodes;
-import com.google.gwt.event.dom.client.KeyDownHandler;
-import com.google.gwt.event.dom.client.KeyPressHandler;
-import com.google.gwt.event.dom.client.KeyUpHandler;
-import com.google.gwt.event.dom.client.MouseDownEvent;
-import com.google.gwt.event.dom.client.MouseDownHandler;
-import com.google.gwt.event.dom.client.MouseMoveEvent;
-import com.google.gwt.event.dom.client.MouseMoveHandler;
-import com.google.gwt.event.dom.client.MouseOutEvent;
-import com.google.gwt.event.dom.client.MouseOutHandler;
-import com.google.gwt.event.dom.client.MouseOverHandler;
-import com.google.gwt.event.dom.client.MouseUpHandler;
-import com.google.gwt.event.dom.client.MouseWheelHandler;
+import com.google.gwt.event.dom.client.*;
 import com.google.gwt.event.logical.shared.AttachEvent.Handler;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.FlowPanel;
-import com.google.gwt.user.client.ui.HTMLPanel;
-import com.google.gwt.user.client.ui.IsWidget;
-import com.google.gwt.user.client.ui.Panel;
-import com.google.gwt.user.client.ui.SimplePanel;
+import com.google.gwt.user.client.ui.*;
 
 import eu.nextstreet.gwt.components.client.ui.widget.AdvancedTextBox;
 import eu.nextstreet.gwt.components.shared.Validator;
 
 /**
- * This class is the ui representer of the "inactive" suggest box: the text box
- * handles all events and is surrounded by panels which you can fill with you
- * own representation of the selected item
+ * This class is the ui representer of the "inactive" suggest box: the text box handles all events and is surrounded by panels which you can fill with you own
+ * representation of the selected item
  * 
  * @param <T>
  *          the type of items
  * 
- * @author Zied Hamdi
+ * @author Zied Hamdi founder of http://1vu.fr
  * 
  * 
  */
@@ -68,13 +40,12 @@ public class SuggestTextBoxWidgetImpl<T, W extends EventHandlingValueHolderItem<
 	protected AbstractSuggestBox<T, W> representer;
 
 	/**
-	 * the button is a background image so that the focus is not lost when it is
-	 * clicked, this value corresponds to the image width
+	 * the button is a background image so that the focus is not lost when it is clicked, this value corresponds to the image width
 	 */
 	protected int buttonWidth = 16;
 
 	/** any value change is notified to this list of listeners */
-	protected ChangeEventHandlerHolder<T, ChangeEvent> valueChangeEventHandlerHolder = new ChangeEventHandlerHolder<T, ChangeEvent>() {
+	protected AbstractBaseWidget<T, T, ChangeEvent> valueChangeEventHandlerHolder = new AbstractBaseWidget<T, T, ChangeEvent>() {
 
 		@Override
 		protected ChangeEvent changedValue(T param) {
@@ -84,7 +55,7 @@ public class SuggestTextBoxWidgetImpl<T, W extends EventHandlingValueHolderItem<
 	};
 
 	/** any value change is notified to this list of listeners */
-	protected ChangeEventHandlerHolder<String, ChangeEvent> textChangeEventHandlerHolder = new ChangeEventHandlerHolder<String, ChangeEvent>() {
+	protected AbstractBaseWidget<T, String, ChangeEvent> textChangeEventHandlerHolder = new AbstractBaseWidget<T, String, ChangeEvent>() {
 
 		@Override
 		protected ChangeEvent changedValue(String param) {
@@ -408,8 +379,7 @@ public class SuggestTextBoxWidgetImpl<T, W extends EventHandlingValueHolderItem<
 
 	// -------------------- self handling ---------------------
 	/**
-	 * On a click on the button, we recompute the possibilities list and we show
-	 * them
+	 * On a click on the button, we recompute the possibilities list and we show them
 	 */
 	@UiHandler("textField")
 	public void onMouseDown(MouseDownEvent event) {
@@ -425,8 +395,7 @@ public class SuggestTextBoxWidgetImpl<T, W extends EventHandlingValueHolderItem<
 	}
 
 	/**
-	 * The style adding and removing is handled by {@link AbstractSuggestBox} here
-	 * we just analyse our own state
+	 * The style adding and removing is handled by {@link AbstractSuggestBox} here we just analyse our own state
 	 * 
 	 * @param event
 	 *          mouse event

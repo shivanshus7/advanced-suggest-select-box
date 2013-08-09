@@ -49,7 +49,7 @@ import eu.nextstreet.gwt.components.shared.Validator;
  * default text</li>
  * </ul>
  * 
- * @author Zied Hamdi founder of http://into-i.fr
+ * @author Zied Hamdi founder of http://1vu.fr founder of http://into-i.fr
  * 
  */
 public class AdvancedTextBox extends TextBox implements HasDoubleClickHandlers {

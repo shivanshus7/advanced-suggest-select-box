@@ -23,7 +23,7 @@ import com.google.gwt.user.client.ui.UIObject;
 /**
  * Representation of an item in the suggest list
  * 
- * @author Zied Hamdi founder of http://into-i.fr
+ * @author Zied Hamdi founder of http://1vu.fr founder of http://into-i.fr
  * 
  * @param <T>
  *          value type

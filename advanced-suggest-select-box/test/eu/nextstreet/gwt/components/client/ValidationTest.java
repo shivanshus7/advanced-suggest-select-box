@@ -27,21 +27,14 @@ import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.CheckBox;
-import com.google.gwt.user.client.ui.DockPanel;
-import com.google.gwt.user.client.ui.FlowPanel;
-import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.Image;
-import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.TextBox;
-import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.user.client.ui.*;
 
 import eu.nextstreet.gwt.components.client.ui.common.data.ValueRepresentationTransformer;
 import eu.nextstreet.gwt.components.client.ui.panel.StatePanel;
 import eu.nextstreet.gwt.components.client.ui.panel.StatePanel.SimplePanelState;
 import eu.nextstreet.gwt.components.client.ui.widget.AdvancedTextBox;
+import eu.nextstreet.gwt.components.client.ui.widget.select.DefaultPanelValueSelector;
+import eu.nextstreet.gwt.components.client.ui.widget.suggest.AbstractBaseWidget;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.AbstractSuggestBox;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.StringFormulator;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.SuggestChangeEvent;
@@ -67,7 +60,7 @@ public class ValidationTest {
 	/**
 	 * This is the fictive value class we use in our tests
 	 * 
-	 * @author Zied Hamdi
+	 * @author Zied Hamdi founder of http://1vu.fr
 	 * 
 	 */
 	static class Value {
@@ -149,6 +142,8 @@ public class ValidationTest {
 
 		addLogInfoPanel(box);
 
+		initPanelSelector();
+
 		initStatePanel();
 
 		AdvancedTextBox advancedTextBox = new AdvancedTextBox("Please type a value");
@@ -213,6 +208,14 @@ public class ValidationTest {
 
 		RootPanel.get("suggestBoxMultiValueContainer").add(multiBox);
 
+	}
+
+	protected static void initPanelSelector() {
+		DefaultPanelValueSelector<Value> panelSelector = new DefaultPanelValueSelector<ValidationTest.Value>();
+		fillData(panelSelector);
+		panelSelector.init();
+		RootPanel selectionPanel = RootPanel.get("selectionPanel");
+		selectionPanel.add(panelSelector);
 	}
 
 	protected static void initStatePanel() {
@@ -295,7 +298,7 @@ public class ValidationTest {
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	protected static void fillData(final DefaultIconedSuggestBox box) {
+	protected static void fillData(final AbstractBaseWidget box) {
 		DefaultSuggestOracle<Value> suggestOracle = (DefaultSuggestOracle<Value>) box.getSuggestOracle();
 		suggestOracle.add(blogger);
 		suggestOracle.add(new Value("Calendar", "https://chrome.google.com/webstore/detail/ookhcbgokankfmjafalglpofmolfopek"));

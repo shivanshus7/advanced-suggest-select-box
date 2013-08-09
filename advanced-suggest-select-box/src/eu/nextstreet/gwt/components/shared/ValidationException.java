@@ -18,7 +18,7 @@ package eu.nextstreet.gwt.components.shared;
 
 /**
  * 
- * @author Zied Hamdi
+ * @author Zied Hamdi founder of http://1vu.fr
  * 
  */
 public class ValidationException extends Exception {

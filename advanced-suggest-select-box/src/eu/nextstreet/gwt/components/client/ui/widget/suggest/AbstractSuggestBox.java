@@ -16,52 +16,39 @@
  */
 package eu.nextstreet.gwt.components.client.ui.widget.suggest;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import com.google.gwt.event.dom.client.BlurEvent;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.DoubleClickEvent;
-import com.google.gwt.event.dom.client.KeyCodes;
-import com.google.gwt.event.dom.client.KeyUpEvent;
-import com.google.gwt.event.dom.client.MouseOutEvent;
-import com.google.gwt.event.dom.client.MouseOutHandler;
-import com.google.gwt.event.dom.client.MouseOverEvent;
-import com.google.gwt.event.dom.client.MouseOverHandler;
+import com.google.gwt.event.dom.client.*;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.UIObject;
 import com.google.gwt.user.client.ui.Widget;
 
+import eu.nextstreet.gwt.components.client.ui.widget.WidgetController;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueRendererFactory.ListRenderer;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.impl.DefaultSuggestBox;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.impl.DefaultSuggestionPopup;
-import eu.nextstreet.gwt.components.client.ui.widget.suggest.impl.simple.DefaultStringFormulator;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.impl.simple.DefaultValueRendererFactory;
-import eu.nextstreet.gwt.components.client.ui.widget.suggest.param.Option;
 import eu.nextstreet.gwt.components.shared.Validator;
 
 /**
- * Suggest box (or select box) with many possibilities either in behavior and in
- * presentation.
+ * Suggest box (or select box) with many possibilities either in behavior and in presentation.
  * 
- * The default event handling behavior must be connected explicitly by adding
- * the corresponding @UiHandler("textField") on your implementation: this
- * approach makes the default behavior accessible but non intrusive
+ * The default event handling behavior must be connected explicitly by adding the corresponding @UiHandler("textField") on your implementation: this approach
+ * makes the default behavior accessible but non intrusive
  * 
  * @see DefaultSuggestBox for an implementation exemple
- * @author Zied Hamdi
+ * @author Zied Hamdi founder of http://1vu.fr
  * 
- *         bugs: when a selection is directly replaced by characters, the enter
- *         button doesn't fire the event (it's postponed to the blur event).
- * 
+ *         bugs: when a selection is directly replaced by characters, the enter button doesn't fire the event (it's postponed to the blur event).
  * @param <T>
+ *          the item value type (maybe as simple as String, or an object of your choice)
+ * @param <W>
+ *          the item list representer: the widget that displays the value in the list
  */
-public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderItem<T>> extends ChangeEventHandlerHolder<Boolean, SuggestChangeEvent<T, W>>
-		implements StringFormulator<T> {
+public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderItem<T>> extends AbstractBaseWidget<T, Boolean, SuggestChangeEvent<T, W>>
+		implements WidgetController<T> {
 
 	private static final String READ_ONLY = "rOnly";
 	private static final String SUGGEST_FIELD_COMP = "eu-nextstreet-SuggestFieldComp";
@@ -73,19 +60,16 @@ public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderIt
 	// .create(SuggestBoxUiBinder.class);
 	protected T selected;
 	protected String typed;
-	protected Map<String, Option<?>> options = new HashMap<String, Option<?>>();
 	protected SuggestWidget<T> suggestWidget = new DefaultSuggestionPopup<T>();
 	protected ScrollPanel scrollPanel = new ScrollPanel();
 	protected ListRenderer<T, W> listRenderer;
 	protected boolean strictMode;
-	protected StringFormulator<T> stringFormulator = new DefaultStringFormulator<T>();
 
 	protected int selectedIndex = -1;
 
 	private boolean recomputePopupContent = true;
 	/**
-	 * Specifies if enter is hit multiple times with same value, whether it
-	 * generates a change event for each
+	 * Specifies if enter is hit multiple times with same value, whether it generates a change event for each
 	 */
 	private boolean multipleChangeEvent;
 	private boolean fireChangeOnBlur;
@@ -263,8 +247,7 @@ public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderIt
 	}
 
 	/**
-	 * Handles key navigation or triggers the loading of possibilities (if no data
-	 * is available)
+	 * Handles key navigation or triggers the loading of possibilities (if no data is available)
 	 * 
 	 * @param keyCode
 	 *          the typed key
@@ -332,10 +315,8 @@ public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderIt
 	}
 
 	/**
-	 * Recomputes the content of the popup. Returns true to show there's no need
-	 * to do more processing. Special cases are when one of the keys
-	 * {@link KeyCodes#KEY_DOWN}, {@link KeyCodes#KEY_UP} is pressed: all possible
-	 * values are presented
+	 * Recomputes the content of the popup. Returns true to show there's no need to do more processing. Special cases are when one of the keys
+	 * {@link KeyCodes#KEY_DOWN}, {@link KeyCodes#KEY_UP} is pressed: all possible values are presented
 	 * 
 	 * @param keyCode
 	 */
@@ -399,7 +380,7 @@ public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderIt
 				selectedIndex = i;
 
 			final W currentLabel = createValueRenderer(t, currentText);
-			listRenderer.add(currentLabel);
+			listRenderer.add(t, currentLabel);
 			currentLabel.addClickHandler(new ClickHandler() {
 				@Override
 				public void onClick(ClickEvent clickEvent) {
@@ -433,8 +414,7 @@ public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderIt
 	 *          item to test
 	 * @param currentText
 	 *          the current field text
-	 * @return true ifaoif <code>currentText</code> matches the item
-	 *         <code>t</code>
+	 * @return true ifaoif <code>currentText</code> matches the item <code>t</code>
 	 */
 	protected boolean checkSelected(final T item, String currentText) {
 		String value = toString(item);
@@ -447,28 +427,6 @@ public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderIt
 		return currentLabel;
 	}
 
-	/**
-	 * returns the set options
-	 * 
-	 * @return the set options
-	 */
-	public Map<String, Option<?>> getOptions() {
-		return options;
-	}
-
-	/**
-	 * Returns the string representation of a value, this method is very important
-	 * since it determines the equality of elements typed by hand with the ones in
-	 * the list.
-	 * 
-	 * @param t
-	 *          the value
-	 * @return the string representation of a value
-	 */
-	public String toString(final T t) {
-		return stringFormulator.toString(t);
-	}
-
 	private EventHandlingValueHolderItem<T> getItemAt(int index) {
 		if (index != -1 && listRenderer.getWidgetCount() > index)
 			return (EventHandlingValueHolderItem<T>) listRenderer.getAt(index);
@@ -476,18 +434,14 @@ public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderIt
 	}
 
 	/**
-	 * Fills a "type safe" value (one of the available values in the list).
-	 * override to check existing values change
+	 * Fills a "type safe" value (one of the available values in the list). override to check existing values change
 	 * 
 	 * @param t
 	 *          the selected value
 	 * @param commit
-	 *          consider a value changed only if commit is true (otherwise you can
-	 *          have duplicate events)
-	 * @return true if the suggest box has to be hidden. Subclasses can override
-	 *         this method and return false to force the suggest widget to remain
-	 *         open even if there's only one element remaining in the list of
-	 *         choices
+	 *          consider a value changed only if commit is true (otherwise you can have duplicate events)
+	 * @return true if the suggest box has to be hidden. Subclasses can override this method and return false to force the suggest widget to remain open even if
+	 *         there's only one element remaining in the list of choices
 	 */
 	protected boolean fillValue(final T t, boolean commit) {
 		String textValue = toString(t);
@@ -508,12 +462,9 @@ public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderIt
 	}
 
 	/**
-	 * Called when a value is selected from the list, if the value is typed on the
-	 * keyboard and only one possible element corresponds, this method will be
-	 * called immediately only if <code>multipleChangeEvent</code> is true.
-	 * Otherwise it will wait until a blur event occurs Notice that if
-	 * <code>multipleChangeEvent</code> is true, this method will be called also
-	 * each time the enter key is typed
+	 * Called when a value is selected from the list, if the value is typed on the keyboard and only one possible element corresponds, this method will be called
+	 * immediately only if <code>multipleChangeEvent</code> is true. Otherwise it will wait until a blur event occurs Notice that if
+	 * <code>multipleChangeEvent</code> is true, this method will be called also each time the enter key is typed
 	 * 
 	 * @param value
 	 */
@@ -522,10 +473,8 @@ public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderIt
 	}
 
 	/**
-	 * Called when a typed value is confirmed whether by pressing the enter key,
-	 * or on blur. Notice that this method behavior also can be changed thanks to
-	 * the property {@link #multipleChangeEvent} which specifies if the method has
-	 * to be called on each enter key press or only on the first one.
+	 * Called when a typed value is confirmed whether by pressing the enter key, or on blur. Notice that this method behavior also can be changed thanks to the
+	 * property {@link #multipleChangeEvent} which specifies if the method has to be called on each enter key press or only on the first one.
 	 * 
 	 * @param value
 	 */
@@ -548,9 +497,8 @@ public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderIt
 
 	/**
 	 * 
-	 * @return the typed value, this can also be the selected one from list: to
-	 *         check if the value belongs to the list check if
-	 *         {@link #getSelected()} returns null
+	 * @return the typed value, this can also be the selected one from list: to check if the value belongs to the list check if {@link #getSelected()} returns
+	 *         null
 	 */
 	public String getTyped() {
 		return typed;
@@ -564,10 +512,8 @@ public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderIt
 	}
 
 	/**
-	 * Returns the text currently in the text field, this method can have
-	 * different results before and after the call of
-	 * {@link #recomputePopupContent(int)} which auto completes the text
-	 * automatically if only one result remains.
+	 * Returns the text currently in the text field, this method can have different results before and after the call of {@link #recomputePopupContent(int)} which
+	 * auto completes the text automatically if only one result remains.
 	 * 
 	 * @return the text fiel
 	 */
@@ -581,12 +527,10 @@ public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderIt
 	}
 
 	/**
-	 * Not used in the the library: utility method to get the typed item
-	 * corresponding to a given text
+	 * Not used in the the library: utility method to get the typed item corresponding to a given text
 	 * 
-	 * <b>Warning!</b> this methods calls
-	 * {@link #computeFiltredPossibilities(String, SuggestPossibilitiesCallBack)}
-	 * that could make a call to the server, you should avoid calling it.
+	 * <b>Warning!</b> this methods calls {@link #computeFiltredPossibilities(String, SuggestPossibilitiesCallBack)} that could make a call to the server, you
+	 * should avoid calling it.
 	 * 
 	 * @param text
 	 *          the typed text
@@ -634,14 +578,13 @@ public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderIt
 	}
 
 	/**
-	 * Sets the items renderer factory: you can define your own item factory to
-	 * control the way items are shown in the suggest list
+	 * Sets the items renderer factory: you can define your own item factory to control the way items are shown in the suggest list
 	 * 
 	 * @param valueRendererFactory
 	 */
 	public void setValueRendererFactory(ValueRendererFactory<T, W> valueRendererFactory) {
 		this.valueRendererFactory = valueRendererFactory;
-		valueRendererFactory.setSuggestBox((AbstractSuggestBox<T, EventHandlingValueHolderItem<T>>) this);
+		valueRendererFactory.setWidgetController((AbstractSuggestBox<T, EventHandlingValueHolderItem<T>>) this);
 		if (listRenderer != null) {
 			listRenderer.clear();
 			scrollPanel.clear();
@@ -664,26 +607,9 @@ public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderIt
 		this.suggestWidget = suggestWidget;
 	}
 
-	public Object getOption(String key) {
-		return options.get(key);
-	}
-
-	public Option<?> putOption(Option<?> option) {
-		return options.put(option.getKey(), option);
-	}
-
-	public Option<?> removeOption(String key) {
-		return options.remove(key);
-	}
-
-	public Option<?> removeOption(Option<?> option) {
-		return removeOption(option.getKey());
-	}
-
 	/**
-	 * Controls whether the method {@link #valueSelected(Object)} expressing a
-	 * change event will be called each time a value is selected or if it has to
-	 * wait until a blur occurs.
+	 * Controls whether the method {@link #valueSelected(Object)} expressing a change event will be called each time a value is selected or if it has to wait
+	 * until a blur occurs.
 	 * 
 	 * @return true if the event is immediate
 	 */
@@ -812,14 +738,6 @@ public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderIt
 
 	public void highlightSelectedValue() {
 		highlightSelectedValue(-1, selectedIndex);
-	}
-
-	public StringFormulator<T> getStringFormulator() {
-		return stringFormulator;
-	}
-
-	public void setStringFormulator(StringFormulator<T> stringFormulator) {
-		this.stringFormulator = stringFormulator;
 	}
 
 	public void clearSelection() {

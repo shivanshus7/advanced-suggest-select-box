@@ -60,17 +60,19 @@ public class DefaultSuggestOracle<T> extends SuggestOracle<T> {
 	}
 
 	/**
-	 * used to define the filtering strategy, override and check in the inner list
-	 * if this element should appear
+	 * used to define the filtering strategy, override and check in the inner list if this element should appear
 	 * 
 	 * @param text
 	 * @param t
 	 * @return true if the element should be included in the list
 	 */
 	protected boolean accept(String text, T t) {
-		Map<String, Option<?>> options = suggestBox.getOptions();
+		if (text == null)
+			return true;
+
+		Map<String, Option<?>> options = contextWidget.getOptions();
 		boolean caseSensitive = BooleanOption.isEnabled(DefaultOptions.CASE_SENSITIVE.name(), options);
-		String stringFormula = suggestBox.toString(t);
+		String stringFormula = contextWidget.toString(t);
 		String stringValue = caseSensitive ? stringFormula : stringFormula.toUpperCase();
 		String textValue = caseSensitive ? text : text.toUpperCase();
 		boolean startsWith = BooleanOption.isEnabled(DefaultOptions.STARTS_WITH.name(), options);

@@ -47,7 +47,7 @@ import eu.nextstreet.gwt.components.client.ui.widget.suggest.iconed.IconedValueH
 /**
  * Displays an iconed item
  * 
- * @author Zied Hamdi
+ * @author Zied Hamdi founder of http://1vu.fr
  * 
  * @param <T>
  *          the value class type

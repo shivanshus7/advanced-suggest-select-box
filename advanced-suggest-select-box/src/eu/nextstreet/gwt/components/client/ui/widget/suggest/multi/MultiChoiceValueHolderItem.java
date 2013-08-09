@@ -23,7 +23,7 @@ import eu.nextstreet.gwt.components.client.ui.widget.suggest.EventHandlingValueH
  * Items in a multi-valued suggest box have to be aware of their container for
  * eventual removal.
  * 
- * @author Zied Hamdi
+ * @author Zied Hamdi founder of http://1vu.fr
  * @param <T>
  *          item value type
  * @param <C>

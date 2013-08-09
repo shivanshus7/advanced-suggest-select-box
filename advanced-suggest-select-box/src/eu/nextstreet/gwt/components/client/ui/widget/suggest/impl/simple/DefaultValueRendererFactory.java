@@ -18,7 +18,6 @@ package eu.nextstreet.gwt.components.client.ui.widget.suggest.impl.simple;
 
 import java.util.Map;
 
-import eu.nextstreet.gwt.components.client.ui.widget.suggest.AbstractSuggestBox;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.EventHandlingValueHolderItem;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.StringFormulator;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueRendererFactory;
@@ -27,7 +26,7 @@ import eu.nextstreet.gwt.components.client.ui.widget.suggest.param.Option;
 
 /**
  * 
- * @author Zied Hamdi founder of http://into-i.fr
+ * @author Zied Hamdi founder of http://1vu.fr founder of http://into-i.fr
  * 
  * @param <T>
  *          the type of the values
@@ -37,10 +36,7 @@ import eu.nextstreet.gwt.components.client.ui.widget.suggest.param.Option;
  * @see EventHandlingValueHolderItem
  * @see ValueRendererFactory
  */
-public class DefaultValueRendererFactory<T, W extends EventHandlingValueHolderItem<T>>
-		extends AbstractValueRendererFactory<T, W> {
-
-	protected AbstractSuggestBox<T, EventHandlingValueHolderItem<T>> suggestBox;
+public class DefaultValueRendererFactory<T, W extends EventHandlingValueHolderItem<T>> extends AbstractValueRendererFactory<T, W> {
 
 	public DefaultValueRendererFactory() {
 		super();
@@ -52,11 +48,8 @@ public class DefaultValueRendererFactory<T, W extends EventHandlingValueHolderIt
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public W createValueRenderer(T value, String filterText,
-			Map<String, Option<?>> options) {
-		W toReturn = (W) new DefaultValueRenderer<T>(value, filterText,
-				BooleanOption.isEnabled(DefaultOptions.CASE_SENSITIVE.name(), options),
-				this);
+	public W createValueRenderer(T value, String filterText, Map<String, Option<?>> options) {
+		W toReturn = (W) new DefaultValueRenderer<T>(value, filterText, BooleanOption.isEnabled(DefaultOptions.CASE_SENSITIVE.name(), options), this);
 		toReturn.initWidget();
 		toReturn.setStyleName(EventHandlingValueHolderItem.ITEM_DEFAULT_STYLE);
 		return toReturn;
@@ -65,7 +58,6 @@ public class DefaultValueRendererFactory<T, W extends EventHandlingValueHolderIt
 	@Override
 	public ValueRendererFactory.ListRenderer<T, W> createListRenderer() {
 		DefaultListRenderer<T, W> defaultListRenderer = new DefaultListRenderer<T, W>();
-		defaultListRenderer.setSpacing(0);
 		return defaultListRenderer;
 	}
 

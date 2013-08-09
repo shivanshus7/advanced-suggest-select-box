@@ -7,7 +7,7 @@ import eu.nextstreet.gwt.components.client.ui.panel.StatePanel.StatePanelManager
  * Default implementation of a {@link StatePanelManager} that simply loops on
  * the possible states
  * 
- * @author Zied Hamdi http://1vu.fr
+ * @author Zied Hamdi founder of http://1vu.fr
  * 
  */
 public class DefaultStatePanelManager<T extends StatePanel.PanelState> implements StatePanelManager<T> {

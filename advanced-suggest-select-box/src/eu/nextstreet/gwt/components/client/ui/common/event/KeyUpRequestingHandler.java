@@ -6,7 +6,7 @@ import com.google.gwt.core.client.Scheduler;
  * A helper class that reduces server requests by sending a request only if a
  * non typing delay is noticed
  * 
- * @author Zied Hamdi http://1vu.fr
+ * @author Zied Hamdi founder of http://1vu.fr
  * 
  */
 public abstract class KeyUpRequestingHandler {

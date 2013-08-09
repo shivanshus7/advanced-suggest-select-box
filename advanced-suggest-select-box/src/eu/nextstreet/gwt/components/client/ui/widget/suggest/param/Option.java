@@ -20,7 +20,7 @@ package eu.nextstreet.gwt.components.client.ui.widget.suggest.param;
  * Options are saved into the suggest box and retrieved by the different actors
  * of the library
  * 
- * @author Zied Hamdi
+ * @author Zied Hamdi founder of http://1vu.fr
  * 
  * @param <T>
  *          the value type of the option
