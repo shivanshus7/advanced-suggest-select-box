@@ -137,6 +137,8 @@ public abstract class AbstractBaseWidget<T, P, E extends ChangeEvent> extends Co
 	}
 
 	public void setStringFormulator(StringFormulator<T> stringFormulator) {
+		if (stringFormulator == this)
+			throw new IllegalArgumentException();
 		this.stringFormulator = stringFormulator;
 	}
 

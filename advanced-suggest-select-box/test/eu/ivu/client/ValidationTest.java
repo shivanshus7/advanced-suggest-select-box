@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.google.gwt.core.shared.GWT;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.DoubleClickEvent;
@@ -26,6 +27,9 @@ import com.google.gwt.event.dom.client.DoubleClickHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
+import com.google.gwt.resources.client.ImageResource;
+import com.google.gwt.resources.client.ImageResource.ImageOptions;
+import com.google.gwt.resources.client.ImageResource.RepeatStyle;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.*;
 
@@ -35,6 +39,7 @@ import eu.nextstreet.gwt.components.client.ui.panel.StatePanel;
 import eu.nextstreet.gwt.components.client.ui.panel.StatePanel.SimplePanelState;
 import eu.nextstreet.gwt.components.client.ui.widget.AdvancedTextBox;
 import eu.nextstreet.gwt.components.client.ui.widget.select.DefaultPanelValueSelector;
+import eu.nextstreet.gwt.components.client.ui.widget.select.DefaultPanelValueSelector.Resources;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.AbstractBaseWidget;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.AbstractSuggestBox;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.StringFormulator;
@@ -57,6 +62,28 @@ import eu.nextstreet.gwt.components.shared.ValidationException;
 import eu.nextstreet.gwt.components.shared.Validator;
 
 public class ValidationTest {
+
+	public interface SPResources extends Resources {
+		@Source("eu/ivu/PanelValueSelector/brown_bg.png")
+		@ImageOptions(repeatStyle = RepeatStyle.Both, flipRtl = true)
+		ImageResource itemSelectedBackground();
+
+		@Source(Style.DEFAULT_CSS)
+		Style panelStyles();
+	}
+
+	public interface Style extends eu.nextstreet.gwt.components.client.ui.widget.select.DefaultPanelValueSelector.Style {
+		/**
+		 * The path to the default CSS styles used by this resource.
+		 */
+		String DEFAULT_CSS = "eu/ivu/PanelValueSelector/tags.css";
+
+		String selected();
+
+		String hovered();
+
+		String item();
+	}
 
 	/**
 	 * This is the fictive value class we use in our tests
@@ -93,18 +120,19 @@ public class ValidationTest {
 		}
 	};
 
+	static final StringFormulator<ValidationTest.Value> stringFormulator = new StringFormulator<ValidationTest.Value>() {
+
+		@Override
+		public String toString(Value t) {
+			return t.str;
+		}
+	};
+
 	static Value blogger = new Value("Blogger", "https://chrome.google.com/webstore/detail/mmoheajlpfaigefceljflpohdehkjbli");
 	static Value chromeToolBox = new Value("Chrome Toolbox", "https://chrome.google.com/webstore/detail/fjccknnhdnkbanjilpjddjhmkghmachn");
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static void testWidget() {
-		StringFormulator<ValidationTest.Value> stringFormulator = new StringFormulator<ValidationTest.Value>() {
-
-			@Override
-			public String toString(Value t) {
-				return t.str;
-			}
-		};
 
 		RootPanel suggestBoxContainer = RootPanel.get("suggestBoxContainer");
 		if (suggestBoxContainer == null) {
@@ -145,6 +173,7 @@ public class ValidationTest {
 		addLogInfoPanel(box);
 
 		initPanelSelector();
+		initPanelSelector2();
 
 		initStatePanel();
 
@@ -212,6 +241,37 @@ public class ValidationTest {
 
 	}
 
+	static class PanelSelectorController extends FlowPanel {
+		Label currentSelection;
+
+		public PanelSelectorController(final DefaultPanelValueSelector panelValueSelector) {
+			add(new Label("Max selected:"));
+			final TextBox maxSelectedW = new TextBox();
+			maxSelectedW.setText(panelValueSelector.getMaxSelected() + "");
+			maxSelectedW.addChangeHandler(new ChangeHandler() {
+
+				@Override
+				public void onChange(ChangeEvent event) {
+					panelValueSelector.setMaxSelected(Integer.parseInt(maxSelectedW.getText()));
+				}
+			});
+			add(maxSelectedW);
+
+			add(new Label("Current selection:"));
+			currentSelection = new Label("~unset~");
+			add(currentSelection);
+			panelValueSelector.addHandler(new ChangeHandler() {
+
+				@Override
+				public void onChange(ChangeEvent event) {
+					DefaultPanelValueSelector<Value> defaultPanelValueSelector = (DefaultPanelValueSelector<Value>) event.getSource();
+					currentSelection.setText(defaultPanelValueSelector.getSelection() + "");
+				}
+			});
+
+		}
+	}
+
 	protected static void initPanelSelector() {
 		DefaultPanelValueSelector<Value> panelSelector = new DefaultPanelValueSelector<ValidationTest.Value>();
 		panelSelector.setMaxSelected(2);
@@ -220,18 +280,29 @@ public class ValidationTest {
 		RootPanel selectionPanel = RootPanel.get("selectionPanel");
 		selectionPanel.add(panelSelector);
 
-		panelSelector.addHandler(new ChangeHandler() {
+		RootPanel selectionPanelState = RootPanel.get("selectionPanelState");
+		selectionPanelState.add(new PanelSelectorController(panelSelector));
 
-			@Override
-			public void onChange(ChangeEvent event) {
-				RootPanel selectionPanelState = RootPanel.get("selectionPanelState");
-				selectionPanelState.clear();
-				DefaultPanelValueSelector<Value> defaultPanelValueSelector = (DefaultPanelValueSelector<Value>) event.getSource();
-				selectionPanelState.add(new Label(defaultPanelValueSelector.getSelection() + ""));
-			}
-		});
 		// done after the change handler is registred
-		panelSelector.setSelection(chromeToolBox);
+		panelSelector.setSelection(true, chromeToolBox);
+	}
+
+	protected static void initPanelSelector2() {
+		IconedValueRendererFactory valueRendererFactory = new IconedValueRendererFactory(iconLinker);
+		DefaultPanelValueSelector<Value> panelSelector = new DefaultPanelValueSelector<ValidationTest.Value>(new DefaultSuggestOracle<Value>(),
+				valueRendererFactory, (Resources) GWT.create(SPResources.class));
+		panelSelector.setStringFormulator(stringFormulator);
+		panelSelector.setMaxSelected(1);
+		fillData(panelSelector);
+		panelSelector.init();
+		RootPanel selectionPanel = RootPanel.get("selectionPanel2");
+		selectionPanel.add(panelSelector);
+
+		RootPanel selectionPanelState = RootPanel.get("selectionPanelState2");
+		selectionPanelState.add(new PanelSelectorController(panelSelector));
+
+		// done after the change handler is registred
+		panelSelector.setSelection(true, blogger);
 	}
 
 	protected static void initStatePanel() {

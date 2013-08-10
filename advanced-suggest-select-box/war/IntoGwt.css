@@ -83,6 +83,19 @@ h4 {
 	padding: 2px;
 }
 
+ 
+.panelSelector .gwt-Image.icon {
+    float: left;
+    width: 1em;
+}
+
+.panelSelector .eu-nextstreet-SuggestItem {
+    float: left;
+    font-size: 0.9em;
+    min-height: 22px;
+    padding: 2px;
+}
+
 .eu-nextstreet-SuggestItem .container {
 	
 }
@@ -175,6 +188,13 @@ h4 {
 #selectionPanelState {
     background-color: #085123;
     color: yellow;
+}
+
+#selectionPanelState2 {
+    background-color: #E0CFBC;
+    border-radius: 4px 4px 4px 4px;
+    color: black;
+    padding: 1em;
 }
 
 #suggestBoxContainer .eu-nextstreet-SuggestField {

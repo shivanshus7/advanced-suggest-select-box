@@ -1,9 +1,6 @@
 package eu.nextstreet.gwt.components.client.ui.widget.select;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -33,6 +30,7 @@ public abstract class AbstractPanelValueSelector<T, W extends EventHandlingValue
 	protected ValueRendererFactory<T, W> valueRendererFactory;
 	protected Map<String, Option<?>> options = new HashMap<String, Option<?>>();
 	protected ListRenderer<T, W> listRenderer;
+	boolean initialized = false;
 
 	public AbstractPanelValueSelector(SuggestOracle<T> suggestOracle, ValueRendererFactory<T, W> valueRendererFactory) {
 		this.suggestOracle = suggestOracle;
@@ -51,6 +49,7 @@ public abstract class AbstractPanelValueSelector<T, W extends EventHandlingValue
 				init(suggestions);
 			}
 		});
+		initialized = true;
 	}
 
 	protected abstract void uiSetListPanel(ListRenderer<T, W> listRenderer);
@@ -67,6 +66,7 @@ public abstract class AbstractPanelValueSelector<T, W extends EventHandlingValue
 			});
 			uiAddPanel(value, valueRenderer);
 		}
+		initialized = true;
 		uiUpdateSelection();
 	}
 
@@ -94,9 +94,21 @@ public abstract class AbstractPanelValueSelector<T, W extends EventHandlingValue
 		uiUpdateSelection();
 	}
 
+	public void setSelection(boolean notify, T... values) {
+		setSelection(notify, Arrays.asList(values));
+	}
+
 	@Override
 	public void setSelection(List<T> toSet) {
+		// usually this method is called on startup
+		setSelection(false, toSet);
+	}
+
+	@SuppressWarnings("unchecked")
+	public void setSelection(boolean notify, List<T> toSet) {
 		super.setSelection(toSet);
+		if (notify)
+			changeOccured(new PanelSelectedEvent<T>(null, ((ListRenderer<T, EventHandlingValueHolderItem<T>>) listRenderer)));
 		uiUpdateSelection();
 	}
 
@@ -118,6 +130,16 @@ public abstract class AbstractPanelValueSelector<T, W extends EventHandlingValue
 	public void clearSelection() {
 		super.clearSelection();
 		uiUpdateSelection();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public void setMaxSelected(int maxSelected) {
+		super.setMaxSelected(maxSelected);
+		if (initialized) {
+			uiUpdateSelection();
+			changeOccured(new PanelSelectedEvent<T>(null, ((ListRenderer<T, EventHandlingValueHolderItem<T>>) listRenderer)));
+		}
 	}
 
 	/**

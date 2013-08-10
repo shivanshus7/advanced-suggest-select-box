@@ -51,11 +51,15 @@ public class DefaultPanelValueSelector<T> extends AbstractPanelValueSelector<T, 
 	@UiField
 	protected HTMLPanel panel;
 
-	protected Resources resources = GWT.create(Resources.class);
-	protected Style panelStyles = resources.panelStyles();
+	protected Resources resources;
+	protected Style panelStyles;
 
 	public DefaultPanelValueSelector() {
 		this(new DefaultSuggestOracle<T>(), new DefaultValueRendererFactory<T, EventHandlingValueHolderItem<T>>());
+	}
+
+	public DefaultPanelValueSelector(Resources resources) {
+		this(new DefaultSuggestOracle<T>(), new DefaultValueRendererFactory<T, EventHandlingValueHolderItem<T>>(), resources);
 	}
 
 	public DefaultPanelValueSelector(SuggestOracle<T> suggestOracle, ValueRendererFactory<T, EventHandlingValueHolderItem<T>> valueRendererFactory) {
@@ -84,8 +88,8 @@ public class DefaultPanelValueSelector<T> extends AbstractPanelValueSelector<T, 
 
 	@Override
 	protected void uiUpdateSelection() {
-		if (listRenderer == null)
-			throw new IllegalStateException("Did you initialize the values before calling uiUpdateSelection() ?");
+		if (!initialized)
+			throw new IllegalStateException("you must call init() before calling this method");
 
 		Set<T> values = listRenderer.getValues();
 		for (T t : values) {

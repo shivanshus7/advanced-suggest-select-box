@@ -22,6 +22,7 @@ import com.google.gwt.user.client.ui.FlowPanel;
 import eu.nextstreet.gwt.components.client.ui.widget.common.WidgetValueMemory;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.AbstractSuggestBox;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.EventHandlingValueHolderItem;
+import eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueRendererFactory;
 
 /**
  * @author Zied Hamdi founder of http://1vu.fr
@@ -32,11 +33,8 @@ public class MultiChoiceListRenderer<T, C extends MultiChoiceValueHolderItem<T, 
 	protected AbstractSuggestBox<T, EventHandlingValueHolderItem<T>> suggestBox;
 	protected FlowPanel panel = new FlowPanel();
 
-	public MultiChoiceListRenderer() {
-		initWidget(panel);
-	}
-
-	public MultiChoiceListRenderer(AbstractSuggestBox<T, EventHandlingValueHolderItem<T>> suggestBox) {
+	public MultiChoiceListRenderer(AbstractSuggestBox<T, EventHandlingValueHolderItem<T>> suggestBox, ValueRendererFactory<T, ?> factory) {
+		super(factory);
 		initWidget(panel);
 		this.suggestBox = suggestBox;
 	}
@@ -67,6 +65,7 @@ public class MultiChoiceListRenderer<T, C extends MultiChoiceValueHolderItem<T, 
 	@Override
 	public boolean remove(C item) {
 		super.remove(item);
+		suggestBox.removeSelection(item.getValue());
 		return panel.remove(item);
 	}
 
