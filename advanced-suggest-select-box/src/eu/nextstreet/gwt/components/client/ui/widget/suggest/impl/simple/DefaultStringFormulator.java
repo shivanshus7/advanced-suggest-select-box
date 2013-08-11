@@ -16,7 +16,7 @@
 
 package eu.nextstreet.gwt.components.client.ui.widget.suggest.impl.simple;
 
-import eu.nextstreet.gwt.components.client.ui.widget.suggest.StringFormulator;
+import eu.nextstreet.gwt.components.client.ui.widget.common.StringFormulator;
 
 /**
  * @author Zied Hamdi founder of http://1vu.fr

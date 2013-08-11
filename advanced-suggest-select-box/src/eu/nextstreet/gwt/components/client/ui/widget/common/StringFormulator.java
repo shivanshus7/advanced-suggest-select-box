@@ -1,4 +1,4 @@
-package eu.nextstreet.gwt.components.client.ui.widget.suggest;
+package eu.nextstreet.gwt.components.client.ui.widget.common;
 
 /**
  * Isolates the representation of a value in its String representation : the

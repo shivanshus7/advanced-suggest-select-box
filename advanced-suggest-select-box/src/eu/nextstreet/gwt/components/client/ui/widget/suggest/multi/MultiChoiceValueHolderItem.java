@@ -17,7 +17,7 @@
 
 package eu.nextstreet.gwt.components.client.ui.widget.suggest.multi;
 
-import eu.nextstreet.gwt.components.client.ui.widget.suggest.EventHandlingValueHolderItem;
+import eu.nextstreet.gwt.components.client.ui.widget.common.EventHandlingValueHolderItem;
 
 /**
  * Items in a multi-valued suggest box have to be aware of their container for

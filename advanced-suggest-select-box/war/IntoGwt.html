@@ -34,7 +34,9 @@
 <!--                                           -->
 <body style="width: 100%;">
 
-<div><img alt="http://1vu.fr" src="img/Logo_1VU_entete.png"> </div>
+	<div>
+		<img alt="http://1vu.fr" src="img/Logo_1VU_entete.png">
+	</div>
 	<!-- OPTIONAL: include this if you want history support -->
 	<iframe src="javascript:''" id="__gwt_historyFrame" tabIndex='-1'
 		style="position: absolute; width: 0; height: 0; border: 0"></iframe>
@@ -47,15 +49,16 @@
 			application to display correctly.</div>
 	</noscript>
 
-	<div style="width:800px; margin-left: auto; margin-right: auto;">
-		<div style="text-align: center;vertical-align: top;height: 60px;">
-			<h1 style="padding-bottom: 3px;">Advanced Suggest and Select Box Project</h1>
-			<h5 style="padding-right: 50px; text-align: right;">Version 2.1.0</h5>
+	<div style="width: 800px; margin-left: auto; margin-right: auto;">
+		<div style="text-align: center; vertical-align: top; height: 60px;">
+			<h1 style="padding-bottom: 3px;">Advanced Suggest and Select Box
+				Project</h1>
+			<h5 style="padding-right: 50px; text-align: right;">Version
+				2.1.0</h5>
 		</div>
 
 		<div>
-			<table
-				style="border-bottom: 1px solid black;">
+			<table style="border-bottom: 1px solid black;">
 				<tr>
 					<td colspan="2">
 						<h3>Advanced Suggest and Select Box :</h3> The <b>DefaultIconedSuggestBox</b>
@@ -63,44 +66,50 @@
 						<ul>
 							<li>Icons in your suggest box and select box</li>
 							<li>Use <b>any GWT widgets</b> to display your values inside
-								the suggest box: an html table mode is also available for multiple
-								columns display mode</li>
+								the suggest box: an html table mode is also available for
+								multiple columns display mode
+							</li>
 							<li>Value <b>validation</b> (here for the example purpose we
-								check the value length is more than 3 chars)</li>
+								check the value length is more than 3 chars)
+							</li>
 							<li>The <b>Strict mode</b> allows you to use the suggest box
-								instead of the combo (select) boxes also</li>
-							<li>Have your own <b>filtering algorithm</b> that is activated
-								as the user types (for an example we added the two filtering
-								algos: case sensitive and starts with)</li>
+								instead of the combo (select) boxes also
+							</li>
+							<li>Have your own <b>filtering algorithm</b> that is
+								activated as the user types (for an example we added the two
+								filtering algos: case sensitive and starts with)
+							</li>
 							<li>Many styles are added on events like mouse over, element
-								selection, matching characters, validation error etc... just write
-								your css file and you're done)'
+								selection, matching characters, validation error etc... just
+								write your css file and you're done)'
 						</ul> In addition, there are some "invisible" features like:
 						<ul>
 							<li><b>Type safe</b> values</li>
 							<li>Decorate your Suggest Box or Select Box with <b>complementary
 									information</b> (other that an icon) by extending <b>DefaultSuggestBox</b>
 								(the parent class of DefaultIconedSuggestBox) and adding your
-								logic directly inside the component</li>
+								logic directly inside the component
+							</li>
 							<li>Alternate representations of the <b>choice list</b>
-								(You're not obliged to have a popup)</li>
+								(You're not obliged to have a popup)
+							</li>
 							<li>Extended styling in a consistent way on all browsers (in
 								opposition to the Select box that is a native component which
 								display depends on the browser)</li>
 							<li>The architecture is a very clean approach with more than
-								10 years of experience in Java technologies, you can get into the
-								source code and find what you need very easily</li>
-						</ul></td>
+								10 years of experience in Java technologies, you can get into
+								the source code and find what you need very easily</li>
+						</ul>
+					</td>
 				</tr>
 				<tr>
 					<td style="width: 70%;">
-						<h4>Test the Suggest box here and play with the options on the
-							right:</h4>
+						<h4>Test the Suggest box here and play with the options on
+							the right:</h4>
 					</td>
-					<td style=""><h4>Options:</h4>
-					</td>
+					<td style=""><h4>Options:</h4></td>
 				</tr>
-		
+
 				<tr>
 					<td id="suggestBoxContainer"
 						style="vertical-align: top; padding: 10px;"></td>
@@ -117,37 +126,51 @@
 
 				<tr>
 					<td style="width: 70%;">
-						<h4>Test the Multivalued Suggest box here </h4>
+						<h4>Test the Multivalued Suggest box here</h4>
 					</td>
-					<td style=""><h4>Options:</h4>
-					</td>
+					<td style=""><h4>Options:</h4></td>
 				</tr>
-				
+
 				<tr>
 					<td id="suggestBoxMultiValueContainer"
 						style="vertical-align: top; padding: 10px;"></td>
-					<td id="options">The same options as the advanced suggest box are available. <br>You can define your own styles, layout and position (left, right, top, bottom, or outside the box) to represent the selected values</td>
+					<td id="options">The same options as the advanced suggest box
+						are available. <br>You can define your own styles, layout and
+						position (left, right, top, bottom, or outside the box) to
+						represent the selected values
+					</td>
 				</tr>
 
 				<tr>
 					<td id="suggestBoxMultiValueLog" colspan="2"
-						style="vertical-align: top; padding: 10px; border: 1px solid #bbb; color: green;" ></td>
+						style="vertical-align: top; padding: 10px; border: 1px solid #bbb; color: green;"></td>
 				</tr>
 
 			</table>
-		
+
 			<table align="center" style="width: 800px">
 				<tr>
 					<td>
-						<h3>Selection Panel :</h3></td>
+						<h3>Selection Panel :</h3>
+					</td>
 				</tr>
 				<tr>
-					<td>Alternative to radio boxes, combo boxes and TabBar in both vertical and horizontal modes
+					<td>Alternative to radio boxes, combo boxes and TabBar in both
+						vertical and horizontal modes
 						<ul>
-						  <li>You can reuse icons and other components between the suggest box and this library</li>
-							<li>maxSelected (=2 in this demo) property (default=1) limits the simultaneous selected items count in a fifo manner (for unlimited set it to -1)</li>
-							<li>selected and hover status handled separately with additional styles</li>
-						</ul></td>
+							<li>You can reuse icons and other components between the
+								suggest box and this library</li>
+							<li>maxSelected (=2 in this demo) property (default=1)
+								limits the simultaneous selected items count in a fifo manner
+								(for unlimited set it to -1)</li>
+							<li>selected and hover status handled separately with
+								additional styles</li>
+						</ul>
+
+						<p>The <b>Max selected</b> number is the count of maximum allowed choices. It behaves like a multichoice select box limited to 'maxSelected' values</p>						
+						<p>The <b>select once 'mode'</b> decides if a value is clicked twice, if it has to be present twice in the list of selected values. <b>The number of selected items cannot be greater that 'maxSelected', increase that number at least to 2 to see the mode in action</b></p>
+						<p>The <b>Toggle 'mode'</b> makes the widget behave as a checkbox: it is selected or unselected on each click (as long as the maxSelected is not exceeded)</p> 
+					</td>
 				</tr>
 				<tr>
 					<td id="selectionPanel"></td>
@@ -155,18 +178,53 @@
 				</tr>
 				<tr>
 					<td>
-						<h3>Selection Panel in a different style</h3></td>
+						<h3>Selection Panel in a different style: </h3>
+						<br/>
+						here it can be used as a replacement for radio and check boxes
+					</td>
 				</tr>
 				<tr>
 					<td id="selectionPanel2"></td>
 					<td id="selectionPanelState2" width="20%"></td>
 				</tr>
+				<tr>
+					<td>
+						<h3>Selection Panel as a range selection widget: </h3>
+					</td>
+				</tr>
+				<tr>
+					<td id="selectionPanel3"></td>
+					<td id="selectionPanelState3" width="20%"></td>
+				</tr>
 			</table>
-			
+
 			<table align="center" style="width: 800px">
 				<tr>
 					<td>
-						<h3>Advanced Text Box :</h3></td>
+						<h3>State Panel :</h3>
+					</td>
+				</tr>
+				<tr>
+					<td>Panel with multiple states. By default, the state toggles
+						between two possible states as a button, but the component handles
+						<ul>
+							<li>multiple states with a manager interface to switch
+								between states</li>
+							<li>enabled and disabled status handled separately with
+								additional styles</li>
+						</ul>
+					</td>
+				</tr>
+				<tr>
+					<td id="statePanel"></td>
+				</tr>
+			</table>
+
+			<table align="center" style="width: 800px">
+				<tr>
+					<td>
+						<h3>Advanced Text Box :</h3>
+					</td>
 				</tr>
 				<tr>
 					<td>this component is the basic widget of the suggest box, it
@@ -174,42 +232,27 @@
 						<ul>
 							<li>Default text with a different style</li>
 							<li>Double click events</li>
-						</ul></td>
+						</ul>
+					</td>
 				</tr>
 				<tr>
 					<td id="advancedTextBox"></td>
 				</tr>
 			</table>
-			
-			<table align="center" style="width: 800px">
-				<tr>
-					<td>
-						<h3>State Panel :</h3></td>
-				</tr>
-				<tr>
-					<td>Panel with multiple states. By default, the state toggles between two possible states as a button, but the component handles
-						<ul>
-							<li>multiple states with a manager interface to switch between states</li>
-							<li>enabled and disabled status handled separately with additional styles</li>
-						</ul></td>
-				</tr>
-				<tr>
-					<td id="statePanel"></td>
-				</tr>
-			</table>
-		
-			<br/><br/>
+
+			<br />
+			<br />
 			<div style="padding-top: 30px; text-align: center;">
 				This demo is for the <a
 					href="http://code.google.com/p/advanced-suggest-select-box/">Advanced
 					suggest select box</a> project licensed under the Apache2 license
 			</div>
-		
+
 			<div style="text-align: center; text-decoration: underline">Thanks
-				to Thomas Lebrun for his contribution in the
-				graphical design proposition.</div>
+				to Thomas Lebrun for his contribution in the graphical design
+				proposition.</div>
 		</div>
 	</div>
-		
+
 </body>
 </html>

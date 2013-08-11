@@ -6,29 +6,29 @@ import com.google.gwt.user.client.ui.Image;
 
 import eu.nextstreet.gwt.components.client.ui.common.data.ValueRepresentationTransformer;
 import eu.nextstreet.gwt.components.client.ui.widget.WidgetController;
-import eu.nextstreet.gwt.components.client.ui.widget.suggest.EventHandlingValueHolderItem;
-import eu.nextstreet.gwt.components.client.ui.widget.suggest.StringFormulator;
-import eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueHolderItem;
-import eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueRendererFactory;
+import eu.nextstreet.gwt.components.client.ui.widget.common.EventHandlingValueHolderItem;
+import eu.nextstreet.gwt.components.client.ui.widget.common.StringFormulator;
+import eu.nextstreet.gwt.components.client.ui.widget.common.ValueRendererFactory;
+import eu.nextstreet.gwt.components.client.ui.widget.common.renderer.AbstractValueRendererFactory;
+import eu.nextstreet.gwt.components.client.ui.widget.common.renderer.DefaultListRenderer;
+import eu.nextstreet.gwt.components.client.ui.widget.common.renderer.DefaultValueRendererFactory;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.iconed.IconedValueHolderItem;
-import eu.nextstreet.gwt.components.client.ui.widget.suggest.impl.simple.AbstractValueRendererFactory;
-import eu.nextstreet.gwt.components.client.ui.widget.suggest.impl.simple.DefaultListRenderer;
-import eu.nextstreet.gwt.components.client.ui.widget.suggest.impl.simple.DefaultValueRendererFactory;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.param.BooleanOption;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.param.Option;
 
 public class IconedValueRendererFactory<T, W extends IconedValueHolderItem<T>> extends AbstractValueRendererFactory<T, W> {
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	protected ValueRendererFactory<T, ValueHolderItem<T>> textRendererFactory = new DefaultValueRendererFactory();
+	protected ValueRendererFactory<T, EventHandlingValueHolderItem<T>> textRendererFactory;
 	/** Gives an image for each value */
 	protected ValueRepresentationTransformer<T, Image> iconLinker;
 
 	public IconedValueRendererFactory(StringFormulator<T> stringFormulator, ValueRepresentationTransformer<T, Image> iconLinker,
-			ValueRendererFactory<T, ValueHolderItem<T>> textRendererFactory) {
+			ValueRendererFactory<T, EventHandlingValueHolderItem<T>> textRendererFactory) {
 		super(stringFormulator);
 		this.iconLinker = iconLinker;
 		if (textRendererFactory != null)
 			this.textRendererFactory = textRendererFactory;
+		else
+			this.textRendererFactory = new DefaultValueRendererFactory<T, EventHandlingValueHolderItem<T>>(stringFormulator);
 	}
 
 	public IconedValueRendererFactory(StringFormulator<T> stringFormulator, ValueRepresentationTransformer<T, Image> iconLinker) {
@@ -66,7 +66,7 @@ public class IconedValueRendererFactory<T, W extends IconedValueHolderItem<T>> e
 	}
 
 	@Override
-	public eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueRendererFactory.ListRenderer<T, W> createListRenderer() {
+	public eu.nextstreet.gwt.components.client.ui.widget.common.ValueRendererFactory.ListRenderer<T, W> createListRenderer() {
 		DefaultListRenderer<T, W> defaultListRenderer = new DefaultListRenderer<T, W>(this);
 		return defaultListRenderer;
 	}
@@ -79,13 +79,11 @@ public class IconedValueRendererFactory<T, W extends IconedValueHolderItem<T>> e
 		this.iconLinker = iconLinker;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueRendererFactory #toString(T)
+	/**
+	 * Overridden just for docs: {@link #textRendererFactory} is used instead of this method
 	 */
 	public String toString(T value) {
-		return value.toString();
+		throw new UnsupportedOperationException("textRendererFactory is used instead");
 	}
 
 	@Override

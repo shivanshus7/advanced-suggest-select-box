@@ -23,12 +23,12 @@ import com.google.gwt.user.client.ui.Image;
 
 import eu.nextstreet.gwt.components.client.ui.common.data.ValueRepresentationTransformer;
 import eu.nextstreet.gwt.components.client.ui.widget.WidgetController;
+import eu.nextstreet.gwt.components.client.ui.widget.common.EventHandlingValueHolderItem;
+import eu.nextstreet.gwt.components.client.ui.widget.common.ValueHolderItem;
+import eu.nextstreet.gwt.components.client.ui.widget.common.ValueRendererFactory;
+import eu.nextstreet.gwt.components.client.ui.widget.common.renderer.AbstractValueRendererFactory;
+import eu.nextstreet.gwt.components.client.ui.widget.common.renderer.DefaultValueRendererFactory;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.AbstractSuggestBox;
-import eu.nextstreet.gwt.components.client.ui.widget.suggest.EventHandlingValueHolderItem;
-import eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueHolderItem;
-import eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueRendererFactory;
-import eu.nextstreet.gwt.components.client.ui.widget.suggest.impl.simple.AbstractValueRendererFactory;
-import eu.nextstreet.gwt.components.client.ui.widget.suggest.impl.simple.DefaultValueRendererFactory;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.multi.MultiChoiceListRenderer;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.multi.MultiChoiceValueHolderItem;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.param.Option;
@@ -81,8 +81,9 @@ public class MultiChoiceValueRendererFactory<T, C extends MultiChoiceValueHolder
 	 * 
 	 * @see eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueRendererFactory #createListRenderer()
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
-	public eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueRendererFactory.ListRenderer<T, C> createListRenderer() {
+	public eu.nextstreet.gwt.components.client.ui.widget.common.ValueRendererFactory.ListRenderer<T, C> createListRenderer() {
 		return new MultiChoiceListRenderer<T, C>((AbstractSuggestBox<T, EventHandlingValueHolderItem<T>>) widgetController, this);
 	}
 

@@ -21,8 +21,8 @@ import java.util.List;
 
 import com.google.gwt.user.client.ui.FlexTable;
 
+import eu.nextstreet.gwt.components.client.ui.widget.common.ValueRendererFactory;
 import eu.nextstreet.gwt.components.client.ui.widget.common.WidgetValueMemory;
-import eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueRendererFactory;
 
 /**
  * Designed to create a simlpe table around the items creating

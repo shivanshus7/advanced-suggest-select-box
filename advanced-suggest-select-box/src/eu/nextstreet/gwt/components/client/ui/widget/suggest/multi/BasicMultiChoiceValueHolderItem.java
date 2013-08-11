@@ -27,8 +27,8 @@ import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.UIObject;
 
 import eu.nextstreet.gwt.components.client.ui.common.data.ValueRepresentationTransformer;
-import eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueHolderItem;
-import eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueRendererFactory;
+import eu.nextstreet.gwt.components.client.ui.widget.common.ValueHolderItem;
+import eu.nextstreet.gwt.components.client.ui.widget.common.ValueRendererFactory;
 
 /**
  * Has no concrete widget for the displayed item, but prepares the space for it

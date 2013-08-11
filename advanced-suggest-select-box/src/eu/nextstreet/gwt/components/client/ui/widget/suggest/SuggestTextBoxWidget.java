@@ -10,6 +10,7 @@ import com.google.gwt.event.dom.client.MouseMoveHandler;
 import com.google.gwt.event.dom.client.MouseOutHandler;
 import com.google.gwt.user.client.ui.IsWidget;
 
+import eu.nextstreet.gwt.components.client.ui.widget.common.EventHandlingValueHolderItem;
 import eu.nextstreet.gwt.components.shared.Validator;
 
 /**

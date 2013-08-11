@@ -8,6 +8,7 @@ import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.*;
 
 import eu.nextstreet.gwt.components.client.ui.widget.AdvancedTextBox;
+import eu.nextstreet.gwt.components.client.ui.widget.common.EventHandlingValueHolderItem;
 import eu.nextstreet.gwt.components.shared.Validator;
 
 /**

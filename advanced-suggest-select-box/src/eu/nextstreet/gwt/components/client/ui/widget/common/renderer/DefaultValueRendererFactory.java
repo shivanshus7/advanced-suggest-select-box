@@ -14,13 +14,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package eu.nextstreet.gwt.components.client.ui.widget.suggest.impl.simple;
+package eu.nextstreet.gwt.components.client.ui.widget.common.renderer;
 
 import java.util.Map;
 
-import eu.nextstreet.gwt.components.client.ui.widget.suggest.EventHandlingValueHolderItem;
-import eu.nextstreet.gwt.components.client.ui.widget.suggest.StringFormulator;
-import eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueRendererFactory;
+import eu.nextstreet.gwt.components.client.ui.widget.common.EventHandlingValueHolderItem;
+import eu.nextstreet.gwt.components.client.ui.widget.common.StringFormulator;
+import eu.nextstreet.gwt.components.client.ui.widget.common.ValueRendererFactory;
+import eu.nextstreet.gwt.components.client.ui.widget.suggest.impl.simple.DefaultOptions;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.param.BooleanOption;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.param.Option;
 
@@ -37,6 +38,9 @@ import eu.nextstreet.gwt.components.client.ui.widget.suggest.param.Option;
  * @see ValueRendererFactory
  */
 public class DefaultValueRendererFactory<T, W extends EventHandlingValueHolderItem<T>> extends AbstractValueRendererFactory<T, W> {
+	private static final String LIST_DEFAULT_STYLE = "ListRenderer";
+	protected String listStyle = LIST_DEFAULT_STYLE;
+	protected String itemStyle = EventHandlingValueHolderItem.ITEM_DEFAULT_STYLE;
 
 	public DefaultValueRendererFactory() {
 		super();
@@ -51,14 +55,31 @@ public class DefaultValueRendererFactory<T, W extends EventHandlingValueHolderIt
 	public W createValueRenderer(T value, String filterText, Map<String, Option<?>> options) {
 		W toReturn = (W) new DefaultValueRenderer<T>(value, filterText, BooleanOption.isEnabled(DefaultOptions.CASE_SENSITIVE.name(), options), this);
 		toReturn.initWidget();
-		toReturn.setStyleName(EventHandlingValueHolderItem.ITEM_DEFAULT_STYLE);
+		toReturn.setStyleName(itemStyle);
 		return toReturn;
 	}
 
 	@Override
 	public ValueRendererFactory.ListRenderer<T, W> createListRenderer() {
 		DefaultListRenderer<T, W> defaultListRenderer = new DefaultListRenderer<T, W>(this);
+		defaultListRenderer.setStyleName(listStyle);
 		return defaultListRenderer;
+	}
+
+	public String getListStyle() {
+		return listStyle;
+	}
+
+	public void setListStyle(String listStyle) {
+		this.listStyle = listStyle;
+	}
+
+	public String getItemStyle() {
+		return itemStyle;
+	}
+
+	public void setItemStyle(String itemStyle) {
+		this.itemStyle = itemStyle;
 	}
 
 }

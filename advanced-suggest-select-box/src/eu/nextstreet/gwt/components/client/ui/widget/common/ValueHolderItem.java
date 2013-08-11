@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package eu.nextstreet.gwt.components.client.ui.widget.suggest;
+package eu.nextstreet.gwt.components.client.ui.widget.common;
 
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.UIObject;

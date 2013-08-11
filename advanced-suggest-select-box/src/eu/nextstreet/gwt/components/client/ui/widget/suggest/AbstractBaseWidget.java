@@ -23,6 +23,8 @@ import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.user.client.ui.Composite;
 
 import eu.nextstreet.gwt.components.client.ui.widget.WidgetController;
+import eu.nextstreet.gwt.components.client.ui.widget.common.StringFormulator;
+import eu.nextstreet.gwt.components.client.ui.widget.common.SuggestOracle;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.impl.simple.DefaultStringFormulator;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.param.Option;
 
@@ -49,6 +51,8 @@ public abstract class AbstractBaseWidget<T, P, E extends ChangeEvent> extends Co
 	protected StringFormulator<T> stringFormulator = new DefaultStringFormulator<T>();
 	protected List<T> selectedItems = new ArrayList<T>();
 	protected int maxSelected = 1;
+
+	protected boolean toggleMode, selectOneOccurenceMode;
 
 	/**
 	 * Remembers the removed elements
@@ -151,7 +155,14 @@ public abstract class AbstractBaseWidget<T, P, E extends ChangeEvent> extends Co
 	 */
 	@Override
 	public void valueSelected(T value) {
-		selectedItems.add(value);
+		// OPTIMIZE may be optimized using a hashed list or map
+		boolean alreadySelected = selectedItems.contains(value);
+		if (toggleMode && alreadySelected) {
+			removeSelection(value);
+			return;
+		}
+		if (!(selectOneOccurenceMode && alreadySelected))
+			selectedItems.add(value);
 		if (maxSelected > 0) {
 			if (selectedItems.size() > maxSelected)
 				selectedItems.remove(0);
@@ -178,6 +189,23 @@ public abstract class AbstractBaseWidget<T, P, E extends ChangeEvent> extends Co
 	public boolean removeSelection(T value) {
 		removedValues.add(value);
 		return selectedItems.remove(value);
+	}
+
+	@Override
+	public boolean removeSelection(Set<T> selectionToRemove) {
+		removedValues.addAll(selectionToRemove);
+
+		boolean toReturn = false;
+
+		// not using removeAll since it removes completely and not only once (if the element is more than once)
+		for (T selected : selectionToRemove) {
+			int removeIndex = selectedItems.indexOf(selected);
+			if (removeIndex != -1) {
+				selectedItems.remove(removeIndex);
+				toReturn = true;
+			}
+		}
+		return toReturn;
 	}
 
 	@Override
@@ -216,4 +244,30 @@ public abstract class AbstractBaseWidget<T, P, E extends ChangeEvent> extends Co
 	public List<T> getSelection() {
 		return selectedItems;
 	}
+
+	public boolean isToggleMode() {
+		return toggleMode;
+	}
+
+	public void setToggleMode(boolean toggleMode) {
+		this.toggleMode = toggleMode;
+	}
+
+	public boolean isSelectOneOccurenceMode() {
+		return selectOneOccurenceMode;
+	}
+
+	public void setSelectOneOccurenceMode(boolean selectOneOccurenceMode) {
+		this.selectOneOccurenceMode = selectOneOccurenceMode;
+		Set<T> uniques = new HashSet<T>();
+		Set<T> duplicates = new HashSet<T>();
+		for (T selected : selectedItems) {
+			if (uniques.contains(selected))
+				duplicates.add(selected);
+			else
+				uniques.add(selected);
+		}
+		removeSelection(duplicates);
+	}
+
 }

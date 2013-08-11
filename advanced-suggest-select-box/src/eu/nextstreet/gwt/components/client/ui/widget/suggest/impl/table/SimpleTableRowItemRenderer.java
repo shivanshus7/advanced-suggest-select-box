@@ -37,9 +37,9 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.UIObject;
 import com.google.gwt.user.client.ui.Widget;
 
-import eu.nextstreet.gwt.components.client.ui.widget.suggest.EventHandlingValueHolderItem;
-import eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueHolderItem;
-import eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueRendererFactory;
+import eu.nextstreet.gwt.components.client.ui.widget.common.EventHandlingValueHolderItem;
+import eu.nextstreet.gwt.components.client.ui.widget.common.ValueHolderItem;
+import eu.nextstreet.gwt.components.client.ui.widget.common.ValueRendererFactory;
 import eu.nextstreet.gwt.components.client.ui.widget.util.HtmlUtil;
 
 /**

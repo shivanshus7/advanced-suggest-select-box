@@ -14,14 +14,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package eu.nextstreet.gwt.components.client.ui.widget.suggest.impl.simple;
+package eu.nextstreet.gwt.components.client.ui.widget.common.renderer;
 
 import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 
+import eu.nextstreet.gwt.components.client.ui.widget.common.EventHandlingValueHolderItem;
+import eu.nextstreet.gwt.components.client.ui.widget.common.ValueRendererFactory;
 import eu.nextstreet.gwt.components.client.ui.widget.common.WidgetValueMemory;
-import eu.nextstreet.gwt.components.client.ui.widget.suggest.EventHandlingValueHolderItem;
-import eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueRendererFactory;
 
 /**
  * The default list renderer has all needed methods implemented by its parent class
@@ -55,6 +56,14 @@ public class DefaultListRenderer<T, W extends EventHandlingValueHolderItem<T>> e
 	@SuppressWarnings("unchecked")
 	public W getAt(int index) {
 		return (W) panel.getWidget(index);
+	}
+
+	@Override
+	public void closeList() {
+		super.closeList();
+		SimplePanel closing = new SimplePanel();
+		closing.setStyleName("last");
+		panel.add(closing);
 	}
 
 }

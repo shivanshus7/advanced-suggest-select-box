@@ -18,7 +18,7 @@ package eu.nextstreet.gwt.components.client.ui.widget.suggest.impl.table;
 
 import java.util.Map;
 
-import eu.nextstreet.gwt.components.client.ui.widget.suggest.impl.simple.AbstractValueRendererFactory;
+import eu.nextstreet.gwt.components.client.ui.widget.common.renderer.AbstractValueRendererFactory;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.impl.simple.DefaultOptions;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.param.BooleanOption;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.param.Option;

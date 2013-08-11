@@ -14,11 +14,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package eu.nextstreet.gwt.components.client.ui.widget.suggest;
+package eu.nextstreet.gwt.components.client.ui.widget.common;
 
 import com.google.gwt.event.dom.client.HasAllMouseHandlers;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.dom.client.HasDoubleClickHandlers;
+
 
 /**
  * Representation of an item in the suggest list that handles events

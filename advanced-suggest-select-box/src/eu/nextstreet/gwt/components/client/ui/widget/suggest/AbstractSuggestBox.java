@@ -25,10 +25,13 @@ import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.UIObject;
 import com.google.gwt.user.client.ui.Widget;
 
-import eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueRendererFactory.ListRenderer;
+import eu.nextstreet.gwt.components.client.ui.widget.common.EventHandlingValueHolderItem;
+import eu.nextstreet.gwt.components.client.ui.widget.common.SuggestPossibilitiesCallBack;
+import eu.nextstreet.gwt.components.client.ui.widget.common.ValueRendererFactory;
+import eu.nextstreet.gwt.components.client.ui.widget.common.ValueRendererFactory.ListRenderer;
+import eu.nextstreet.gwt.components.client.ui.widget.common.renderer.DefaultValueRendererFactory;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.impl.DefaultSuggestBox;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.impl.DefaultSuggestionPopup;
-import eu.nextstreet.gwt.components.client.ui.widget.suggest.impl.simple.DefaultValueRendererFactory;
 import eu.nextstreet.gwt.components.shared.Validator;
 
 /**
@@ -582,6 +585,7 @@ public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderIt
 	 * 
 	 * @param valueRendererFactory
 	 */
+	@SuppressWarnings("unchecked")
 	public void setValueRendererFactory(ValueRendererFactory<T, W> valueRendererFactory) {
 		this.valueRendererFactory = valueRendererFactory;
 		valueRendererFactory.setWidgetController((AbstractSuggestBox<T, EventHandlingValueHolderItem<T>>) this);

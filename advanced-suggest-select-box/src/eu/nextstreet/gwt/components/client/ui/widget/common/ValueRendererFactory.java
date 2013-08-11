@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package eu.nextstreet.gwt.components.client.ui.widget.suggest;
+package eu.nextstreet.gwt.components.client.ui.widget.common;
 
 import java.util.Map;
 import java.util.Set;
@@ -22,6 +22,7 @@ import java.util.Set;
 import com.google.gwt.user.client.ui.IsWidget;
 
 import eu.nextstreet.gwt.components.client.ui.widget.WidgetController;
+import eu.nextstreet.gwt.components.client.ui.widget.suggest.AbstractSuggestBox;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.param.Option;
 
 /**
@@ -59,7 +60,7 @@ public interface ValueRendererFactory<T, W extends ValueHolderItem<T>> {
 		void clear();
 
 		/**
-		 * adds an item to the list
+		 * adds an item to the list. Must accept null, null pair values and add an empty value in that case
 		 * 
 		 * @param value
 		 *          the value to be added
@@ -92,6 +93,8 @@ public interface ValueRendererFactory<T, W extends ValueHolderItem<T>> {
 		W getItem(T value);
 
 		ValueRendererFactory<T, ?> getFactory();
+
+		void closeList();
 	}
 
 	/**

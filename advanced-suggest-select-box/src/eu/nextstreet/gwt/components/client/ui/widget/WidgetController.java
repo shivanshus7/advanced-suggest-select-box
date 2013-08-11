@@ -1,5 +1,10 @@
 package eu.nextstreet.gwt.components.client.ui.widget;
 
+import java.util.List;
+import java.util.Set;
+
+import eu.nextstreet.gwt.components.client.ui.widget.common.StringFormulator;
+
 /**
  * Represents a Widget as a context (single check point): notifications as selection or state changes are sent back to this object that is responsible for
  * dispatching it
@@ -9,7 +14,7 @@ package eu.nextstreet.gwt.components.client.ui.widget;
  * @param <T>
  *          the type of data
  */
-public interface WidgetController<T> {
+public interface WidgetController<T> extends StringFormulator<T> {
 
 	/**
 	 * Called when a value is selected from the list, if the value is typed on the keyboard and only one possible element corresponds, this method will be called
@@ -19,4 +24,16 @@ public interface WidgetController<T> {
 	 * @param value
 	 */
 	public void valueSelected(T value);
+
+	void toggleSelection(T value);
+
+	boolean removeSelection(T value);
+
+	void clearSelection();
+
+	void setSelection(List<T> toSet);
+
+	List<T> getSelection();
+
+	boolean removeSelection(Set<T> selected);
 }

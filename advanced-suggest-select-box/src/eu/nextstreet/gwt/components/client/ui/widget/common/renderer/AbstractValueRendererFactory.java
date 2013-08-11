@@ -1,9 +1,9 @@
-package eu.nextstreet.gwt.components.client.ui.widget.suggest.impl.simple;
+package eu.nextstreet.gwt.components.client.ui.widget.common.renderer;
 
 import eu.nextstreet.gwt.components.client.ui.widget.WidgetController;
-import eu.nextstreet.gwt.components.client.ui.widget.suggest.EventHandlingValueHolderItem;
-import eu.nextstreet.gwt.components.client.ui.widget.suggest.StringFormulator;
-import eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueRendererFactory;
+import eu.nextstreet.gwt.components.client.ui.widget.common.EventHandlingValueHolderItem;
+import eu.nextstreet.gwt.components.client.ui.widget.common.StringFormulator;
+import eu.nextstreet.gwt.components.client.ui.widget.common.ValueRendererFactory;
 
 public abstract class AbstractValueRendererFactory<T, W extends EventHandlingValueHolderItem<T>> implements ValueRendererFactory<T, W> {
 	protected WidgetController<T> widgetController;

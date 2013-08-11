@@ -13,12 +13,14 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package eu.nextstreet.gwt.components.client.ui.widget.suggest;
+package eu.nextstreet.gwt.components.client.ui.widget.common;
 
 import java.util.Collection;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
 import com.google.gwt.user.client.ui.SuggestOracle.Suggestion;
+
+import eu.nextstreet.gwt.components.client.ui.widget.suggest.AbstractBaseWidget;
 
 @SuppressWarnings("rawtypes")
 public abstract class SuggestOracle<T> {

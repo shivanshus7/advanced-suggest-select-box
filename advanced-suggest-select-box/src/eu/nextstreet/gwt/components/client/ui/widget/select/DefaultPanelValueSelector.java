@@ -11,12 +11,12 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Widget;
 
-import eu.nextstreet.gwt.components.client.ui.widget.suggest.EventHandlingValueHolderItem;
-import eu.nextstreet.gwt.components.client.ui.widget.suggest.SuggestOracle;
-import eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueRendererFactory;
-import eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueRendererFactory.ListRenderer;
+import eu.nextstreet.gwt.components.client.ui.widget.common.EventHandlingValueHolderItem;
+import eu.nextstreet.gwt.components.client.ui.widget.common.SuggestOracle;
+import eu.nextstreet.gwt.components.client.ui.widget.common.ValueRendererFactory;
+import eu.nextstreet.gwt.components.client.ui.widget.common.ValueRendererFactory.ListRenderer;
+import eu.nextstreet.gwt.components.client.ui.widget.common.renderer.DefaultValueRendererFactory;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.impl.simple.DefaultSuggestOracle;
-import eu.nextstreet.gwt.components.client.ui.widget.suggest.impl.simple.DefaultValueRendererFactory;
 
 public class DefaultPanelValueSelector<T> extends AbstractPanelValueSelector<T, EventHandlingValueHolderItem<T>> {
 
@@ -42,6 +42,8 @@ public class DefaultPanelValueSelector<T> extends AbstractPanelValueSelector<T, 
 		String hovered();
 
 		String item();
+
+		String panel();
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -78,6 +80,7 @@ public class DefaultPanelValueSelector<T> extends AbstractPanelValueSelector<T, 
 	@Override
 	protected void uiSetListPanel(ListRenderer<T, EventHandlingValueHolderItem<T>> listRenderer) {
 		panel.add(listRenderer);
+		panel.addStyleName(panelStyles.panel());
 	}
 
 	@Override
@@ -94,7 +97,9 @@ public class DefaultPanelValueSelector<T> extends AbstractPanelValueSelector<T, 
 		Set<T> values = listRenderer.getValues();
 		for (T t : values) {
 			EventHandlingValueHolderItem<T> item = listRenderer.getItem(t);
-			if (selectedItems.contains(t)) {
+			boolean selected = selectedItems.contains(t);
+			item.setSelected(selected);
+			if (selected) {
 				item.addStyleName(panelStyles.selected());
 			} else {
 				item.removeStyleName(panelStyles.selected());

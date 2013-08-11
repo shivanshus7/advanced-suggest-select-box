@@ -28,8 +28,14 @@ import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Widget;
 
 import eu.nextstreet.gwt.components.client.ui.common.event.KeyUpRequestingHandler;
-import eu.nextstreet.gwt.components.client.ui.widget.suggest.*;
-import eu.nextstreet.gwt.components.client.ui.widget.suggest.SuggestOracle.Request;
+import eu.nextstreet.gwt.components.client.ui.widget.common.EventHandlingValueHolderItem;
+import eu.nextstreet.gwt.components.client.ui.widget.common.SuggestOracle;
+import eu.nextstreet.gwt.components.client.ui.widget.common.SuggestOracle.Request;
+import eu.nextstreet.gwt.components.client.ui.widget.common.SuggestPossibilitiesCallBack;
+import eu.nextstreet.gwt.components.client.ui.widget.suggest.AbstractBaseWidget;
+import eu.nextstreet.gwt.components.client.ui.widget.suggest.AbstractSuggestBox;
+import eu.nextstreet.gwt.components.client.ui.widget.suggest.SuggestTextBoxWidget;
+import eu.nextstreet.gwt.components.client.ui.widget.suggest.SuggestTextBoxWidgetImpl;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.impl.simple.DefaultSuggestOracle;
 
 /**
@@ -112,7 +118,7 @@ public class DefaultSuggestBox<T, W extends EventHandlingValueHolderItem<T>> ext
 		this(defaultText, new DefaultSuggestOracle<T>());
 	}
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@SuppressWarnings({ "rawtypes" })
 	public DefaultSuggestBox(String defaultText, SuggestOracle<T> suggestOracle) {
 		initWidget(uiBinder.createAndBindUi(this));
 		init(defaultText);
@@ -140,6 +146,7 @@ public class DefaultSuggestBox<T, W extends EventHandlingValueHolderItem<T>> ext
 
 	// -------------------------- end.
 
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void computeFiltredPossibilities(final String text, final SuggestPossibilitiesCallBack<T> suggestPossibilitiesCallBack) {
 		Request request = new Request(text, propositionsMaxCount);

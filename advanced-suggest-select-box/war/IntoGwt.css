@@ -96,6 +96,35 @@ h4 {
     padding: 2px;
 }
 
+
+.panelSelector .selectionIndicator {
+    height: 0.15em;
+    background-color: green;
+}
+
+.panelSelector .label {
+	min-width: 5em;
+}
+
+#selectionPanel3 .panelSelector .eu-nextstreet-SuggestItemSelected {
+	background-color: inherit;
+	border-radius:0; 
+}
+
+
+.panelSelector .eu-nextstreet-SuggestItemSelected .selectionIndicator {
+    background-color: #77FF77;
+}
+
+.panelSelector .last {
+	clear: left;
+}
+
+/* .panelSelector .eu-nextstreet-SuggestItemHover {
+	background-color: inherit;
+	border-radius: 0;
+}
+ */
 .eu-nextstreet-SuggestItem .container {
 	
 }

@@ -14,13 +14,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package eu.nextstreet.gwt.components.client.ui.widget.suggest.impl.simple;
+package eu.nextstreet.gwt.components.client.ui.widget.common.renderer;
 
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.UIObject;
+import com.google.gwt.user.client.ui.Widget;
 
-import eu.nextstreet.gwt.components.client.ui.widget.suggest.EventHandlingValueHolderItem;
-import eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueRendererFactory;
+import eu.nextstreet.gwt.components.client.ui.widget.common.EventHandlingValueHolderItem;
+import eu.nextstreet.gwt.components.client.ui.widget.common.ValueRendererFactory;
 import eu.nextstreet.gwt.components.client.ui.widget.util.HtmlUtil;
 
 public class DefaultValueRenderer<T> extends HTML implements EventHandlingValueHolderItem<T> {
@@ -30,6 +31,7 @@ public class DefaultValueRenderer<T> extends HTML implements EventHandlingValueH
 	protected T value;
 	protected boolean caseSensitive;
 	protected ValueRendererFactory<T, ?> valueRendererFactory;
+	boolean selected, hover;
 
 	/**
 	 * constructor
@@ -44,7 +46,15 @@ public class DefaultValueRenderer<T> extends HTML implements EventHandlingValueH
 		this.value = value;
 		this.caseSensitive = caseSensitive;
 		this.valueRendererFactory = valueRendererFactory;
+		init();
 		fillHtml(value, filterText, caseSensitive);
+	}
+
+	/**
+	 * Override this method to initialize
+	 */
+	protected void init() {
+
 	}
 
 	protected void fillHtml(T value, String filterText, boolean caseSensitive) {
@@ -52,6 +62,16 @@ public class DefaultValueRenderer<T> extends HTML implements EventHandlingValueH
 		if (html == null)
 			throw new IllegalStateException("toString(T value) cannot return null for " + value + " current renderer : " + valueRendererFactory.getClass());
 		html = highlightMatchingSequence(html, filterText, caseSensitive);
+		setContent(html);
+	}
+
+	/**
+	 * Put the HTMl in the current main panel
+	 * 
+	 * @param html
+	 * @see #getMainPanel()
+	 */
+	protected void setContent(String html) {
 		setHTML(html);
 	}
 
@@ -64,18 +84,6 @@ public class DefaultValueRenderer<T> extends HTML implements EventHandlingValueH
 	protected String toHtml(T value) {
 		return valueRendererFactory.toString(value);
 	}
-
-	// /**
-	// * Override this method to have a specific string representation of the
-	// value
-	// *
-	// * @param value
-	// * value
-	// * @return the string value
-	// */
-	// public String toString(T value) {
-	// return valueRendererFactory.toString(value);
-	// }
 
 	protected String highlightMatchingSequence(String html, String filterText, boolean caseSensitive) {
 		return HtmlUtil.highlightMatchingSequence(html, filterText, caseSensitive, MATCHING_STRING);
@@ -91,18 +99,26 @@ public class DefaultValueRenderer<T> extends HTML implements EventHandlingValueH
 
 	@Override
 	public void hover(boolean hover) {
-		if (hover)
-			addStyleName(ITEM_HOVER);
-		else
-			removeStyleName(ITEM_HOVER);
+		this.hover = hover;
+		handleStyles();
 	}
 
 	@Override
-	public void setSelected(boolean focused) {
-		if (focused)
-			addStyleName(SELECTED);
+	public void setSelected(boolean selected) {
+		this.selected = selected;
+		handleStyles();
+	}
+
+	protected void handleStyles() {
+		if (hover)
+			getMainPanel().addStyleName(ITEM_HOVER);
 		else
-			removeStyleName(SELECTED);
+			getMainPanel().removeStyleName(ITEM_HOVER);
+
+		if (selected)
+			getMainPanel().addStyleName(SELECTED);
+		else
+			getMainPanel().removeStyleName(SELECTED);
 	}
 
 	public boolean isCaseSensitive() {
@@ -127,4 +143,14 @@ public class DefaultValueRenderer<T> extends HTML implements EventHandlingValueH
 	public void initWidget() {
 
 	}
+
+	/**
+	 * Use this method to control to which panel you want operations to be transferred (ex: selection and hover styling)
+	 * 
+	 * @return the container panel
+	 */
+	protected Widget getMainPanel() {
+		return this;
+	}
+
 }

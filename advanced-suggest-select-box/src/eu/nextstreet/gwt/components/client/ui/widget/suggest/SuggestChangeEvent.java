@@ -18,6 +18,8 @@ package eu.nextstreet.gwt.components.client.ui.widget.suggest;
 
 import com.google.gwt.event.dom.client.ChangeEvent;
 
+import eu.nextstreet.gwt.components.client.ui.widget.common.EventHandlingValueHolderItem;
+
 /**
  * Represents a suggest box specific event change specifying if the value was
  * typed of selected and giving the type save selected value

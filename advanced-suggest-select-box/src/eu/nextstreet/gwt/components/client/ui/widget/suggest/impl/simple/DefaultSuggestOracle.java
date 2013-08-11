@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import eu.nextstreet.gwt.components.client.ui.widget.suggest.SuggestOracle;
+import eu.nextstreet.gwt.components.client.ui.widget.common.SuggestOracle;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.param.BooleanOption;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.param.Option;
 
@@ -27,8 +27,8 @@ public class DefaultSuggestOracle<T> extends SuggestOracle<T> {
 	protected List<T> possiblilities = new ArrayList<T>();
 
 	@Override
-	public void requestSuggestions(eu.nextstreet.gwt.components.client.ui.widget.suggest.SuggestOracle.Request request,
-			eu.nextstreet.gwt.components.client.ui.widget.suggest.SuggestOracle.Callback<T> callback) {
+	public void requestSuggestions(eu.nextstreet.gwt.components.client.ui.widget.common.SuggestOracle.Request request,
+			eu.nextstreet.gwt.components.client.ui.widget.common.SuggestOracle.Callback<T> callback) {
 		String text = request.getQuery();
 		int limit = request.getLimit();
 		List<T> toReturn = new ArrayList<T>();
@@ -66,6 +66,7 @@ public class DefaultSuggestOracle<T> extends SuggestOracle<T> {
 	 * @param t
 	 * @return true if the element should be included in the list
 	 */
+	@SuppressWarnings("unchecked")
 	protected boolean accept(String text, T t) {
 		if (text == null)
 			return true;

@@ -2,14 +2,14 @@ package eu.nextstreet.gwt.components.client.ui.widget.select;
 
 import java.util.*;
 
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.*;
 
-import eu.nextstreet.gwt.components.client.ui.widget.suggest.*;
-import eu.nextstreet.gwt.components.client.ui.widget.suggest.SuggestOracle.Callback;
-import eu.nextstreet.gwt.components.client.ui.widget.suggest.SuggestOracle.Request;
-import eu.nextstreet.gwt.components.client.ui.widget.suggest.SuggestOracle.Response;
-import eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueRendererFactory.ListRenderer;
+import eu.nextstreet.gwt.components.client.ui.widget.common.*;
+import eu.nextstreet.gwt.components.client.ui.widget.common.SuggestOracle.Callback;
+import eu.nextstreet.gwt.components.client.ui.widget.common.SuggestOracle.Request;
+import eu.nextstreet.gwt.components.client.ui.widget.common.SuggestOracle.Response;
+import eu.nextstreet.gwt.components.client.ui.widget.common.ValueRendererFactory.ListRenderer;
+import eu.nextstreet.gwt.components.client.ui.widget.suggest.AbstractBaseWidget;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.param.Option;
 
 /**
@@ -23,14 +23,43 @@ import eu.nextstreet.gwt.components.client.ui.widget.suggest.param.Option;
  *          the item list representer: the widget that displays the value in the list
  */
 public abstract class AbstractPanelValueSelector<T, W extends EventHandlingValueHolderItem<T>> extends AbstractBaseWidget<T, T, PanelSelectedEvent<T>> {
-	public enum LabelDiplayOptions {
-		INSIDE, RANGE, ABOVE;
-	}
+
+	/**
+	 * class for handling events centrally
+	 * 
+	 * @author Zied Hamdi - http://1vu.fr
+	 * 
+	 *         REVIEW if possible to use the same code for this class and the suggest box
+	 */
+	public static class EventsHandler<T, W extends EventHandlingValueHolderItem<T>> implements MouseOverHandler, MouseOutHandler, ClickHandler {
+		protected ValueRendererFactory<T, W> valueRendererFactory;
+		protected W item;
+
+		public EventsHandler(ValueRendererFactory<T, W> valueRendererFactory, W item) {
+			this.item = item;
+			this.valueRendererFactory = valueRendererFactory;
+		}
+
+		@Override
+		public void onMouseOver(MouseOverEvent event) {
+			item.hover(true);
+		}
+
+		@Override
+		public void onMouseOut(MouseOutEvent event) {
+			item.hover(false);
+		}
+
+		@Override
+		public void onClick(ClickEvent event) {
+			valueRendererFactory.getWidgetController().valueSelected(item.getValue());
+		}
+	};
 
 	protected ValueRendererFactory<T, W> valueRendererFactory;
 	protected Map<String, Option<?>> options = new HashMap<String, Option<?>>();
 	protected ListRenderer<T, W> listRenderer;
-	boolean initialized = false;
+	protected boolean initialized = false;
 
 	public AbstractPanelValueSelector(SuggestOracle<T> suggestOracle, ValueRendererFactory<T, W> valueRendererFactory) {
 		this.suggestOracle = suggestOracle;
@@ -57,17 +86,32 @@ public abstract class AbstractPanelValueSelector<T, W extends EventHandlingValue
 	protected void init(Collection<T> suggestions) {
 		for (final T value : suggestions) {
 			W valueRenderer = valueRendererFactory.createValueRenderer(value, null, options);
-			valueRenderer.addClickHandler(new ClickHandler() {
-
-				@Override
-				public void onClick(ClickEvent event) {
-					valueRendererFactory.getWidgetController().valueSelected(value);
-				}
-			});
+			EventsHandler<T, W> eventsHandler = createEventsHandler(valueRenderer);
+			if (eventsHandler != null) {
+				// valueRenderer.addMouseOverHandler(eventsHandler);
+				// valueRenderer.addMouseOutHandler(eventsHandler);
+				valueRenderer.addClickHandler(eventsHandler);
+			}
 			uiAddPanel(value, valueRenderer);
 		}
+		uiAddEmptyItem(listRenderer);
 		initialized = true;
 		uiUpdateSelection();
+	}
+
+	protected void uiAddEmptyItem(ListRenderer<T, W> listRenderer) {
+		listRenderer.closeList();
+	}
+
+	/**
+	 * Creates the item mouse over, out and click handlers.
+	 * 
+	 * @param valueRenderer
+	 *          you may return null if you want events to be ignored
+	 * @return the events handler for each item
+	 */
+	protected EventsHandler<T, W> createEventsHandler(W valueRenderer) {
+		return new EventsHandler<T, W>(valueRendererFactory, valueRenderer);
 	}
 
 	protected void uiAddPanel(T value, W valueRenderer) {
@@ -124,6 +168,16 @@ public abstract class AbstractPanelValueSelector<T, W extends EventHandlingValue
 		fireChangeOccured(value);
 		uiUpdateSelection();
 		return removed;
+	}
+
+	@Override
+	public boolean removeSelection(Set<T> selectionToRemove) {
+		if (super.removeSelection(selectionToRemove)) {
+			fireChangeOccured(null);
+			uiUpdateSelection();
+			return true;
+		}
+		return false;
 	}
 
 	@Override
