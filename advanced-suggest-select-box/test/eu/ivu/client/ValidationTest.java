@@ -348,9 +348,10 @@ public class ValidationTest {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	protected static void initPanelSelector3() {
-		RangeValueRendererFactory valueRendererFactory = new RangeValueRendererFactory();
+		Resources resources = (Resources) GWT.create(RangeResources.class);
+		RangeValueRendererFactory valueRendererFactory = new RangeValueRendererFactory(resources);
 		DefaultPanelValueSelector<Value> panelSelector = new DefaultPanelValueSelector<ValidationTest.Value>(new DefaultSuggestOracle<Value>(),
-				valueRendererFactory, (Resources) GWT.create(RangeResources.class));
+				valueRendererFactory, resources);
 		panelSelector.setSelectOneOccurenceMode(true);
 		panelSelector.setToggleMode(true);
 		panelSelector.setStringFormulator(stringFormulator);

@@ -97,13 +97,22 @@ h4 {
 }
 
 
-.panelSelector .selectionIndicator {
-    height: 0.15em;
-    background-color: green;
-}
+
 
 .panelSelector .label {
 	min-width: 5em;
+	float: left;
+}
+
+
+.panelSelector .image {
+	float: left;
+}
+
+.panelSelector .selectionIndicator {
+	clear:left;
+	height: 0.15em;
+	background-color: green;
 }
 
 #selectionPanel3 .panelSelector .eu-nextstreet-SuggestItemSelected {

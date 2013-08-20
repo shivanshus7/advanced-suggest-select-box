@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<jardesc>
+    <jar path="Widgets/war/WEB-INF/lib/1vu-suggest-box2.1.0.jar"/>
+    <options buildIfNeeded="true" compress="true" descriptionLocation="/IntoGwt/jar-mini.jardesc" exportErrors="true" exportWarnings="true" includeDirectoryEntries="false" overwrite="true" saveDescription="true" storeRefactorings="false" useSourceFolders="false"/>
+    <storedRefactorings deprecationInfo="true" structuralOnly="false"/>
+    <selectedProjects/>
+    <manifest generateManifest="true" manifestLocation="" manifestVersion="1.0" reuseManifest="false" saveManifest="false" usesManifest="true">
+        <sealing sealJar="false">
+            <packagesToSeal/>
+            <packagesToUnSeal/>
+        </sealing>
+    </manifest>
+    <selectedElements exportClassFiles="true" exportJavaFiles="true" exportOutputFolder="false">
+        <file path="/IntoGwt/.classpath"/>
+        <javaElement handleIdentifier="=IntoGwt/resources"/>
+        <file path="/IntoGwt/1VuGWT.jardesc"/>
+        <javaElement handleIdentifier="=IntoGwt/src"/>
+        <file path="/IntoGwt/.project"/>
+        <file path="/IntoGwt/javadoc.xml"/>
+        <file path="/IntoGwt/intoGwtJarMeta.jardesc"/>
+        <file path="/IntoGwt/jar-generation.jardesc"/>
+    </selectedElements>
+</jardesc>

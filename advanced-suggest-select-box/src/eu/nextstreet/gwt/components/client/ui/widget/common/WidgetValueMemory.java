@@ -6,8 +6,7 @@ import java.util.Set;
 
 import com.google.gwt.user.client.ui.Composite;
 
-import eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueRendererFactory;
-import eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueRendererFactory.ListRenderer;
+import eu.nextstreet.gwt.components.client.ui.widget.common.ValueRendererFactory.ListRenderer;
 
 /**
  * Remembers the mapping between the widgets and the values they represent
@@ -41,6 +40,9 @@ public abstract class WidgetValueMemory<T, W> extends Composite implements ListR
 
 	@Override
 	public void add(T value, W item) {
+		if (value == null || item == null)
+			return;
+
 		valueWidgetMapping.put(value, item);
 		valueWidgetInverseMapping.put(item, value);
 	}
@@ -77,5 +79,10 @@ public abstract class WidgetValueMemory<T, W> extends Composite implements ListR
 	@Override
 	public ValueRendererFactory<T, ?> getFactory() {
 		return factory;
+	}
+
+	@Override
+	public void closeList() {
+
 	}
 }

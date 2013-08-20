@@ -3,18 +3,20 @@ package eu.nextstreet.gwt.components.client.ui.widget.select.range.renderer;
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.safehtml.client.SafeHtmlTemplates;
 import com.google.gwt.safehtml.shared.SafeHtml;
+import com.google.gwt.safehtml.shared.SafeUri;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import eu.nextstreet.gwt.components.client.ui.widget.common.ValueRendererFactory;
 import eu.nextstreet.gwt.components.client.ui.widget.common.renderer.DefaultValueRenderer;
+import eu.nextstreet.gwt.components.client.ui.widget.select.DefaultPanelValueSelector.Resources;
 
 public class RangeValueRenderer<T> extends DefaultValueRenderer<T> {
 
 	public interface RangeTemplate extends SafeHtmlTemplates {
-		@Template("<div class='label'>{0}</div><div class='selectionIndicator'>{1}</div>")
-		public SafeHtml labeledDiv(String label, String value);
+		@Template("<div class='label'>{0}</div><img class='image' src='{1}'/><div class='selectionIndicator'>{2}</div>")
+		public SafeHtml labeledDiv(String label, SafeUri imageUri, String value);
 	}
 
 	protected SimplePanel mainPanel;
@@ -31,9 +33,11 @@ public class RangeValueRenderer<T> extends DefaultValueRenderer<T> {
 		rangeTemplate = GWT.create(RangeTemplate.class);
 	}
 
+	@SuppressWarnings({ "unchecked" })
 	@Override
 	protected String toHtml(T value) {
-		return rangeTemplate.labeledDiv(valueRendererFactory.toString(value), "").asString();
+		Resources resources = ((RangeValueRendererFactory<T>) valueRendererFactory).resources;
+		return rangeTemplate.labeledDiv(valueRendererFactory.toString(value), resources.rangeArrow().getSafeUri(), "").asString();
 	}
 
 	@Override

@@ -84,6 +84,7 @@ public abstract class AbstractPanelValueSelector<T, W extends EventHandlingValue
 	protected abstract void uiSetListPanel(ListRenderer<T, W> listRenderer);
 
 	protected void init(Collection<T> suggestions) {
+		uiClear();
 		for (final T value : suggestions) {
 			W valueRenderer = valueRendererFactory.createValueRenderer(value, null, options);
 			EventsHandler<T, W> eventsHandler = createEventsHandler(valueRenderer);
@@ -116,6 +117,10 @@ public abstract class AbstractPanelValueSelector<T, W extends EventHandlingValue
 
 	protected void uiAddPanel(T value, W valueRenderer) {
 		listRenderer.add(value, valueRenderer);
+	}
+
+	protected void uiRemove(T value) {
+		listRenderer.remove(listRenderer.getItem(value));
 	}
 
 	public void setOptions(Map<String, Option<?>> options) {
@@ -200,5 +205,9 @@ public abstract class AbstractPanelValueSelector<T, W extends EventHandlingValue
 	 * Updates the styles relative to selected elements
 	 */
 	protected abstract void uiUpdateSelection();
+
+	public void uiClear() {
+		listRenderer.clear();
+	}
 
 }

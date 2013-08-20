@@ -2,7 +2,7 @@ package eu.nextstreet.gwt.components.client.ui.widget.suggest.iconed;
 
 import com.google.gwt.user.client.ui.Image;
 
-import eu.nextstreet.gwt.components.client.ui.widget.suggest.EventHandlingValueHolderItem;
+import eu.nextstreet.gwt.components.client.ui.widget.common.EventHandlingValueHolderItem;
 
 /**
  * Adds the parsing for icon values

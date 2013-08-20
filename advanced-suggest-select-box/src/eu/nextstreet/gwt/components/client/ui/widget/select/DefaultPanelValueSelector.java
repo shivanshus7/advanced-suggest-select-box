@@ -29,6 +29,10 @@ public class DefaultPanelValueSelector<T> extends AbstractPanelValueSelector<T, 
 
 		@Source(Style.DEFAULT_CSS)
 		Style panelStyles();
+
+		@Source("eu/ivu/PanelValueSelector/arrowDotsRight.png")
+		@ImageOptions(repeatStyle = RepeatStyle.None, flipRtl = true)
+		ImageResource rangeArrow();
 	}
 
 	public interface Style extends CssResource {
@@ -79,8 +83,12 @@ public class DefaultPanelValueSelector<T> extends AbstractPanelValueSelector<T, 
 
 	@Override
 	protected void uiSetListPanel(ListRenderer<T, EventHandlingValueHolderItem<T>> listRenderer) {
+		panel.clear();
 		panel.add(listRenderer);
-		panel.addStyleName(panelStyles.panel());
+		String styleName = panelStyles.panel();
+		// if already set
+		panel.removeStyleName(styleName);
+		panel.addStyleName(styleName);
 	}
 
 	@Override

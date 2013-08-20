@@ -19,10 +19,10 @@ package eu.nextstreet.gwt.components.client.ui.widget.suggest.multi;
 
 import com.google.gwt.user.client.ui.FlowPanel;
 
+import eu.nextstreet.gwt.components.client.ui.widget.common.EventHandlingValueHolderItem;
+import eu.nextstreet.gwt.components.client.ui.widget.common.ValueRendererFactory;
 import eu.nextstreet.gwt.components.client.ui.widget.common.WidgetValueMemory;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.AbstractSuggestBox;
-import eu.nextstreet.gwt.components.client.ui.widget.suggest.EventHandlingValueHolderItem;
-import eu.nextstreet.gwt.components.client.ui.widget.suggest.ValueRendererFactory;
 
 /**
  * @author Zied Hamdi founder of http://1vu.fr
