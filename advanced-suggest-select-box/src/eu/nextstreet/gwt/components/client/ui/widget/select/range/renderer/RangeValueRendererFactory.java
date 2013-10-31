@@ -8,9 +8,15 @@ import eu.nextstreet.gwt.components.client.ui.widget.suggest.param.Option;
 
 public class RangeValueRendererFactory<T> extends DefaultValueRendererFactory<T, RangeValueRenderer<T>> {
 	protected Resources resources;
+	protected boolean useImage;
 
 	public RangeValueRendererFactory(Resources resources) {
+		this(resources, true);
+	}
+
+	public RangeValueRendererFactory(Resources resources, boolean useImage) {
 		this.resources = resources;
+		this.useImage = useImage;
 	}
 
 	@Override

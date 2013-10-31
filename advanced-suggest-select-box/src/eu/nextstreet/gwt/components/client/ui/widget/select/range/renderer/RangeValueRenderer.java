@@ -16,7 +16,10 @@ public class RangeValueRenderer<T> extends DefaultValueRenderer<T> {
 
 	public interface RangeTemplate extends SafeHtmlTemplates {
 		@Template("<div class='label'>{0}</div><img class='image' src='{1}'/><div class='selectionIndicator'>{2}</div>")
-		public SafeHtml labeledDiv(String label, SafeUri imageUri, String value);
+		public SafeHtml imageLabeledDiv(String label, SafeUri imageUri, String value);
+
+		@Template("<div class='label'>{0}</div><div class='selectionIndicator'>{1}</div>")
+		public SafeHtml labeledDiv(String label, String value);
 	}
 
 	protected SimplePanel mainPanel;
@@ -36,8 +39,12 @@ public class RangeValueRenderer<T> extends DefaultValueRenderer<T> {
 	@SuppressWarnings({ "unchecked" })
 	@Override
 	protected String toHtml(T value) {
-		Resources resources = ((RangeValueRendererFactory<T>) valueRendererFactory).resources;
-		return rangeTemplate.labeledDiv(valueRendererFactory.toString(value), resources.rangeArrow().getSafeUri(), "").asString();
+		RangeValueRendererFactory<T> factory = (RangeValueRendererFactory<T>) valueRendererFactory;
+		Resources resources = factory.resources;
+		if (factory.useImage)
+			return rangeTemplate.imageLabeledDiv(valueRendererFactory.toString(value), resources.rangeArrow().getSafeUri(), "").asString();
+		else
+			return rangeTemplate.labeledDiv(valueRendererFactory.toString(value), "").asString();
 	}
 
 	@Override

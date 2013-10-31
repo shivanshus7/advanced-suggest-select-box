@@ -304,14 +304,17 @@ public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderIt
 
 	/**
 	 * Orders the suggest widget to be hidden
+	 * 
+	 * @param resetSelectedIndex
+	 *          clears the lastly selected index
 	 */
-	protected void hideSuggestList(boolean resteSelectedIndex) {
+	public void hideSuggestList(boolean resetSelectedIndex) {
 		suggestWidget.hide();
-		if (resteSelectedIndex)
+		if (resetSelectedIndex)
 			selectedIndex = -1;
 	}
 
-	private void hideSuggestList() {
+	public void hideSuggestList() {
 		hideSuggestList(true);
 	}
 
