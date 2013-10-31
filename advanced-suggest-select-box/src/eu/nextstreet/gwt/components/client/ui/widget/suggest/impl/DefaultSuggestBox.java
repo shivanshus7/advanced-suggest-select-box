@@ -87,7 +87,7 @@ public class DefaultSuggestBox<T, W extends EventHandlingValueHolderItem<T>> ext
 
 	};
 
-	protected class KeyEventManager extends KeyUpRequestingHandler {
+	public class KeyEventManager extends KeyUpRequestingHandler {
 		int keyCode;
 
 		@Override
