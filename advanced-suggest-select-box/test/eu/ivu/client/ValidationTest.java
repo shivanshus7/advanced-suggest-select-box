@@ -422,6 +422,8 @@ public class ValidationTest {
 		// final CheckBox style = roundedCornersOption(box);
 
 		final CheckBox strict = strictModeOption(box);
+		final CheckBox autoFillWhenUniqueValue = autoFillWhenUniqueValueOption(box);
+		final CheckBox correctWhileTyping = correctWhileTypingOption(box);
 
 		final CheckBox mandatory = mandaoryValueOption(box);
 		final CheckBox readOnly = readOnlyOption(box);
@@ -434,6 +436,8 @@ public class ValidationTest {
 		options.add(tableRenderer);
 		options.add(validationOption);
 		options.add(strict);
+		options.add(correctWhileTyping);
+		options.add(autoFillWhenUniqueValue);
 		options.add(mandatory);
 		options.add(readOnly);
 		options.add(new Label("---- filtering examples ----"));
@@ -593,6 +597,36 @@ public class ValidationTest {
 
 		});
 		return strict;
+	}
+
+	@SuppressWarnings("rawtypes")
+	protected static CheckBox autoFillWhenUniqueValueOption(final DefaultIconedSuggestBox box) {
+		final CheckBox autoFillWhenUniqueValue = new CheckBox("AutoFillWhenUniqueValue");
+		autoFillWhenUniqueValue.setValue(box.isAutoFillWhenUniqueValue());
+		autoFillWhenUniqueValue.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
+
+			@Override
+			public void onValueChange(ValueChangeEvent<Boolean> event) {
+				box.setAutoFillWhenUniqueValue(event.getValue());
+			}
+
+		});
+		return autoFillWhenUniqueValue;
+	}
+
+	@SuppressWarnings("rawtypes")
+	protected static CheckBox correctWhileTypingOption(final DefaultIconedSuggestBox box) {
+		final CheckBox correctWhileTyping = new CheckBox("CorrectWhileTyping (when strict only)");
+		correctWhileTyping.setValue(box.isCorrectWhileTyping());
+		correctWhileTyping.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
+
+			@Override
+			public void onValueChange(ValueChangeEvent<Boolean> event) {
+				box.setCorrectWhileTyping(event.getValue());
+			}
+
+		});
+		return correctWhileTyping;
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })

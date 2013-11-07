@@ -65,7 +65,8 @@ public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderIt
 	protected ScrollPanel scrollPanel = new ScrollPanel();
 	protected ListRenderer<T, W> listRenderer;
 	protected boolean strictMode;
-
+	protected boolean correctWhileTyping;
+	protected boolean autoFillWhenUniqueValue = true;
 	protected int selectedIndex = -1;
 
 	private boolean recomputePopupContent = true;
@@ -134,7 +135,12 @@ public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderIt
 				String currentText = getText();
 				if (typed == null || !typed.equals(currentText)) {
 					if (strictMode) {
-						clearSelection(false);
+						if (autoFillWhenUniqueValue && (currentPossibilities != null && currentPossibilities.size() == 1)) {
+							setSelected(currentPossibilities.get(0));
+						} else {
+							clearSelection(false);
+						}
+						hideSuggestList();
 					} else {
 						valueTyped(currentText);
 					}
@@ -210,13 +216,13 @@ public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderIt
 
 					} else {
 						recomputePopupContent = true;
-						if (strictMode) {
+						if (strictMode && correctWhileTyping) {
 							final StringBuffer reducingText = new StringBuffer(getText());
 							recomputePopupContent(keyCode, new SuggestPossibilitiesCallBack<T>() {
 
 								@Override
 								public void setPossibilities(List<T> possibilities) {
-									if (reducingText.length() > 1 && possibilities.size() < 1) {
+									if (reducingText.length() > 0 && possibilities.size() == 0) {
 										// FIXME should optimize by remembering the last valid
 										// entry
 										// (that has at least one possibility)
@@ -353,7 +359,7 @@ public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderIt
 		this.currentPossibilities = possibilities;
 		if (possibilities.size() > 0) {
 			listRenderer.clear();
-			if (possibilities.size() == 1) {
+			if (possibilities.size() == 1 && autoFillWhenUniqueValue) {
 				// laisse l'utilisateur effacer les valeurs
 				if (keyCode != KeyCodes.KEY_BACKSPACE && keyCode != KeyCodes.KEY_LEFT && keyCode != KeyCodes.KEY_RIGHT) {
 					fillValue(possibilities.get(0), false);
@@ -547,7 +553,7 @@ public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderIt
 
 			@Override
 			public void setPossibilities(List<T> possibilities) {
-				if (possibilities.size() == 1) {
+				if (possibilities.size() == 1 && autoFillWhenUniqueValue) {
 					setSelectedValue(possibilities.get(0));
 				} else {
 					setSelectedValue(null);
@@ -571,6 +577,17 @@ public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderIt
 	public void setFocus(boolean focus) {
 		getTextField().setFocus(focus);
 	}
+
+	// protected void internalComputeFiltredPossibilities(String text, final SuggestPossibilitiesCallBack<T> suggestPossibilitiesCallBack) {
+	// SuggestPossibilitiesCallBack<T> callBack = new SuggestPossibilitiesCallBack<T>() {
+	//
+	// @Override
+	// public void setPossibilities(List<T> possibilities) {
+	// currentPossibilities = possibilities;
+	// suggestPossibilitiesCallBack.setPossibilities(possibilities);
+	// }
+	// };
+	// }
 
 	protected abstract void computeFiltredPossibilities(String text, SuggestPossibilitiesCallBack<T> suggestPossibilitiesCallBack);
 
@@ -789,6 +806,22 @@ public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderIt
 		}
 		selectSuggestedText(cursorPositionOnEnterTyped);
 
+	}
+
+	public boolean isAutoFillWhenUniqueValue() {
+		return autoFillWhenUniqueValue;
+	}
+
+	public void setAutoFillWhenUniqueValue(boolean autoFillWhenUniqueValue) {
+		this.autoFillWhenUniqueValue = autoFillWhenUniqueValue;
+	}
+
+	public boolean isCorrectWhileTyping() {
+		return correctWhileTyping;
+	}
+
+	public void setCorrectWhileTyping(boolean correctWhileTyping) {
+		this.correctWhileTyping = correctWhileTyping;
 	}
 
 }
