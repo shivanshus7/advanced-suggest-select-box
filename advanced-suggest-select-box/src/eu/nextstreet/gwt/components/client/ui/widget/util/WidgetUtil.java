@@ -14,10 +14,14 @@ public class WidgetUtil {
 	}
 
 	public static boolean inBounds(UIObject widget, int sourceXstart, int sourceYstart) {
+		return inBounds(0, widget, sourceXstart, sourceYstart);
+	}
+
+	public static boolean inBounds(int precision, UIObject widget, int sourceXstart, int sourceYstart) {
 		int absoluteLeft = widget.getAbsoluteLeft();
 		int absoluteTop = widget.getAbsoluteTop();
-		boolean xOk = absoluteLeft < sourceXstart && sourceXstart <= absoluteLeft + widget.getOffsetWidth();
-		boolean yOk = absoluteTop < sourceYstart && sourceYstart <= absoluteTop + widget.getOffsetHeight();
+		boolean xOk = absoluteLeft < (sourceXstart - precision) && (sourceXstart + precision) < absoluteLeft + widget.getOffsetWidth();
+		boolean yOk = absoluteTop < (sourceYstart - precision) && (sourceYstart + precision) < absoluteTop + widget.getOffsetHeight();
 		return xOk && yOk;
 	}
 
