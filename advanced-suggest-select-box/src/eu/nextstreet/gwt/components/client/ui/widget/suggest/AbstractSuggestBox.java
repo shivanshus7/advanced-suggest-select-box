@@ -768,7 +768,7 @@ public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderIt
 		clearSelection(true);
 	}
 
-	protected void clearSelection(boolean fireEvent) {
+	public void clearSelection(boolean fireEvent) {
 		setText("");
 		if (fireEvent)
 			valueTyped("");

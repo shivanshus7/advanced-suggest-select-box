@@ -42,6 +42,9 @@ import eu.nextstreet.gwt.components.client.ui.widget.common.StringFormulator;
 import eu.nextstreet.gwt.components.client.ui.widget.common.renderer.AbstractValueRendererFactory;
 import eu.nextstreet.gwt.components.client.ui.widget.select.DefaultPanelValueSelector;
 import eu.nextstreet.gwt.components.client.ui.widget.select.DefaultPanelValueSelector.Resources;
+import eu.nextstreet.gwt.components.client.ui.widget.select.collapsible.CollapsibleSelector;
+import eu.nextstreet.gwt.components.client.ui.widget.select.collapsible.CollapsibleSelector.CollapseEvent;
+import eu.nextstreet.gwt.components.client.ui.widget.select.collapsible.CollapsibleSelector.CollapseHandler;
 import eu.nextstreet.gwt.components.client.ui.widget.select.range.renderer.RangeValueRendererFactory;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.AbstractBaseWidget;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.AbstractSuggestBox;
@@ -188,6 +191,7 @@ public class ValidationTest {
 		initPanelSelector();
 		initPanelSelector2();
 		initPanelSelector3();
+		initPanelSelector4();
 
 		initStatePanel();
 
@@ -362,6 +366,46 @@ public class ValidationTest {
 
 		RootPanel selectionPanelState = RootPanel.get("selectionPanelState3");
 		selectionPanelState.add(new PanelSelectorController(panelSelector));
+	}
+
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	/**
+	 * This one is exactly like the 2, but it uses a CollapsibleSelector
+	 */
+	protected static void initPanelSelector4() {
+		IconedValueRendererFactory valueRendererFactory = new IconedValueRendererFactory(stringFormulator, iconLinker);
+		DefaultPanelValueSelector<Value> panelSelector = new DefaultPanelValueSelector<ValidationTest.Value>(new DefaultSuggestOracle<Value>(),
+				valueRendererFactory, (Resources) GWT.create(SPResources.class));
+		panelSelector.setToggleMode(true);
+		panelSelector.setSelectOneOccurenceMode(true);
+		// panelSelector.setStringFormulator(stringFormulator);
+		panelSelector.setMaxSelected(2);
+		fillData(panelSelector);
+		panelSelector.init();
+		RootPanel selectionPanel = RootPanel.get("selectionPanel4");
+		/* --------- the difference with 2 starts here only ------------ */
+		// by default, when you pass a text to the constructor, it creates a Label
+		final String collapsedText = "Click me to select!";
+		final String expandedText = "Click me to close!";
+		final CollapsibleSelector<Label, DefaultPanelValueSelector<Value>> collapsibleSelector = new CollapsibleSelector<Label, DefaultPanelValueSelector<Value>>(
+				collapsedText, false);
+		collapsibleSelector.setCollapsibleWidget(panelSelector);
+		selectionPanel.add(collapsibleSelector);
+		/* ---------- and ends here, now optional part --------------------------- */
+		collapsibleSelector.addCollapseHandler(new CollapseHandler() {
+
+			@Override
+			public void onStateChange(CollapseEvent collapseEvent) {
+				collapsibleSelector.getExpanderWidget().setText(collapseEvent.isExpanded() ? expandedText : collapsedText);
+			}
+		});
+		/* -------------------- end ----------------- */
+
+		RootPanel selectionPanelState = RootPanel.get("selectionPanelState4");
+		selectionPanelState.add(new PanelSelectorController(panelSelector));
+
+		// done after the change handler is registred
+		panelSelector.setSelection(true, blogger);
 	}
 
 	protected static void initStatePanel() {

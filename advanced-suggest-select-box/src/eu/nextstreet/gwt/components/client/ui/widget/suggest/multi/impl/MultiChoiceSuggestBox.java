@@ -26,7 +26,8 @@ import eu.nextstreet.gwt.components.client.ui.widget.common.EventHandlingValueHo
 import eu.nextstreet.gwt.components.client.ui.widget.common.ValueHolderItem;
 import eu.nextstreet.gwt.components.client.ui.widget.common.ValueRendererFactory;
 import eu.nextstreet.gwt.components.client.ui.widget.common.ValueRendererFactory.ListRenderer;
-import eu.nextstreet.gwt.components.client.ui.widget.suggest.*;
+import eu.nextstreet.gwt.components.client.ui.widget.suggest.AbstractSuggestBox;
+import eu.nextstreet.gwt.components.client.ui.widget.suggest.SuggestChangeEvent;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.iconed.IconedValueHolderItem;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.iconed.impl.DefaultIconedSuggestBox;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.iconed.impl.IconedValueRendererFactory;
@@ -133,7 +134,7 @@ public class MultiChoiceSuggestBox<T, W extends IconedValueHolderItem<T>, C exte
 		}
 	}
 
-	protected void clearSelection(boolean fireEvents) {
+	public void clearSelection(boolean fireEvents) {
 		selectedValuesPanel.clear();
 		super.clearSelection(fireEvents);
 	}

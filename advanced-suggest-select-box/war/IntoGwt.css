@@ -444,3 +444,26 @@ h4 {
 	background-color: #E6FFA2;
 }
 
+/**---------- collapsible selector -------------*/
+#selectionPanel4 {
+	vertical-align: top;
+}
+
+#selectionPanelState3 {
+	height: 15em;
+}
+
+.collapsibleSelector {
+    background-color: green;
+    border-radius: 4px 4px 4px 4px;
+    color: white;
+    padding: 0.5em;
+    width: 80%;
+}
+
+.collapsibleSelector.expanded {
+  background-color: yellowgreen;
+  font-weight: bold;
+  padding-bottom: 1em;
+  width: 96%;
+}
