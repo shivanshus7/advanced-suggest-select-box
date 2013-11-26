@@ -76,6 +76,10 @@ public class DefaultPanelValueSelector<T> extends AbstractPanelValueSelector<T, 
 			Resources resources) {
 		super(suggestOracle, valueRendererFactory);
 		initWidget(uiBinder.createAndBindUi(this));
+		setResources(resources);
+	}
+
+	public void setResources(Resources resources) {
 		this.resources = resources;
 		panelStyles = resources.panelStyles();
 		panelStyles.ensureInjected();

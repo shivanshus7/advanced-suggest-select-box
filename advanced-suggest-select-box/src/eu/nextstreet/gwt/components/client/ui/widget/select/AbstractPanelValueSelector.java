@@ -187,8 +187,13 @@ public abstract class AbstractPanelValueSelector<T, W extends EventHandlingValue
 
 	@Override
 	public void clearSelection() {
+		clearSelection(true);
+	}
+
+	public void clearSelection(boolean fireEvent) {
 		super.clearSelection();
 		uiUpdateSelection();
+		// FIXME must eventually fire events
 	}
 
 	@SuppressWarnings("unchecked")

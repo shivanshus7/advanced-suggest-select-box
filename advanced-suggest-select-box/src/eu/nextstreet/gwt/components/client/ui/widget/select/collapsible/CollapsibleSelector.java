@@ -78,14 +78,13 @@ public class CollapsibleSelector<L extends Widget, C extends Widget> extends Com
 
 	public CollapsibleSelector() {
 		initWidget(uiBinder.createAndBindUi(this));
+		handlerManager = new HandlerManager(this);
+		// this is done just because at startup updatetuylesNames will this the style is already set
+		collapsibleSelector.addStyleName(EXPANDED);
 	}
 
 	public CollapsibleSelector(boolean startExpanded) {
 		this();
-		handlerManager = new HandlerManager(this);
-		// this is done just because at startup updatetuylesNames will this the style is already set
-		collapsibleSelector.addStyleName(EXPANDED);
-
 		setExpanded(startExpanded);
 	}
 
@@ -95,18 +94,18 @@ public class CollapsibleSelector<L extends Widget, C extends Widget> extends Com
 		expanderPanel.add(expanderWidget);
 	}
 
-	protected Widget createDefaultLabel(String label) {
+	public Widget createDefaultLabel(String label) {
 		Label expander = new Label(label);
 		addExpandClickHandler(expander);
 		return expander;
 	}
 
-	protected void addFinishDetection(HasAllFocusHandlers expander) {
-		// TODO Auto-generated method stub
+	// protected void addFinishDetection(HasAllFocusHandlers expander) {
+	// // TODO Auto-generated method stub
+	//
+	// }
 
-	}
-
-	protected void addMouseOverHandler(HasMouseOverHandlers expander) {
+	public void addMouseOverHandler(HasMouseOverHandlers expander) {
 		expander.addMouseOverHandler(new MouseOverHandler() {
 
 			@Override
@@ -116,7 +115,7 @@ public class CollapsibleSelector<L extends Widget, C extends Widget> extends Com
 		});
 	}
 
-	protected void addExpandClickHandler(HasClickHandlers expander) {
+	public void addExpandClickHandler(HasClickHandlers expander) {
 		expander.addClickHandler(new ClickHandler() {
 
 			@Override
