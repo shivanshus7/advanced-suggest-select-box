@@ -16,5 +16,6 @@
 package eu.nextstreet.gwt.components.client.ui.widget.suggest.impl.simple;
 
 public enum DefaultOptions {
-	CASE_SENSITIVE, STARTS_WITH
+	CASE_SENSITIVE, STARTS_WITH, /** if the widget is enabled or editable */
+	DISABLED
 }

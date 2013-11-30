@@ -25,7 +25,7 @@ import eu.nextstreet.gwt.components.client.ui.widget.common.ValueRendererFactory
 import eu.nextstreet.gwt.components.client.ui.widget.common.WidgetValueMemory;
 
 /**
- * Designed to create a simlpe table around the items creating
+ * Designed to create a simple table around the items creating
  * <tr>
  * tags around each value. You can only add items in the form of
  * <td>col1</td>
@@ -40,7 +40,7 @@ public class SimpleTableListRenderer<T, W extends SimpleTableRowItemRenderer<T>>
 	protected FlexTable table = new FlexTable();
 	protected List<W> rows = new ArrayList<W>();
 
-	public SimpleTableListRenderer(ValueRendererFactory<T, ?> factory) {
+	public SimpleTableListRenderer(ValueRendererFactory<T, W> factory) {
 		super(factory);
 		initWidget(table);
 	}

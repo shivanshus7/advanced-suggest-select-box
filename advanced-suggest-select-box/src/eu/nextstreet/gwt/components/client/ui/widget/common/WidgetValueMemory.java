@@ -1,11 +1,10 @@
 package eu.nextstreet.gwt.components.client.ui.widget.common;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import com.google.gwt.user.client.ui.Composite;
 
+import eu.nextstreet.gwt.components.client.ui.widget.WidgetController;
 import eu.nextstreet.gwt.components.client.ui.widget.common.ValueRendererFactory.ListRenderer;
 
 /**
@@ -18,13 +17,15 @@ import eu.nextstreet.gwt.components.client.ui.widget.common.ValueRendererFactory
  * @param <W>
  *          the widget type
  */
-public abstract class WidgetValueMemory<T, W> extends Composite implements ListRenderer<T, W> {
+public abstract class WidgetValueMemory<T, W extends ValueHolderItem<T>> extends Composite implements ListRenderer<T, W> {
 	protected Map<T, W> valueWidgetMapping = new HashMap<T, W>();
 	protected Map<W, T> valueWidgetInverseMapping = new HashMap<W, T>();
+	protected List<T> values = new ArrayList<T>();
+	protected WidgetController<T> widgetController;
 
-	protected ValueRendererFactory<T, ?> factory;
+	protected ValueRendererFactory<T, W> factory;
 
-	public WidgetValueMemory(ValueRendererFactory<T, ?> factory) {
+	public WidgetValueMemory(ValueRendererFactory<T, W> factory) {
 		this.factory = factory;
 	}
 
@@ -36,6 +37,7 @@ public abstract class WidgetValueMemory<T, W> extends Composite implements ListR
 	@Override
 	public void clear() {
 		valueWidgetMapping.clear();
+		values.clear();
 	}
 
 	@Override
@@ -43,6 +45,7 @@ public abstract class WidgetValueMemory<T, W> extends Composite implements ListR
 		if (value == null || item == null)
 			return;
 
+		values.add(value);
 		valueWidgetMapping.put(value, item);
 		valueWidgetInverseMapping.put(item, value);
 	}
@@ -58,9 +61,28 @@ public abstract class WidgetValueMemory<T, W> extends Composite implements ListR
 		return false;
 	}
 
+	/**
+	 * Don't use this method: it is buggy: the widget created by the factory is retouched by the components and cannot be used directly: it's impossible to
+	 * replace the old retouched widget with the new rough one
+	 * 
+	 * @param index
+	 * @param newValue
+	 * @return
+	 */
+	public W setValueAt(int index, T newValue) {
+		T oldValue = values.get(index);
+		values.set(index, oldValue);
+		W widget = valueWidgetMapping.get(oldValue);
+		W newWidget = refresh(widget, newValue);
+		valueWidgetMapping.remove(oldValue);
+		valueWidgetMapping.put(newValue, newWidget);
+		valueWidgetInverseMapping.put(newWidget, newValue);
+		return newWidget;
+	}
+
 	@Override
-	public Set<T> getValues() {
-		return valueWidgetMapping.keySet();
+	public List<T> getValues() {
+		return Collections.unmodifiableList(values);
 	}
 
 	@Override
@@ -83,6 +105,38 @@ public abstract class WidgetValueMemory<T, W> extends Composite implements ListR
 
 	@Override
 	public void closeList() {
+	}
 
+	@Override
+	public void refresh() {
+		Set<W> widgetSet = valueWidgetInverseMapping.keySet();
+		for (W widget : widgetSet) {
+			refresh(widget, valueWidgetInverseMapping.get(widget));
+		}
+		// int size = values.size();
+		// for (int i = 0; i < size; i++) {
+		// T value = values.get(i);
+		// // setting a 'new' value refreshes the widget
+		// setValueAt(i, value);
+		// }
+	}
+
+	protected W refresh(W widget, T value) {
+		return widgetController.refresh(value, factory.refresh(widget, value));
+	}
+
+	@Override
+	public Map<T, W> getValueWidgetMapping() {
+		return Collections.unmodifiableMap(valueWidgetMapping);
+	}
+
+	@Override
+	public WidgetController<T> getWidgetController() {
+		return widgetController;
+	}
+
+	@Override
+	public void setWidgetController(WidgetController<T> widgetController) {
+		this.widgetController = widgetController;
 	}
 }

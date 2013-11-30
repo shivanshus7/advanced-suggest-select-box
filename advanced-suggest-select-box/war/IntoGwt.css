@@ -146,12 +146,22 @@ h4 {
 	-moz-border-radius: 6px;
 	border-radius: 6px;
 	text-shadow: 1px 1px 1px #949dff;
-	filter: dropshadow(color =                 #949dff, offx =                 1,
-		offy = 
-		 
-		             1);
 	background-color: #cbddfa;
 	color: black;
+}
+.eu-nextstreet-SuggestItemSelected .disabled {
+	background-color: inherit;
+	color: inherit;
+}
+
+.panelSelector .eu-nextstreet-SuggestItemSelected .disabled .label {
+	color: gray;
+	text-shadow: none;	
+}
+
+.panelSelector .eu-nextstreet-SuggestItemSelected .disabled .selectionIndicator {
+	background-color: inherit;
+	
 }
 
 .eu-nextstreet-SuggestItemHover {
@@ -164,10 +174,6 @@ h4 {
 .eu-nextstreet-SuggestMatchingString {
 	color: #0f8a04;
 	text-shadow: 1px 1px 1px #95ff8f;
-	filter: dropshadow(color =                 #95ff8f, offx =                 1,
-		offy = 
-		 
-		             1);
 }
 
 .eu-nextstreet-SuggestFieldComp {

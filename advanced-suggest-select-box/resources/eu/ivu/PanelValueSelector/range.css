@@ -17,3 +17,11 @@
 	color: #FFFE99;
 	cursor: pointer;
 }
+
+.disabled {
+	background-color: #DDDDDD;
+	color: #AAAAAA;
+}
+
+.disabledPanel {
+}

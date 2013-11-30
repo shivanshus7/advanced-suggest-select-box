@@ -16,8 +16,8 @@
  */
 package eu.nextstreet.gwt.components.client.ui.widget.common;
 
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import com.google.gwt.user.client.ui.IsWidget;
 
@@ -86,7 +86,7 @@ public interface ValueRendererFactory<T, W extends ValueHolderItem<T>> {
 		 */
 		boolean remove(W item);
 
-		Set<T> getValues();
+		List<T> getValues();
 
 		boolean containsValue(T value);
 
@@ -95,6 +95,14 @@ public interface ValueRendererFactory<T, W extends ValueHolderItem<T>> {
 		ValueRendererFactory<T, ?> getFactory();
 
 		void closeList();
+
+		void refresh();
+
+		Map<T, W> getValueWidgetMapping();
+
+		WidgetController<T> getWidgetController();
+
+		void setWidgetController(WidgetController<T> widgetController);
 	}
 
 	/**
@@ -129,6 +137,7 @@ public interface ValueRendererFactory<T, W extends ValueHolderItem<T>> {
 	 */
 	void setWidgetController(WidgetController<T> controller);
 
-	public String toString(T value);
+	String toString(T value);
 
+	W refresh(W widget, T value);
 }

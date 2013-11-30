@@ -21,3 +21,12 @@
 	color: #FFFE99;
 	cursor: auto;
 }
+
+.disabled {
+	background-color: #DDDDDD;
+	color: #AAAAAA;
+}
+
+.disabledPanel {
+	background-color: #CCCCCC;
+}

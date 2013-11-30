@@ -311,6 +311,18 @@ public class ValidationTest {
 				}
 			});
 			add(toggleBox);
+
+			add(new SimplePanel());
+			final CheckBox disabledBox = new CheckBox("Disabled 'mode'");
+			disabledBox.setValue(!panelValueSelector.isEnabled());
+			disabledBox.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
+
+				@Override
+				public void onValueChange(ValueChangeEvent<Boolean> event) {
+					panelValueSelector.setEnabled(!disabledBox.getValue());
+				}
+			});
+			add(disabledBox);
 		}
 	}
 

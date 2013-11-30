@@ -35,7 +35,7 @@ public class DefaultListRenderer<T, W extends EventHandlingValueHolderItem<T>> e
 
 	protected FlowPanel panel = new FlowPanel();
 
-	public DefaultListRenderer(ValueRendererFactory<T, ?> factory) {
+	public DefaultListRenderer(ValueRendererFactory<T, W> factory) {
 		super(factory);
 		initWidget(panel);
 		panel.setStyleName("defaultListRenderer");
@@ -56,6 +56,14 @@ public class DefaultListRenderer<T, W extends EventHandlingValueHolderItem<T>> e
 	@SuppressWarnings("unchecked")
 	public W getAt(int index) {
 		return (W) panel.getWidget(index);
+	}
+
+	@Override
+	public W setValueAt(int index, T newValue) {
+		W refreshedOrNewWidget = super.setValueAt(index, newValue);
+		panel.remove(index);
+		panel.insert(refreshedOrNewWidget, index);
+		return refreshedOrNewWidget;
 	}
 
 	@Override

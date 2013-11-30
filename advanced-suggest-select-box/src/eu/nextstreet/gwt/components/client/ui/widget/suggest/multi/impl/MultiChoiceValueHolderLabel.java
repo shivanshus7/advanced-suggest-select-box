@@ -17,14 +17,7 @@
 
 package eu.nextstreet.gwt.components.client.ui.widget.suggest.multi.impl;
 
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.DoubleClickHandler;
-import com.google.gwt.event.dom.client.MouseDownHandler;
-import com.google.gwt.event.dom.client.MouseMoveHandler;
-import com.google.gwt.event.dom.client.MouseOutHandler;
-import com.google.gwt.event.dom.client.MouseOverHandler;
-import com.google.gwt.event.dom.client.MouseUpHandler;
-import com.google.gwt.event.dom.client.MouseWheelHandler;
+import com.google.gwt.event.dom.client.*;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.Image;
 
@@ -60,8 +53,7 @@ public class MultiChoiceValueHolderLabel<T> extends BasicMultiChoiceValueHolderI
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see eu.nextstreet.gwt.components.client.ui.common.data.
-	 * ValueRepresentationTransformer#transform(java.lang.Object)
+	 * @see eu.nextstreet.gwt.components.client.ui.common.data. ValueRepresentationTransformer#transform(java.lang.Object)
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
@@ -128,6 +120,11 @@ public class MultiChoiceValueHolderLabel<T> extends BasicMultiChoiceValueHolderI
 	@Override
 	public HandlerRegistration addDoubleClickHandler(DoubleClickHandler handler) {
 		return concreteWidget.addDoubleClickHandler(handler);
+	}
+
+	@Override
+	public void refresh() {
+		// not supported now
 	}
 
 }

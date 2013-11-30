@@ -16,21 +16,7 @@
  */
 package eu.nextstreet.gwt.components.client.ui.widget.suggest.impl.table;
 
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.DoubleClickHandler;
-import com.google.gwt.event.dom.client.HasClickHandlers;
-import com.google.gwt.event.dom.client.HasMouseDownHandlers;
-import com.google.gwt.event.dom.client.HasMouseMoveHandlers;
-import com.google.gwt.event.dom.client.HasMouseOutHandlers;
-import com.google.gwt.event.dom.client.HasMouseOverHandlers;
-import com.google.gwt.event.dom.client.HasMouseUpHandlers;
-import com.google.gwt.event.dom.client.HasMouseWheelHandlers;
-import com.google.gwt.event.dom.client.MouseDownHandler;
-import com.google.gwt.event.dom.client.MouseMoveHandler;
-import com.google.gwt.event.dom.client.MouseOutHandler;
-import com.google.gwt.event.dom.client.MouseOverHandler;
-import com.google.gwt.event.dom.client.MouseUpHandler;
-import com.google.gwt.event.dom.client.MouseWheelHandler;
+import com.google.gwt.event.dom.client.*;
 import com.google.gwt.event.shared.GwtEvent;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.HTML;
@@ -43,15 +29,11 @@ import eu.nextstreet.gwt.components.client.ui.widget.common.ValueRendererFactory
 import eu.nextstreet.gwt.components.client.ui.widget.util.HtmlUtil;
 
 /**
- * represents a row in the suggest box when using the factory
- * {@link SimpleTableValueRendererFactory}
+ * represents a row in the suggest box when using the factory {@link SimpleTableValueRendererFactory}
  * 
- * Typically the methods {@link #explodeValueInColumns(Object, String, boolean)}
- * and probably {@link #createWidget(String, boolean, int, String)} will be
- * overridden to answer to your needs. By default
- * {@link #createWidget(String, boolean, int, String)} will create {@link HTML}
- * widgets with the String content you returned in
- * {@link #explodeValueInColumns(Object, String, boolean)}
+ * Typically the methods {@link #explodeValueInColumns(Object, String, boolean)} and probably {@link #createWidget(String, boolean, int, String)} will be
+ * overridden to answer to your needs. By default {@link #createWidget(String, boolean, int, String)} will create {@link HTML} widgets with the String content
+ * you returned in {@link #explodeValueInColumns(Object, String, boolean)}
  * 
  * @author Zied Hamdi founder of http://1vu.fr founder of http://into-i.fr
  * 
@@ -76,15 +58,13 @@ public class SimpleTableRowItemRenderer<T> extends BasicWidgetListHolder impleme
 	}
 
 	/**
-	 * This method synchronizes all the method calls, you shouldn't override or if
-	 * you do, you should call it in your implementation to have the other method
+	 * This method synchronizes all the method calls, you shouldn't override or if you do, you should call it in your implementation to have the other method
 	 * calls done for you
 	 * 
 	 * @param value
 	 *          the row value
 	 * @param filterText
-	 *          the text written in the suggest box (to be highlighted for
-	 *          example)
+	 *          the text written in the suggest box (to be highlighted for example)
 	 * @param caseSensitive
 	 *          the case sensitive option of the suggest box
 	 */
@@ -97,12 +77,10 @@ public class SimpleTableRowItemRenderer<T> extends BasicWidgetListHolder impleme
 	}
 
 	/**
-	 * Constructs the widget corresponding to the parameters information. This is
-	 * not typed by generics because widgets can be different fo each column
+	 * Constructs the widget corresponding to the parameters information. This is not typed by generics because widgets can be different fo each column
 	 * 
 	 * @param filterText
-	 *          the text that was typed in the suggest box (to do the matching
-	 *          sequence highlighting)
+	 *          the text that was typed in the suggest box (to do the matching sequence highlighting)
 	 * @param caseSensitive
 	 *          true if the case sensitive option is enabled
 	 * @param col
@@ -121,8 +99,7 @@ public class SimpleTableRowItemRenderer<T> extends BasicWidgetListHolder impleme
 	 * 
 	 * 
 	 * @param filterText
-	 *          the text that was typed in the suggest box (to do the matching
-	 *          sequence highlighting)
+	 *          the text that was typed in the suggest box (to do the matching sequence highlighting)
 	 * @param caseSensitive
 	 *          true if the case sensitive option is enabled
 	 * @param colText
@@ -133,8 +110,7 @@ public class SimpleTableRowItemRenderer<T> extends BasicWidgetListHolder impleme
 	}
 
 	/**
-	 * Specifies whether you want the highlight function to be called on teh
-	 * column with index <code>i</code>
+	 * Specifies whether you want the highlight function to be called on teh column with index <code>i</code>
 	 * 
 	 * @param col
 	 *          the column index starting from 0
@@ -145,19 +121,15 @@ public class SimpleTableRowItemRenderer<T> extends BasicWidgetListHolder impleme
 	}
 
 	/**
-	 * Decomposes the current value in the different columns text value, this text
-	 * will be used after highlighting
-	 * {@link #highlightMatchingSequence(String, String, boolean)}, if enabled
-	 * {@link #highlightColumnText(int)}) to construct widgets
+	 * Decomposes the current value in the different columns text value, this text will be used after highlighting
+	 * {@link #highlightMatchingSequence(String, String, boolean)}, if enabled {@link #highlightColumnText(int)}) to construct widgets
 	 * {@link #createWidget(String, boolean, int, String)}
 	 * 
-	 * you can return urls or any string value you will need after to create the
-	 * corresponding widget
+	 * you can return urls or any string value you will need after to create the corresponding widget
 	 * 
 	 * 
 	 * @param filterText
-	 *          the text that was typed in the suggest box (to do the matching
-	 *          sequence highlighting)
+	 *          the text that was typed in the suggest box (to do the matching sequence highlighting)
 	 * @param caseSensitive
 	 *          true if the case sensitive option is enabled
 	 * @return the row columns text representations
@@ -342,5 +314,10 @@ public class SimpleTableRowItemRenderer<T> extends BasicWidgetListHolder impleme
 	public void removeStyleName(String style) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public void refresh() {
+		fillHtml(value, "", caseSensitive);
 	}
 }

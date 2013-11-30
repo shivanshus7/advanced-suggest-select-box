@@ -1,5 +1,7 @@
 package eu.nextstreet.gwt.components.client.ui.widget.select;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import com.google.gwt.core.client.GWT;
@@ -11,9 +13,7 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Widget;
 
-import eu.nextstreet.gwt.components.client.ui.widget.common.EventHandlingValueHolderItem;
-import eu.nextstreet.gwt.components.client.ui.widget.common.SuggestOracle;
-import eu.nextstreet.gwt.components.client.ui.widget.common.ValueRendererFactory;
+import eu.nextstreet.gwt.components.client.ui.widget.common.*;
 import eu.nextstreet.gwt.components.client.ui.widget.common.ValueRendererFactory.ListRenderer;
 import eu.nextstreet.gwt.components.client.ui.widget.common.renderer.DefaultValueRendererFactory;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.impl.simple.DefaultSuggestOracle;
@@ -48,6 +48,10 @@ public class DefaultPanelValueSelector<T> extends AbstractPanelValueSelector<T, 
 		String item();
 
 		String panel();
+
+		String disabled();
+
+		String disabledPanel();
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -89,16 +93,51 @@ public class DefaultPanelValueSelector<T> extends AbstractPanelValueSelector<T, 
 	protected void uiSetListPanel(ListRenderer<T, EventHandlingValueHolderItem<T>> listRenderer) {
 		panel.clear();
 		panel.add(listRenderer);
+
+		updatePanelStyles();
+	}
+
+	public void updatePanelStyles() {
 		String styleName = panelStyles.panel();
 		// if already set
 		panel.removeStyleName(styleName);
 		panel.addStyleName(styleName);
+
+		// if already set
+		panel.removeStyleName(panelStyles.disabledPanel());
+		if (!isEnabled())
+			panel.addStyleName(panelStyles.disabledPanel());
 	}
 
 	@Override
 	protected void uiAddPanel(T value, EventHandlingValueHolderItem<T> valueRenderer) {
-		valueRenderer.setStyleName(panelStyles.item());
+		updateItemStyle(value, valueRenderer);
 		super.uiAddPanel(value, valueRenderer);
+	}
+
+	@Override
+	public <W extends ValueHolderItem<T>> W refresh(T value, W widget) {
+		updateItemStyle(value, (EventHandlingValueHolderItem<T>) widget);
+		return widget;
+	}
+
+	public void updateItemStyle(T value, EventHandlingValueHolderItem<T> valueRenderer) {
+		valueRenderer.setStyleName(panelStyles.item());
+		if (!isEnabled()) {
+			valueRenderer.addStyleName(panelStyles.disabled());
+			valueRenderer.removeStyleName(panelStyles.selected());
+		}
+	}
+
+	@Override
+	protected void refresh() {
+		updatePanelStyles();
+		Map<T, EventHandlingValueHolderItem<T>> valueWidgetMapping = listRenderer.getValueWidgetMapping();
+		Set<T> values = valueWidgetMapping.keySet();
+		for (T t : values) {
+			updateItemStyle(t, valueWidgetMapping.get(t));
+		}
+		super.refresh();
 	}
 
 	@Override
@@ -106,7 +145,7 @@ public class DefaultPanelValueSelector<T> extends AbstractPanelValueSelector<T, 
 		if (!initialized)
 			throw new IllegalStateException("you must call init() before calling this method");
 
-		Set<T> values = listRenderer.getValues();
+		List<T> values = listRenderer.getValues();
 		for (T t : values) {
 			EventHandlingValueHolderItem<T> item = listRenderer.getItem(t);
 			boolean selected = selectedItems.contains(t);

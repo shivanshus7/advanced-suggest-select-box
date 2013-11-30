@@ -25,7 +25,10 @@ import com.google.gwt.user.client.ui.Composite;
 import eu.nextstreet.gwt.components.client.ui.widget.WidgetController;
 import eu.nextstreet.gwt.components.client.ui.widget.common.StringFormulator;
 import eu.nextstreet.gwt.components.client.ui.widget.common.SuggestOracle;
+import eu.nextstreet.gwt.components.client.ui.widget.common.ValueHolderItem;
+import eu.nextstreet.gwt.components.client.ui.widget.suggest.impl.simple.DefaultOptions;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.impl.simple.DefaultStringFormulator;
+import eu.nextstreet.gwt.components.client.ui.widget.suggest.param.BooleanOption;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.param.Option;
 
 /**
@@ -44,6 +47,12 @@ import eu.nextstreet.gwt.components.client.ui.widget.suggest.param.Option;
  *          the concrete type of event
  */
 public abstract class AbstractBaseWidget<T, P, E extends ChangeEvent> extends Composite implements StringFormulator<T>, WidgetController<T> {
+
+	/**
+	 * don't change the value here directly unless you have a good reason, use {@link #putOption(Option)} instead
+	 * 
+	 * FIXME use an interface to represent an option instead of a String: enums can implement the interface (strings are not safe)
+	 */
 	protected Map<String, Option<?>> options = new HashMap<String, Option<?>>();
 	protected SuggestOracle<T> suggestOracle;
 	protected List<ChangeHandler> changeHandlerList = new ArrayList<ChangeHandler>();
@@ -59,18 +68,41 @@ public abstract class AbstractBaseWidget<T, P, E extends ChangeEvent> extends Co
 	 */
 	protected List<T> removedValues = new ArrayList<T>();
 
+	@Override
 	public Option<?> getOption(String key) {
 		return options.get(key);
 	}
 
+	@Override
 	public Option<?> putOption(Option<?> option) {
-		return options.put(option.getKey(), option);
+		return putOption(option, false);
+	}
+
+	/**
+	 * 
+	 * @param option
+	 * @param refresh
+	 *          triggers a refresh
+	 * @return
+	 */
+	public Option<?> putOption(Option<?> option, boolean refresh) {
+		Option<?> oldOption = options.put(option.getKey(), option);
+		if (refresh)
+			refresh();
+		return oldOption;
+	}
+
+	/**
+	 * refreshes the data display
+	 */
+	protected void refresh() {
 	}
 
 	public Option<?> removeOption(String key) {
 		return options.remove(key);
 	}
 
+	@Override
 	public Option<?> removeOption(Option<?> option) {
 		return removeOption(option.getKey());
 	}
@@ -80,6 +112,7 @@ public abstract class AbstractBaseWidget<T, P, E extends ChangeEvent> extends Co
 	 * 
 	 * @return the set options
 	 */
+	@Override
 	public Map<String, Option<?>> getOptions() {
 		return options;
 	}
@@ -270,4 +303,22 @@ public abstract class AbstractBaseWidget<T, P, E extends ChangeEvent> extends Co
 		removeSelection(duplicates);
 	}
 
+	/**
+	 * FIXME Should merge this method with {@link AbstractSuggestBox#setReadOnly(boolean)}
+	 * 
+	 * @param enabled
+	 */
+	public void setEnabled(boolean enabled) {
+		putOption(new BooleanOption(DefaultOptions.DISABLED.name(), !enabled), true);
+	}
+
+	public boolean isEnabled() {
+		// defaults to enabled (that's why when the option is not preset, we consider it's enabled)
+		return !BooleanOption.isEnabled(DefaultOptions.DISABLED.name(), options);
+	}
+
+	@Override
+	public <W extends ValueHolderItem<T>> W refresh(T value, W widget) {
+		return widget;
+	}
 }

@@ -46,4 +46,13 @@ public abstract class AbstractValueRendererFactory<T, W extends EventHandlingVal
 	public void setStringFormulator(StringFormulator<T> stringFormulator) {
 		this.stringFormulator = stringFormulator;
 	}
+
+	@Override
+	public W refresh(W widget, T value) {
+		// FIXME must implement a refresh way
+		widget.refresh();
+		return widget;
+		// FIXME there is actually no standard way to get the "filterText"
+		// return createValueRenderer(value, "", widgetController.getOptions());
+	}
 }

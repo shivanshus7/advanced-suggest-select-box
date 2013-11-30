@@ -16,28 +16,9 @@
  */
 package eu.nextstreet.gwt.components.client.ui.widget.suggest.iconed.impl;
 
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.DoubleClickEvent;
-import com.google.gwt.event.dom.client.DoubleClickHandler;
-import com.google.gwt.event.dom.client.MouseDownEvent;
-import com.google.gwt.event.dom.client.MouseDownHandler;
-import com.google.gwt.event.dom.client.MouseMoveEvent;
-import com.google.gwt.event.dom.client.MouseMoveHandler;
-import com.google.gwt.event.dom.client.MouseOutEvent;
-import com.google.gwt.event.dom.client.MouseOutHandler;
-import com.google.gwt.event.dom.client.MouseOverEvent;
-import com.google.gwt.event.dom.client.MouseOverHandler;
-import com.google.gwt.event.dom.client.MouseUpEvent;
-import com.google.gwt.event.dom.client.MouseUpHandler;
-import com.google.gwt.event.dom.client.MouseWheelEvent;
-import com.google.gwt.event.dom.client.MouseWheelHandler;
+import com.google.gwt.event.dom.client.*;
 import com.google.gwt.event.shared.HandlerRegistration;
-import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.FlowPanel;
-import com.google.gwt.user.client.ui.Image;
-import com.google.gwt.user.client.ui.SimplePanel;
-import com.google.gwt.user.client.ui.UIObject;
+import com.google.gwt.user.client.ui.*;
 
 import eu.nextstreet.gwt.components.client.ui.widget.common.EventHandlingValueHolderItem;
 import eu.nextstreet.gwt.components.client.ui.widget.common.ValueHolderItem;
@@ -173,6 +154,11 @@ public class IconedValueRenderer<T> extends Composite implements IconedValueHold
 		containerPanel.add(label);
 		surroundingPanel.add(containerPanel);
 		surroundingPanel.add(endingPanel);
+	}
+
+	@Override
+	public void refresh() {
+		// not supported
 	}
 
 }

@@ -57,9 +57,9 @@ public abstract class AbstractPanelValueSelector<T, W extends EventHandlingValue
 	};
 
 	protected ValueRendererFactory<T, W> valueRendererFactory;
-	protected Map<String, Option<?>> options = new HashMap<String, Option<?>>();
 	protected ListRenderer<T, W> listRenderer;
 	protected boolean initialized = false;
+	protected Collection<T> suggestions;
 
 	public AbstractPanelValueSelector(SuggestOracle<T> suggestOracle, ValueRendererFactory<T, W> valueRendererFactory) {
 		this.suggestOracle = suggestOracle;
@@ -69,6 +69,7 @@ public abstract class AbstractPanelValueSelector<T, W extends EventHandlingValue
 
 	public void init() {
 		listRenderer = valueRendererFactory.createListRenderer();
+		listRenderer.setWidgetController(this);
 		uiSetListPanel(listRenderer);
 
 		suggestOracle.requestSuggestions(new Request(null), new Callback<T>() {
@@ -85,6 +86,7 @@ public abstract class AbstractPanelValueSelector<T, W extends EventHandlingValue
 
 	protected void init(Collection<T> suggestions) {
 		uiClear();
+		this.suggestions = suggestions;
 		for (final T value : suggestions) {
 			W valueRenderer = valueRendererFactory.createValueRenderer(value, null, options);
 			EventsHandler<T, W> eventsHandler = createEventsHandler(valueRenderer);
@@ -138,6 +140,9 @@ public abstract class AbstractPanelValueSelector<T, W extends EventHandlingValue
 
 	@Override
 	public void valueSelected(T value) {
+		if (!isEnabled())
+			return;
+
 		super.valueSelected(value);
 		fireChangeOccured(value);
 		uiUpdateSelection();
@@ -215,4 +220,8 @@ public abstract class AbstractPanelValueSelector<T, W extends EventHandlingValue
 		listRenderer.clear();
 	}
 
+	@Override
+	protected void refresh() {
+		listRenderer.refresh();
+	}
 }

@@ -614,6 +614,7 @@ public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderIt
 			scrollPanel.clear();
 		}
 		listRenderer = valueRendererFactory.createListRenderer();
+		listRenderer.setWidgetController(this);
 		scrollPanel.add((Widget) listRenderer);
 		System.out.println();
 	}
@@ -824,4 +825,8 @@ public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderIt
 		this.correctWhileTyping = correctWhileTyping;
 	}
 
+	@Override
+	protected void refresh() {
+		// TODO implement
+	}
 }

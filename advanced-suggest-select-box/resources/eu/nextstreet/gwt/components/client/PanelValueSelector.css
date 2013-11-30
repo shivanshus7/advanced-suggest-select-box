@@ -16,9 +16,18 @@
 	cursor: pointer;
 }
 
-@sprite .selected {
-	gwt-image: "itemSelectedBackground";
+.selected {
+	background-color:green;
 	color: white;
 	cursor: auto;
 	height: 3em;
+}
+
+.disabled {
+	background-color: #DDDDDD;
+	color: #AAAAAA;
+}
+
+.disabledPanel {
+	background-color: #CCCCCC;
 }

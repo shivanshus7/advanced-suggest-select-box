@@ -113,6 +113,7 @@ public class MultiChoiceSuggestBox<T, W extends IconedValueHolderItem<T>, C exte
 		this.choiceItemsRendererFactory = choiceItemsRendererFactory;
 		choiceItemsRendererFactory.setWidgetController((AbstractSuggestBox<T, EventHandlingValueHolderItem<T>>) this);
 		selectedValuesPanel = choiceItemsRendererFactory.createListRenderer();
+		selectedValuesPanel.setWidgetController(this);
 		setChoicesPanel();
 	}
 

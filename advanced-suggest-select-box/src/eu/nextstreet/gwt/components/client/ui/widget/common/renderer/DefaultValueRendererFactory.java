@@ -53,7 +53,8 @@ public class DefaultValueRendererFactory<T, W extends EventHandlingValueHolderIt
 	@SuppressWarnings("unchecked")
 	@Override
 	public W createValueRenderer(T value, String filterText, Map<String, Option<?>> options) {
-		W toReturn = (W) new DefaultValueRenderer<T>(value, filterText, BooleanOption.isEnabled(DefaultOptions.CASE_SENSITIVE.name(), options), this);
+		/** FIXME options should be read only at the lowest level (remove BooleanOption.isEnabled(DefaultOptions.CASE_SENSITIVE.name()) */
+		W toReturn = (W) new DefaultValueRenderer<T>(value, filterText, BooleanOption.isEnabled(DefaultOptions.CASE_SENSITIVE.name(), options), options, this);
 		toReturn.initWidget();
 		toReturn.setStyleName(itemStyle);
 		return toReturn;

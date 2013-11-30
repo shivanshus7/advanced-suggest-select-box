@@ -16,12 +16,15 @@
  */
 package eu.nextstreet.gwt.components.client.ui.widget.common.renderer;
 
+import java.util.Map;
+
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.UIObject;
 import com.google.gwt.user.client.ui.Widget;
 
 import eu.nextstreet.gwt.components.client.ui.widget.common.EventHandlingValueHolderItem;
 import eu.nextstreet.gwt.components.client.ui.widget.common.ValueRendererFactory;
+import eu.nextstreet.gwt.components.client.ui.widget.suggest.param.Option;
 import eu.nextstreet.gwt.components.client.ui.widget.util.HtmlUtil;
 
 public class DefaultValueRenderer<T> extends HTML implements EventHandlingValueHolderItem<T> {
@@ -31,7 +34,8 @@ public class DefaultValueRenderer<T> extends HTML implements EventHandlingValueH
 	protected T value;
 	protected boolean caseSensitive;
 	protected ValueRendererFactory<T, ?> valueRendererFactory;
-	boolean selected, hover;
+	protected boolean selected, hover;
+	protected Map<String, Option<?>> options;
 
 	/**
 	 * constructor
@@ -39,13 +43,16 @@ public class DefaultValueRenderer<T> extends HTML implements EventHandlingValueH
 	 * @param value
 	 * @param filterText
 	 * @param caseSensitive
+	 * @param options
 	 * @param valueRendererFactory
 	 *          the factory that created this instance
 	 */
-	public DefaultValueRenderer(final T value, String filterText, boolean caseSensitive, final ValueRendererFactory<T, ?> valueRendererFactory) {
+	public DefaultValueRenderer(final T value, String filterText, boolean caseSensitive, Map<String, Option<?>> options,
+			final ValueRendererFactory<T, ?> valueRendererFactory) {
 		this.value = value;
 		this.caseSensitive = caseSensitive;
 		this.valueRendererFactory = valueRendererFactory;
+		this.options = options;
 		init();
 		fillHtml(value, filterText, caseSensitive);
 	}
@@ -151,6 +158,12 @@ public class DefaultValueRenderer<T> extends HTML implements EventHandlingValueH
 	 */
 	protected Widget getMainPanel() {
 		return this;
+	}
+
+	@Override
+	public void refresh() {
+		// FIXME filterText is not saved
+		fillHtml(value, "", caseSensitive);
 	}
 
 }
