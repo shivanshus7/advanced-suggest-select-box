@@ -1,9 +1,12 @@
 package eu.nextstreet.gwt.components.client.ui.widget;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import eu.nextstreet.gwt.components.client.ui.widget.common.StringFormulator;
+import eu.nextstreet.gwt.components.client.ui.widget.common.ValueHolderItem;
+import eu.nextstreet.gwt.components.client.ui.widget.suggest.param.Option;
 
 /**
  * Represents a Widget as a context (single check point): notifications as selection or state changes are sent back to this object that is responsible for
@@ -36,4 +39,14 @@ public interface WidgetController<T> extends StringFormulator<T> {
 	List<T> getSelection();
 
 	boolean removeSelection(Set<T> selected);
+
+	Map<String, Option<?>> getOptions();
+
+	Option<?> getOption(String key);
+
+	Option<?> putOption(Option<?> option);
+
+	Option<?> removeOption(Option<?> option);
+
+	<W extends ValueHolderItem<T>> W refresh(T value, W widget);
 }

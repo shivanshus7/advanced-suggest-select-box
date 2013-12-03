@@ -33,16 +33,16 @@ import eu.nextstreet.gwt.components.client.ui.common.data.ValueRepresentationTra
 import eu.nextstreet.gwt.components.client.ui.panel.StatePanel;
 import eu.nextstreet.gwt.components.client.ui.panel.StatePanel.SimplePanelState;
 import eu.nextstreet.gwt.components.client.ui.widget.AdvancedTextBox;
+import eu.nextstreet.gwt.components.client.ui.widget.common.StringFormulator;
+import eu.nextstreet.gwt.components.client.ui.widget.common.renderer.AbstractValueRendererFactory;
 import eu.nextstreet.gwt.components.client.ui.widget.select.DefaultPanelValueSelector;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.AbstractBaseWidget;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.AbstractSuggestBox;
-import eu.nextstreet.gwt.components.client.ui.widget.suggest.StringFormulator;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.SuggestChangeEvent;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.iconed.IconedValueHolderItem;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.iconed.impl.DefaultIconedSuggestBox;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.iconed.impl.IconedValueRenderer;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.iconed.impl.IconedValueRendererFactory;
-import eu.nextstreet.gwt.components.client.ui.widget.suggest.impl.simple.AbstractValueRendererFactory;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.impl.simple.DefaultOptions;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.impl.simple.DefaultSuggestOracle;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.impl.table.SimpleTableRowItemRenderer;
@@ -181,7 +181,7 @@ public class ValidationTest {
 		List<Value> multiSelection = new ArrayList<ValidationTest.Value>();
 		multiSelection.add(blogger);
 		multiSelection.add(chromeToolBox);
-		multiBox.setValues(multiSelection);
+		multiBox.setSelection(multiSelection);
 
 		multiBox.addHandler(new ChangeHandler() {
 
@@ -197,7 +197,7 @@ public class ValidationTest {
 					logPanel.add(new HTML("text <i><b>'" + suggestEvent.getText() + "'</b></i> was typed"));
 				}
 				logPanel.add(new HTML("current selection : "));
-				logPanel.add(new HTML("<span style='color: gray'>" + source.getValues() + "</span>"));
+				logPanel.add(new HTML("<span style='color: gray'>" + source.getSelection() + "</span>"));
 				logPanel.add(new HTML("currently removed values : "));
 				logPanel.add(new HTML("<span style='color: gray'>" + source.getRemovedValues() + "</span>"));
 				RootPanel suggestBoxMultiValueLog = RootPanel.get("suggestBoxMultiValueLog");
