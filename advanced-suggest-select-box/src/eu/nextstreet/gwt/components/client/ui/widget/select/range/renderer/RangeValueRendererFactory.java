@@ -61,7 +61,8 @@ public class RangeValueRendererFactory<T> extends DefaultValueRendererFactory<T,
 	}
 
 	public SafeHtml toLabelString(T value, boolean enabled) {
-		return SafeHtmlUtils.fromString(value == null ? "" : value.toString());
+		String strValue = toString(value);
+		return SafeHtmlUtils.fromString(strValue == null ? "" : strValue);
 	}
 
 	public Resources getResources() {

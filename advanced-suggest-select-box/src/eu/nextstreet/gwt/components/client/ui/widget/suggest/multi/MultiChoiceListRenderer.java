@@ -33,7 +33,7 @@ public class MultiChoiceListRenderer<T, C extends MultiChoiceValueHolderItem<T, 
 	protected AbstractSuggestBox<T, EventHandlingValueHolderItem<T>> suggestBox;
 	protected FlowPanel panel = new FlowPanel();
 
-	public MultiChoiceListRenderer(AbstractSuggestBox<T, EventHandlingValueHolderItem<T>> suggestBox, ValueRendererFactory<T, ?> factory) {
+	public MultiChoiceListRenderer(AbstractSuggestBox<T, EventHandlingValueHolderItem<T>> suggestBox, ValueRendererFactory<T, C> factory) {
 		super(factory);
 		initWidget(panel);
 		this.suggestBox = suggestBox;

@@ -20,6 +20,8 @@ import eu.nextstreet.gwt.components.client.ui.widget.suggest.impl.simple.Default
 
 public class DefaultPanelValueSelector<T> extends AbstractPanelValueSelector<T, EventHandlingValueHolderItem<T>> {
 
+	public static final String SELECTED_AS_EXTERNAL_STYLE = "selected";
+
 	private static DefaultPanelValueSelectorUiBinder uiBinder = GWT.create(DefaultPanelValueSelectorUiBinder.class);
 
 	public interface Resources extends ClientBundle {
@@ -145,6 +147,8 @@ public class DefaultPanelValueSelector<T> extends AbstractPanelValueSelector<T, 
 		if (!initialized)
 			throw new IllegalStateException("you must call init() before calling this method");
 
+		refresh();
+
 		List<T> values = listRenderer.getValues();
 		for (T t : values) {
 			EventHandlingValueHolderItem<T> item = listRenderer.getItem(t);
@@ -152,8 +156,10 @@ public class DefaultPanelValueSelector<T> extends AbstractPanelValueSelector<T, 
 			item.setSelected(selected);
 			if (selected) {
 				item.addStyleName(panelStyles.selected());
+				item.addStyleName(SELECTED_AS_EXTERNAL_STYLE);
 			} else {
 				item.removeStyleName(panelStyles.selected());
+				item.removeStyleName(SELECTED_AS_EXTERNAL_STYLE);
 			}
 		}
 	}
