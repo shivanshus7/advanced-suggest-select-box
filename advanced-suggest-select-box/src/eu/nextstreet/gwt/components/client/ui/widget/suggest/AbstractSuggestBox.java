@@ -53,9 +53,9 @@ public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderIt
 
 	private static final String READ_ONLY = "rOnly";
 	private static final String SUGGEST_FIELD_COMP = "eu-nextstreet-SuggestFieldComp";
-	private static final String SUGGEST_FIELD = "eu-nextstreet-SuggestFieldDetail";
-	private static final String SUGGEST_FIELD_HOVER = "eu-nextstreet-SuggestFieldHover";
-	private static final String SUGGEST_BOX_LOADING = "eu-nextstreet-AdvancedTextBoxDefaultText-loading";
+	private static final String SUGGEST_FIELD = "detail";
+	private static final String SUGGEST_FIELD_HOVER = "fieldHover";
+	private static final String SUGGEST_BOX_LOADING = "loading";
 
 	// private static SuggestBoxUiBinder uiBinder = GWT
 	// .create(SuggestBoxUiBinder.class);

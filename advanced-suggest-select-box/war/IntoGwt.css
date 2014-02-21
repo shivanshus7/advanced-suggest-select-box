@@ -111,13 +111,13 @@ h4 {
 	background-color: green;
 }
 
-#selectionPanel3 .panelSelector .eu-nextstreet-SuggestItemSelected {
+#selectionPanel3 .panelSelector .selected {
 	background-color: inherit;
 	border-radius:0; 
 }
 
 
-.panelSelector .eu-nextstreet-SuggestItemSelected .selectionIndicator {
+.panelSelector .selected .selectionIndicator {
     background-color: #77FF77;
 }
 
@@ -125,7 +125,7 @@ h4 {
 	clear: left;
 }
 
-/* .panelSelector .eu-nextstreet-SuggestItemHover {
+/* .panelSelector hover {
 	background-color: inherit;
 	border-radius: 0;
 }
@@ -142,36 +142,36 @@ h4 {
 	float: left;
 }
 
-.eu-nextstreet-SuggestItemSelected {
+.selected {
 	-moz-border-radius: 6px;
 	border-radius: 6px;
 	text-shadow: 1px 1px 1px #949dff;
 	background-color: #cbddfa;
 	color: black;
 }
-.eu-nextstreet-SuggestItemSelected .disabled {
+.selected .disabled {
 	background-color: inherit;
 	color: inherit;
 }
 
-.panelSelector .eu-nextstreet-SuggestItemSelected .disabled .label {
+.panelSelector .selected .disabled .label {
 	color: gray;
 	text-shadow: none;	
 }
 
-.panelSelector .eu-nextstreet-SuggestItemSelected .disabled .selectionIndicator {
+.panelSelector .selected .disabled .selectionIndicator {
 	background-color: inherit;
 	
 }
 
-.eu-nextstreet-SuggestItemHover {
+hover {
 	font-weight: bold;
 	background-color: #cce4f5;
 	-moz-border-radius: 6px;
 	border-radius: 6px;
 }
 
-.eu-nextstreet-SuggestMatchingString {
+.matchStr {
 	color: #0f8a04;
 	text-shadow: 1px 1px 1px #95ff8f;
 }

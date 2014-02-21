@@ -28,9 +28,9 @@ import eu.nextstreet.gwt.components.client.ui.widget.suggest.param.Option;
 import eu.nextstreet.gwt.components.client.ui.widget.util.HtmlUtil;
 
 public class DefaultValueRenderer<T> extends HTML implements EventHandlingValueHolderItem<T> {
-	private static final String ITEM_HOVER = "eu-nextstreet-SuggestItemHover";
-	private static final String MATCHING_STRING = "eu-nextstreet-SuggestMatchingString";
-	public static final String SELECTED = "eu-nextstreet-SuggestItemSelected";
+	private static final String ITEM_HOVER = "hover";
+	private static final String MATCHING_STRING = "matchStr";
+	public static final String SELECTED = "selected";
 	protected T value;
 	protected boolean caseSensitive;
 	protected ValueRendererFactory<T, ?> valueRendererFactory;

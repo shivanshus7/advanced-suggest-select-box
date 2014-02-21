@@ -18,7 +18,11 @@ package eu.nextstreet.gwt.components.client.ui.widget.suggest.iconed.impl;
 
 import com.google.gwt.event.dom.client.*;
 import com.google.gwt.event.shared.HandlerRegistration;
-import com.google.gwt.user.client.ui.*;
+import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.Image;
+import com.google.gwt.user.client.ui.SimplePanel;
+import com.google.gwt.user.client.ui.UIObject;
 
 import eu.nextstreet.gwt.components.client.ui.widget.common.EventHandlingValueHolderItem;
 import eu.nextstreet.gwt.components.client.ui.widget.common.ValueHolderItem;
@@ -34,9 +38,9 @@ import eu.nextstreet.gwt.components.client.ui.widget.suggest.iconed.IconedValueH
  *          the value class type
  */
 public class IconedValueRenderer<T> extends Composite implements IconedValueHolderItem<T> {
-	private static final String ITEM_HOVER = "eu-nextstreet-SuggestItemHover";
-	public static final String SELECTED = "eu-nextstreet-SuggestItemSelected";
-	public static final String SURROUNDING_PANEL = "eu-nextstreet-SuggestItem-Elem";
+	private static final String ITEM_HOVER = "hover";
+	public static final String SELECTED = "selected";
+	public static final String SURROUNDING_PANEL = "itemPane";
 	public static final String CONTAINER_PANEL = "container";
 	public static final String ENDING_PANEL = "endingPanel";
 	public static final String ICON = "icon";
