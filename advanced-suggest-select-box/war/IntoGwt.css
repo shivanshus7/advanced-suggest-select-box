@@ -473,3 +473,15 @@ hover {
   padding-bottom: 1em;
   width: 96%;
 }
+
+/*-------------------- CommentWidget -------------------------*/
+.emptyComment {
+	color: gray;
+	font-style: italic;
+	width: 32em;	
+}
+
+.comment {
+	color: black;
+	width: 39em;	
+}
