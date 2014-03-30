@@ -50,4 +50,8 @@ public class CommentWidget extends SwitchOnEditWidget<TextBox, TextArea, String>
 	protected void gainFocusOnDataComp() {
 		dataComp.setFocus(true);
 	}
+
+	public void setVisibleLines(int lines) {
+		dataComp.setVisibleLines(lines);
+	}
 }

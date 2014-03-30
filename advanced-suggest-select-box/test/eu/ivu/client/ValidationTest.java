@@ -158,6 +158,7 @@ public class ValidationTest {
 		initStatePanel();
 
 		CommentWidget commentWidget = new CommentWidget(null, "click to comment");
+		commentWidget.setVisibleLines(4);
 		RootPanel.get("commentWidget").add(commentWidget);
 
 		AdvancedTextBox advancedTextBox = new AdvancedTextBox("Please type a value");
