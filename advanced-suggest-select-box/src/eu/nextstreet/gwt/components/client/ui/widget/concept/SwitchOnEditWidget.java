@@ -27,6 +27,9 @@ public abstract class SwitchOnEditWidget<E extends Widget, D extends Widget, T> 
 	protected D dataComp;
 
 	protected final class DataCompHandler implements BlurHandler {
+		public DataCompHandler() {
+		}
+
 		@Override
 		public void onBlur(BlurEvent event) {
 			if (isEmptyContent())
@@ -35,6 +38,9 @@ public abstract class SwitchOnEditWidget<E extends Widget, D extends Widget, T> 
 	}
 
 	protected class EmptyCompHandler implements ClickHandler, FocusHandler {
+		public EmptyCompHandler() {
+		}
+
 		@Override
 		public void onClick(ClickEvent event) {
 			switchToDataComp();
