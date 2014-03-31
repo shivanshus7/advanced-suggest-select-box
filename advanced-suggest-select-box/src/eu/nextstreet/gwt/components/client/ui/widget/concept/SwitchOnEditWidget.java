@@ -69,11 +69,11 @@ public abstract class SwitchOnEditWidget<E extends Widget, D extends Widget, T> 
 	protected void gainFocusOnDataComp() {
 	}
 
-	abstract boolean isEmptyContent();
+	protected abstract boolean isEmptyContent();
 
-	abstract void setData(T data);
+	protected abstract void setData(T data);
 
-	abstract T getData();
+	protected abstract T getData();
 
 	public void switchToDataComp() {
 		setWidget(dataComp);

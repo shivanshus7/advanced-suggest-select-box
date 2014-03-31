@@ -31,18 +31,18 @@ public class CommentWidget extends SwitchOnEditWidget<TextBox, TextArea, String>
 	}
 
 	@Override
-	boolean isEmptyContent() {
+	protected boolean isEmptyContent() {
 		String data = getData();
 		return data == null || data.trim().length() == 0;
 	}
 
 	@Override
-	void setData(String data) {
+	protected void setData(String data) {
 		dataComp.setText(data);
 	}
 
 	@Override
-	String getData() {
+	protected String getData() {
 		return dataComp.getText();
 	}
 
