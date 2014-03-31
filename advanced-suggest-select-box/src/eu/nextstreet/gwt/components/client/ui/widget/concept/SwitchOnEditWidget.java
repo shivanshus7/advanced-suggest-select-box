@@ -26,7 +26,7 @@ public abstract class SwitchOnEditWidget<E extends Widget, D extends Widget, T> 
 	protected E emptyComp;
 	protected D dataComp;
 
-	protected final class DataCompHandler implements BlurHandler {
+	public class DataCompHandler implements BlurHandler {
 		public DataCompHandler() {
 		}
 
@@ -37,7 +37,7 @@ public abstract class SwitchOnEditWidget<E extends Widget, D extends Widget, T> 
 		}
 	}
 
-	protected class EmptyCompHandler implements ClickHandler, FocusHandler {
+	public class EmptyCompHandler implements ClickHandler, FocusHandler {
 		public EmptyCompHandler() {
 		}
 
