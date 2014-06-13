@@ -15,10 +15,7 @@
  */
 package eu.ivu.client;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
+import com.google.gwt.core.shared.GWT;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.DoubleClickEvent;
@@ -26,6 +23,9 @@ import com.google.gwt.event.dom.client.DoubleClickHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
+import com.google.gwt.resources.client.ImageResource;
+import com.google.gwt.resources.client.ImageResource.ImageOptions;
+import com.google.gwt.resources.client.ImageResource.RepeatStyle;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.DockPanel;
@@ -34,9 +34,14 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import eu.nextstreet.gwt.components.client.IntoGwt;
 import eu.nextstreet.gwt.components.client.ui.common.data.ValueRepresentationTransformer;
@@ -45,8 +50,12 @@ import eu.nextstreet.gwt.components.client.ui.panel.StatePanel.SimplePanelState;
 import eu.nextstreet.gwt.components.client.ui.widget.AdvancedTextBox;
 import eu.nextstreet.gwt.components.client.ui.widget.common.StringFormulator;
 import eu.nextstreet.gwt.components.client.ui.widget.common.renderer.AbstractValueRendererFactory;
-import eu.nextstreet.gwt.components.client.ui.widget.concept.CommentWidget;
 import eu.nextstreet.gwt.components.client.ui.widget.select.DefaultPanelValueSelector;
+import eu.nextstreet.gwt.components.client.ui.widget.select.DefaultPanelValueSelector.Resources;
+import eu.nextstreet.gwt.components.client.ui.widget.select.collapsible.CollapsibleSelector;
+import eu.nextstreet.gwt.components.client.ui.widget.select.collapsible.CollapsibleSelector.CollapseEvent;
+import eu.nextstreet.gwt.components.client.ui.widget.select.collapsible.CollapsibleSelector.CollapseHandler;
+import eu.nextstreet.gwt.components.client.ui.widget.select.range.renderer.RangeValueRendererFactory;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.AbstractBaseWidget;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.AbstractSuggestBox;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.SuggestChangeEvent;
@@ -67,6 +76,40 @@ import eu.nextstreet.gwt.components.shared.ValidationException;
 import eu.nextstreet.gwt.components.shared.Validator;
 
 public class ValidationTest {
+
+	public interface SPResources extends Resources {
+		@Source("eu/ivu/PanelValueSelector/brown_bg.png")
+		@ImageOptions(repeatStyle = RepeatStyle.Both, flipRtl = true)
+		ImageResource itemSelectedBackground();
+
+		@Source(Style.DEFAULT_CSS)
+		Style panelStyles();
+	}
+
+	public interface Style extends eu.nextstreet.gwt.components.client.ui.widget.select.DefaultPanelValueSelector.Style {
+		/**
+		 * The path to the default CSS styles used by this resource.
+		 */
+		String DEFAULT_CSS = "eu/ivu/PanelValueSelector/tags.css";
+
+	}
+
+	public interface RangeResources extends Resources {
+		@Source("eu/ivu/PanelValueSelector/brown_bg.png")
+		@ImageOptions(repeatStyle = RepeatStyle.Both, flipRtl = true)
+		ImageResource itemSelectedBackground();
+
+		@Source(RangeStyle.DEFAULT_CSS)
+		RangeStyle panelStyles();
+	}
+
+	public interface RangeStyle extends eu.nextstreet.gwt.components.client.ui.widget.select.DefaultPanelValueSelector.Style {
+		/**
+		 * The path to the default CSS styles used by this resource.
+		 */
+		String DEFAULT_CSS = "eu/ivu/PanelValueSelector/range.css";
+
+	}
 
 	/**
 	 * This is the fictive value class we use in our tests
@@ -98,7 +141,16 @@ public class ValidationTest {
 
 		@Override
 		public Image transform(Value value) {
-			return new Image("img/chrome_extentions/" + value.str + ".png");
+			String img = value.str.replaceAll(" ", "_");
+			return new Image("img/chrome_extentions/" + img + ".png");
+		}
+	};
+
+	static final StringFormulator<ValidationTest.Value> stringFormulator = new StringFormulator<ValidationTest.Value>() {
+
+		@Override
+		public String toString(Value t) {
+			return t.str;
 		}
 	};
 
@@ -107,13 +159,6 @@ public class ValidationTest {
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static void testWidget() {
-		StringFormulator<ValidationTest.Value> stringFormulator = new StringFormulator<ValidationTest.Value>() {
-
-			@Override
-			public String toString(Value t) {
-				return t.str;
-			}
-		};
 
 		RootPanel suggestBoxContainer = RootPanel.get("suggestBoxContainer");
 		if (suggestBoxContainer == null) {
@@ -154,12 +199,11 @@ public class ValidationTest {
 		addLogInfoPanel(box);
 
 		initPanelSelector();
+		initPanelSelector2();
+		initPanelSelector3();
+		initPanelSelector4();
 
 		initStatePanel();
-
-		CommentWidget commentWidget = new CommentWidget(null, "click to comment");
-		commentWidget.setVisibleLines(4);
-		RootPanel.get("commentWidget").add(commentWidget);
 
 		AdvancedTextBox advancedTextBox = new AdvancedTextBox("Please type a value");
 		advancedTextBox.addDoubleClickHandler(new DoubleClickHandler() {
@@ -225,12 +269,165 @@ public class ValidationTest {
 
 	}
 
+	static class PanelSelectorController extends FlowPanel {
+		Label currentSelection;
+
+		@SuppressWarnings("rawtypes")
+		public PanelSelectorController(final DefaultPanelValueSelector panelValueSelector) {
+			add(new Label("Max selected:"));
+			final TextBox maxSelectedW = new TextBox();
+			maxSelectedW.setText(panelValueSelector.getMaxSelected() + "");
+			maxSelectedW.addChangeHandler(new ChangeHandler() {
+
+				@Override
+				public void onChange(ChangeEvent event) {
+					panelValueSelector.setMaxSelected(Integer.parseInt(maxSelectedW.getText()));
+				}
+			});
+			add(maxSelectedW);
+
+			add(new Label("Current selection:"));
+			currentSelection = new Label("~unset~");
+			add(currentSelection);
+			panelValueSelector.addHandler(new ChangeHandler() {
+
+				@SuppressWarnings("unchecked")
+				@Override
+				public void onChange(ChangeEvent event) {
+					DefaultPanelValueSelector<Value> defaultPanelValueSelector = (DefaultPanelValueSelector<Value>) event.getSource();
+					currentSelection.setText(defaultPanelValueSelector.getSelection() + "");
+				}
+			});
+
+			add(new SimplePanel());
+			final CheckBox selectOnceBox = new CheckBox("Select once 'mode'");
+			selectOnceBox.setValue(panelValueSelector.isSelectOneOccurenceMode());
+			selectOnceBox.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
+
+				@Override
+				public void onValueChange(ValueChangeEvent<Boolean> event) {
+					panelValueSelector.setSelectOneOccurenceMode(selectOnceBox.getValue());
+				}
+			});
+			add(selectOnceBox);
+			add(new SimplePanel());
+			final CheckBox toggleBox = new CheckBox("Toggle 'mode'");
+			toggleBox.setValue(panelValueSelector.isToggleMode());
+			toggleBox.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
+
+				@Override
+				public void onValueChange(ValueChangeEvent<Boolean> event) {
+					panelValueSelector.setToggleMode(toggleBox.getValue());
+				}
+			});
+			add(toggleBox);
+
+			add(new SimplePanel());
+			final CheckBox disabledBox = new CheckBox("Disabled 'mode'");
+			disabledBox.setValue(!panelValueSelector.isEnabled());
+			disabledBox.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
+
+				@Override
+				public void onValueChange(ValueChangeEvent<Boolean> event) {
+					panelValueSelector.setEnabled(!disabledBox.getValue());
+				}
+			});
+			add(disabledBox);
+		}
+	}
+
 	protected static void initPanelSelector() {
 		DefaultPanelValueSelector<Value> panelSelector = new DefaultPanelValueSelector<ValidationTest.Value>();
+		panelSelector.setMaxSelected(1);
 		fillData(panelSelector);
 		panelSelector.init();
 		RootPanel selectionPanel = RootPanel.get("selectionPanel");
 		selectionPanel.add(panelSelector);
+
+		RootPanel selectionPanelState = RootPanel.get("selectionPanelState");
+		selectionPanelState.add(new PanelSelectorController(panelSelector));
+
+		// done after the change handler is registred
+		panelSelector.setSelection(true, chromeToolBox);
+	}
+
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	protected static void initPanelSelector2() {
+		IconedValueRendererFactory valueRendererFactory = new IconedValueRendererFactory(stringFormulator, iconLinker);
+		DefaultPanelValueSelector<Value> panelSelector = new DefaultPanelValueSelector<ValidationTest.Value>(new DefaultSuggestOracle<Value>(),
+				valueRendererFactory, (Resources) GWT.create(SPResources.class));
+		panelSelector.setToggleMode(true);
+		panelSelector.setSelectOneOccurenceMode(true);
+		// panelSelector.setStringFormulator(stringFormulator);
+		panelSelector.setMaxSelected(2);
+		fillData(panelSelector);
+		panelSelector.init();
+		RootPanel selectionPanel = RootPanel.get("selectionPanel2");
+		selectionPanel.add(panelSelector);
+
+		RootPanel selectionPanelState = RootPanel.get("selectionPanelState2");
+		selectionPanelState.add(new PanelSelectorController(panelSelector));
+
+		// done after the change handler is registred
+		panelSelector.setSelection(true, blogger);
+	}
+
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	protected static void initPanelSelector3() {
+		Resources resources = (Resources) GWT.create(RangeResources.class);
+		RangeValueRendererFactory valueRendererFactory = new RangeValueRendererFactory(resources);
+		DefaultPanelValueSelector<Value> panelSelector = new DefaultPanelValueSelector<ValidationTest.Value>(new DefaultSuggestOracle<Value>(),
+				valueRendererFactory, resources);
+		panelSelector.setSelectOneOccurenceMode(true);
+		panelSelector.setToggleMode(true);
+		panelSelector.setStringFormulator(stringFormulator);
+		fillData2(panelSelector);
+		panelSelector.init();
+		RootPanel selectionPanel = RootPanel.get("selectionPanel3");
+		selectionPanel.add(panelSelector);
+
+		RootPanel selectionPanelState = RootPanel.get("selectionPanelState3");
+		selectionPanelState.add(new PanelSelectorController(panelSelector));
+	}
+
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	/**
+	 * This one is exactly like the 2, but it uses a CollapsibleSelector
+	 */
+	protected static void initPanelSelector4() {
+		IconedValueRendererFactory valueRendererFactory = new IconedValueRendererFactory(stringFormulator, iconLinker);
+		DefaultPanelValueSelector<Value> panelSelector = new DefaultPanelValueSelector<ValidationTest.Value>(new DefaultSuggestOracle<Value>(),
+				valueRendererFactory, (Resources) GWT.create(SPResources.class));
+		panelSelector.setToggleMode(true);
+		panelSelector.setSelectOneOccurenceMode(true);
+		// panelSelector.setStringFormulator(stringFormulator);
+		panelSelector.setMaxSelected(2);
+		fillData(panelSelector);
+		panelSelector.init();
+		RootPanel selectionPanel = RootPanel.get("selectionPanel4");
+		/* --------- the difference with 2 starts here only ------------ */
+		// by default, when you pass a text to the constructor, it creates a Label
+		final String collapsedText = "Click me to select!";
+		final String expandedText = "Click me to close!";
+		final CollapsibleSelector<Label, DefaultPanelValueSelector<Value>> collapsibleSelector = new CollapsibleSelector<Label, DefaultPanelValueSelector<Value>>(
+				collapsedText, false);
+		collapsibleSelector.setCollapsibleWidget(panelSelector);
+		selectionPanel.add(collapsibleSelector);
+		/* ---------- and ends here, now optional part --------------------------- */
+		collapsibleSelector.addCollapseHandler(new CollapseHandler() {
+
+			@Override
+			public void onStateChange(CollapseEvent collapseEvent) {
+				collapsibleSelector.getExpanderWidget().setText(collapseEvent.isExpanded() ? expandedText : collapsedText);
+			}
+		});
+		/* -------------------- end ----------------- */
+
+		RootPanel selectionPanelState = RootPanel.get("selectionPanelState4");
+		selectionPanelState.add(new PanelSelectorController(panelSelector));
+
+		// done after the change handler is registred
+		panelSelector.setSelection(true, blogger);
 	}
 
 	protected static void initStatePanel() {
@@ -291,6 +488,8 @@ public class ValidationTest {
 		// final CheckBox style = roundedCornersOption(box);
 
 		final CheckBox strict = strictModeOption(box);
+		final CheckBox autoFillWhenUniqueValue = autoFillWhenUniqueValueOption(box);
+		final CheckBox correctWhileTyping = correctWhileTypingOption(box);
 
 		final CheckBox mandatory = mandaoryValueOption(box);
 		final CheckBox readOnly = readOnlyOption(box);
@@ -303,6 +502,8 @@ public class ValidationTest {
 		options.add(tableRenderer);
 		options.add(validationOption);
 		options.add(strict);
+		options.add(correctWhileTyping);
+		options.add(autoFillWhenUniqueValue);
 		options.add(mandatory);
 		options.add(readOnly);
 		options.add(new Label("---- filtering examples ----"));
@@ -324,6 +525,16 @@ public class ValidationTest {
 		suggestOracle.add(new Value("Screen Capture", "https://chrome.google.com/webstore/detail/cpngackimfmofbokmjmljamhdncknpmg"));
 		suggestOracle.add(new Value("Send From Gmail", "https://chrome.google.com/webstore/detail/pgphcomnlaojlmmcjmiddhdapjpbgeoc"));
 		suggestOracle.add(new Value("Similar Pages", "https://chrome.google.com/webstore/detail/pjnfggphgdjblhfjaphkjhfpiiekbbej"));
+	}
+
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	protected static void fillData2(final AbstractBaseWidget box) {
+		DefaultSuggestOracle<Value> suggestOracle = (DefaultSuggestOracle<Value>) box.getSuggestOracle();
+		suggestOracle.add(new Value("0", "https://chrome.google.com/webstore/detail/nnbmlagghjjcbdhgmkedmbmedengocbn"));
+		suggestOracle.add(new Value("100", "http://code.google.com/webtoolkit/"));
+		suggestOracle.add(new Value("200", "https://chrome.google.com/webstore/detail/cpngackimfmofbokmjmljamhdncknpmg"));
+		suggestOracle.add(new Value("400", "https://chrome.google.com/webstore/detail/pgphcomnlaojlmmcjmiddhdapjpbgeoc"));
+		suggestOracle.add(new Value("800", "https://chrome.google.com/webstore/detail/pjnfggphgdjblhfjaphkjhfpiiekbbej"));
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -455,6 +666,36 @@ public class ValidationTest {
 	}
 
 	@SuppressWarnings("rawtypes")
+	protected static CheckBox autoFillWhenUniqueValueOption(final DefaultIconedSuggestBox box) {
+		final CheckBox autoFillWhenUniqueValue = new CheckBox("AutoFillWhenUniqueValue");
+		autoFillWhenUniqueValue.setValue(box.isAutoFillWhenUniqueValue());
+		autoFillWhenUniqueValue.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
+
+			@Override
+			public void onValueChange(ValueChangeEvent<Boolean> event) {
+				box.setAutoFillWhenUniqueValue(event.getValue());
+			}
+
+		});
+		return autoFillWhenUniqueValue;
+	}
+
+	@SuppressWarnings("rawtypes")
+	protected static CheckBox correctWhileTypingOption(final DefaultIconedSuggestBox box) {
+		final CheckBox correctWhileTyping = new CheckBox("CorrectWhileTyping (when strict only)");
+		correctWhileTyping.setValue(box.isCorrectWhileTyping());
+		correctWhileTyping.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
+
+			@Override
+			public void onValueChange(ValueChangeEvent<Boolean> event) {
+				box.setCorrectWhileTyping(event.getValue());
+			}
+
+		});
+		return correctWhileTyping;
+	}
+
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	protected static CheckBox roundedCornersOption(final DefaultIconedSuggestBox box) {
 		final CheckBox style = new CheckBox("Rounded");
 		style.setValue(BooleanOption.isEnabled(DefaultOptions.STARTS_WITH.name(), box.getOptions()));
@@ -469,7 +710,7 @@ public class ValidationTest {
 		return style;
 	}
 
-	@SuppressWarnings("rawtypes")
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	protected static CheckBox caseSensitiveOption(final DefaultIconedSuggestBox box) {
 		CheckBox caseSensitive = new CheckBox("Case Sensitive");
 		caseSensitive.setValue(BooleanOption.isEnabled(DefaultOptions.CASE_SENSITIVE.name(), box.getOptions()));
@@ -483,7 +724,7 @@ public class ValidationTest {
 		return caseSensitive;
 	}
 
-	@SuppressWarnings("rawtypes")
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	protected static CheckBox startsWithOption(final DefaultIconedSuggestBox box) {
 		CheckBox startsWith = new CheckBox("Starts With");
 		startsWith.setValue(BooleanOption.isEnabled(DefaultOptions.STARTS_WITH.name(), box.getOptions()));
