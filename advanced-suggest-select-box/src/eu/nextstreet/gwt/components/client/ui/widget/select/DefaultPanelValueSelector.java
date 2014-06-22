@@ -1,11 +1,9 @@
 package eu.nextstreet.gwt.components.client.ui.widget.select;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.resources.client.*;
+import com.google.gwt.resources.client.ClientBundle;
+import com.google.gwt.resources.client.CssResource;
+import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.resources.client.ImageResource.ImageOptions;
 import com.google.gwt.resources.client.ImageResource.RepeatStyle;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -13,13 +11,23 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Widget;
 
-import eu.nextstreet.gwt.components.client.ui.widget.common.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import eu.nextstreet.gwt.components.client.ui.widget.common.EventHandlingValueHolderItem;
+import eu.nextstreet.gwt.components.client.ui.widget.common.SuggestOracle;
+import eu.nextstreet.gwt.components.client.ui.widget.common.ValueHolderItem;
+import eu.nextstreet.gwt.components.client.ui.widget.common.ValueRendererFactory;
 import eu.nextstreet.gwt.components.client.ui.widget.common.ValueRendererFactory.ListRenderer;
 import eu.nextstreet.gwt.components.client.ui.widget.common.renderer.DefaultValueRendererFactory;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.impl.simple.DefaultSuggestOracle;
 
 public class DefaultPanelValueSelector<T> extends AbstractPanelValueSelector<T, EventHandlingValueHolderItem<T>> {
 
+	public static final String ITEM_AS_EXTERNAL_STYLE = "item";
+	public static final String DISABLED_AS_EXTERNAL_STYLE = "disabled";
+	public static final String DISABLED_PANEL_AS_EXTERNAL_STYLE = "disabledP";
 	public static final String SELECTED_AS_EXTERNAL_STYLE = "selected";
 
 	private static DefaultPanelValueSelectorUiBinder uiBinder = GWT.create(DefaultPanelValueSelectorUiBinder.class);
@@ -107,8 +115,12 @@ public class DefaultPanelValueSelector<T> extends AbstractPanelValueSelector<T, 
 
 		// if already set
 		panel.removeStyleName(panelStyles.disabledPanel());
-		if (!isEnabled())
+		panel.removeStyleName(DISABLED_PANEL_AS_EXTERNAL_STYLE);
+		boolean disabled = !isEnabled();
+		if (disabled) {
 			panel.addStyleName(panelStyles.disabledPanel());
+			panel.addStyleName(DISABLED_PANEL_AS_EXTERNAL_STYLE);
+		}
 	}
 
 	@Override
@@ -125,10 +137,21 @@ public class DefaultPanelValueSelector<T> extends AbstractPanelValueSelector<T, 
 
 	public void updateItemStyle(T value, EventHandlingValueHolderItem<T> valueRenderer) {
 		valueRenderer.setStyleName(panelStyles.item());
-		if (!isEnabled()) {
+		boolean disabled = !isEnabled();
+		if (disabled) {
 			valueRenderer.addStyleName(panelStyles.disabled());
-			valueRenderer.removeStyleName(panelStyles.selected());
 		}
+		boolean selected = getSelection().contains(value);
+		if (selected)
+			valueRenderer.addStyleName(panelStyles.selected());
+
+		// this is done in a separate step so users can apply a style the combines .disabled.selected
+		valueRenderer.addStyleName(ITEM_AS_EXTERNAL_STYLE);
+		if (disabled)
+			valueRenderer.addStyleName(DISABLED_AS_EXTERNAL_STYLE);
+		if (selected)
+			valueRenderer.addStyleName(SELECTED_AS_EXTERNAL_STYLE);
+
 	}
 
 	@Override
