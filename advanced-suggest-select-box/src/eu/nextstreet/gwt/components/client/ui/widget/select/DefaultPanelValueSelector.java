@@ -33,9 +33,6 @@ public class DefaultPanelValueSelector<T> extends AbstractPanelValueSelector<T, 
 	private static DefaultPanelValueSelectorUiBinder uiBinder = GWT.create(DefaultPanelValueSelectorUiBinder.class);
 
 	public interface Resources extends ClientBundle {
-		@Source("eu/nextstreet/gwt/components/client/itemSelectedBackground.png")
-		@ImageOptions(repeatStyle = RepeatStyle.Horizontal, flipRtl = true)
-		ImageResource itemSelectedBackground();
 
 		@Source(Style.DEFAULT_CSS)
 		Style panelStyles();

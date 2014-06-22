@@ -16,9 +16,9 @@
 	padding: 0.5em;
 }
 
-@sprite .selected {
-	gwt-image: "itemSelectedBackground";
+.selected {
 	color: #FFFE99;
+	background-color: brown;
 	cursor: auto;
 }
 

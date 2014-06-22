@@ -23,9 +23,6 @@ import com.google.gwt.event.dom.client.DoubleClickHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
-import com.google.gwt.resources.client.ImageResource;
-import com.google.gwt.resources.client.ImageResource.ImageOptions;
-import com.google.gwt.resources.client.ImageResource.RepeatStyle;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.DockPanel;
@@ -78,9 +75,6 @@ import eu.nextstreet.gwt.components.shared.Validator;
 public class ValidationTest {
 
 	public interface SPResources extends Resources {
-		@Source("eu/ivu/PanelValueSelector/brown_bg.png")
-		@ImageOptions(repeatStyle = RepeatStyle.Both, flipRtl = true)
-		ImageResource itemSelectedBackground();
 
 		@Source(Style.DEFAULT_CSS)
 		Style panelStyles();
@@ -95,9 +89,6 @@ public class ValidationTest {
 	}
 
 	public interface RangeResources extends Resources {
-		@Source("eu/ivu/PanelValueSelector/brown_bg.png")
-		@ImageOptions(repeatStyle = RepeatStyle.Both, flipRtl = true)
-		ImageResource itemSelectedBackground();
 
 		@Source(RangeStyle.DEFAULT_CSS)
 		RangeStyle panelStyles();
