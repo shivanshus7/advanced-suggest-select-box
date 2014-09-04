@@ -1,13 +1,24 @@
 package eu.nextstreet.gwt.components.client.ui.widget.select;
 
-import java.util.*;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.MouseOutEvent;
+import com.google.gwt.event.dom.client.MouseOutHandler;
+import com.google.gwt.event.dom.client.MouseOverEvent;
+import com.google.gwt.event.dom.client.MouseOverHandler;
 
-import com.google.gwt.event.dom.client.*;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
-import eu.nextstreet.gwt.components.client.ui.widget.common.*;
+import eu.nextstreet.gwt.components.client.ui.widget.common.EventHandlingValueHolderItem;
+import eu.nextstreet.gwt.components.client.ui.widget.common.SuggestOracle;
 import eu.nextstreet.gwt.components.client.ui.widget.common.SuggestOracle.Callback;
 import eu.nextstreet.gwt.components.client.ui.widget.common.SuggestOracle.Request;
 import eu.nextstreet.gwt.components.client.ui.widget.common.SuggestOracle.Response;
+import eu.nextstreet.gwt.components.client.ui.widget.common.ValueRendererFactory;
 import eu.nextstreet.gwt.components.client.ui.widget.common.ValueRendererFactory.ListRenderer;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.AbstractBaseWidget;
 import eu.nextstreet.gwt.components.client.ui.widget.suggest.param.Option;
@@ -52,6 +63,7 @@ public abstract class AbstractPanelValueSelector<T, W extends EventHandlingValue
 
 		@Override
 		public void onClick(ClickEvent event) {
+			event.stopPropagation();
 			valueRendererFactory.getWidgetController().valueSelected(item.getValue());
 		}
 	};
