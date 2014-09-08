@@ -185,9 +185,10 @@ public abstract class AbstractPanelValueSelector<T, W extends EventHandlingValue
 	}
 
 	@Override
-	public boolean removeSelection(T value) {
-		boolean removed = super.removeSelection(value);
-		fireChangeOccured(value);
+	public boolean removeSelection(T value, boolean fireEvent) {
+		boolean removed = super.removeSelection(value, fireEvent);
+		if (fireEvent)
+			fireChangeOccured(value);
 		uiUpdateSelection();
 		return removed;
 	}

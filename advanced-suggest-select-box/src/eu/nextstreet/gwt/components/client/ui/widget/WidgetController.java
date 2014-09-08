@@ -32,6 +32,8 @@ public interface WidgetController<T> extends StringFormulator<T> {
 
 	boolean removeSelection(T value);
 
+	boolean removeSelection(T value, boolean fireEvent);
+
 	void clearSelection();
 
 	void setSelection(List<T> toSet);

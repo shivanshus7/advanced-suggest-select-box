@@ -16,11 +16,17 @@
  */
 package eu.nextstreet.gwt.components.client.ui.widget.suggest;
 
-import java.util.*;
-
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.user.client.ui.Composite;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import eu.nextstreet.gwt.components.client.ui.widget.WidgetController;
 import eu.nextstreet.gwt.components.client.ui.widget.common.StringFormulator;
@@ -191,7 +197,7 @@ public abstract class AbstractBaseWidget<T, P, E extends ChangeEvent> extends Co
 		// OPTIMIZE may be optimized using a hashed list or map
 		boolean alreadySelected = selectedItems.contains(value);
 		if (toggleMode && alreadySelected) {
-			removeSelection(value);
+			removeSelection(value, false);
 			return;
 		}
 		if (!(selectOneOccurenceMode && alreadySelected))
@@ -219,9 +225,14 @@ public abstract class AbstractBaseWidget<T, P, E extends ChangeEvent> extends Co
 	}
 
 	@Override
-	public boolean removeSelection(T value) {
+	public boolean removeSelection(T value, boolean fireEvent) {
 		removedValues.add(value);
 		return selectedItems.remove(value);
+	}
+
+	@Override
+	public boolean removeSelection(T value) {
+		return removeSelection(value, true);
 	}
 
 	@Override
@@ -321,4 +332,5 @@ public abstract class AbstractBaseWidget<T, P, E extends ChangeEvent> extends Co
 	public <W extends ValueHolderItem<T>> W refresh(T value, W widget) {
 		return widget;
 	}
+
 }
