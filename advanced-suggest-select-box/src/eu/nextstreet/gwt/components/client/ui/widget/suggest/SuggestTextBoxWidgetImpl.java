@@ -1,19 +1,49 @@
 package eu.nextstreet.gwt.components.client.ui.widget.suggest;
 
-import com.google.gwt.event.dom.client.*;
+import com.google.gwt.event.dom.client.BlurHandler;
+import com.google.gwt.event.dom.client.ChangeEvent;
+import com.google.gwt.event.dom.client.ChangeHandler;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.DoubleClickEvent;
+import com.google.gwt.event.dom.client.DoubleClickHandler;
+import com.google.gwt.event.dom.client.FocusHandler;
+import com.google.gwt.event.dom.client.GestureChangeHandler;
+import com.google.gwt.event.dom.client.GestureEndHandler;
+import com.google.gwt.event.dom.client.GestureStartHandler;
+import com.google.gwt.event.dom.client.KeyCodes;
+import com.google.gwt.event.dom.client.KeyDownHandler;
+import com.google.gwt.event.dom.client.KeyPressHandler;
+import com.google.gwt.event.dom.client.KeyUpHandler;
+import com.google.gwt.event.dom.client.MouseDownEvent;
+import com.google.gwt.event.dom.client.MouseDownHandler;
+import com.google.gwt.event.dom.client.MouseMoveEvent;
+import com.google.gwt.event.dom.client.MouseMoveHandler;
+import com.google.gwt.event.dom.client.MouseOutEvent;
+import com.google.gwt.event.dom.client.MouseOutHandler;
+import com.google.gwt.event.dom.client.MouseOverHandler;
+import com.google.gwt.event.dom.client.MouseUpHandler;
+import com.google.gwt.event.dom.client.MouseWheelHandler;
 import com.google.gwt.event.logical.shared.AttachEvent.Handler;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.client.ui.*;
+import com.google.gwt.user.client.Event;
+import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.HTMLPanel;
+import com.google.gwt.user.client.ui.IsWidget;
+import com.google.gwt.user.client.ui.Panel;
+import com.google.gwt.user.client.ui.SimplePanel;
 
 import eu.nextstreet.gwt.components.client.ui.widget.AdvancedTextBox;
 import eu.nextstreet.gwt.components.client.ui.widget.common.EventHandlingValueHolderItem;
 import eu.nextstreet.gwt.components.shared.Validator;
 
 /**
- * This class is the ui representer of the "inactive" suggest box: the text box handles all events and is surrounded by panels which you can fill with you own
- * representation of the selected item
+ * This class is the ui representer of the "inactive" suggest box: the text box
+ * handles all events and is surrounded by panels which you can fill with you
+ * own representation of the selected item
  * 
  * @param <T>
  *          the type of items
@@ -23,14 +53,17 @@ import eu.nextstreet.gwt.components.shared.Validator;
  * 
  */
 public class SuggestTextBoxWidgetImpl<T, W extends EventHandlingValueHolderItem<T>> extends Composite implements SuggestTextBoxWidget<T, W> {
+	/**
+	 * FIXME put into a i18n resource file
+	 */
+	public static String RIGHT_DROP_DOWN_ARROW_STYLE = "fa fa-angle-double-down";
 	/** the text field style name */
-	private static final String SUGGEST_FIELD = "eu-nextstreet-SuggestField";
+	private static final String SUGGEST_FIELD = "advSugField";
 	private static final String SUGGEST_FIELD_TOP = "top";
 	private static final String SUGGEST_FIELD_BOTTOM = "bottom";
 	private static final String SUGGEST_FIELD_LEFT = "left";
 	private static final String SUGGEST_FIELD_RIGHT = "right";
 	private static final String SUGGEST_FIELD_CENTRAL = "vCentral";
-	private static final String SUGGEST_FIELD_CENTRAL_END = "vCentralEnd";
 
 	/** the main panel */
 	protected Panel panel = new HTMLPanel("");
@@ -41,9 +74,10 @@ public class SuggestTextBoxWidgetImpl<T, W extends EventHandlingValueHolderItem<
 	protected AbstractSuggestBox<T, W> representer;
 
 	/**
-	 * the button is a background image so that the focus is not lost when it is clicked, this value corresponds to the image width
+	 * the button is a background image so that the focus is not lost when it is
+	 * clicked, this value corresponds to the image width
 	 */
-	protected int buttonWidth = 16;
+	protected int buttonWidth = 20;
 
 	/** any value change is notified to this list of listeners */
 	protected AbstractBaseWidget<T, T, ChangeEvent> valueChangeEventHandlerHolder = new AbstractBaseWidget<T, T, ChangeEvent>() {
@@ -119,11 +153,12 @@ public class SuggestTextBoxWidgetImpl<T, W extends EventHandlingValueHolderItem<
 		vCentral.add(left);
 		advancedTextBox.setStyleName(SUGGEST_FIELD);
 		vCentral.add(advancedTextBox);
+
 		right.setStyleName(SUGGEST_FIELD_RIGHT);
+		right.getElement().setInnerSafeHtml(SafeHtmlUtils.fromSafeConstant("<i class='" + RIGHT_DROP_DOWN_ARROW_STYLE + "'></i>"));
 		vCentral.add(right);
+
 		vCentral.setStyleName(SUGGEST_FIELD_CENTRAL);
-		vCentralEnd.setStyleName(SUGGEST_FIELD_CENTRAL_END);
-		vCentral.add(vCentralEnd);
 		panel.add(vCentral);
 
 		bottom.setStyleName(SUGGEST_FIELD_BOTTOM);
@@ -345,7 +380,9 @@ public class SuggestTextBoxWidgetImpl<T, W extends EventHandlingValueHolderItem<
 	}
 
 	public HandlerRegistration addMouseDownHandler(MouseDownHandler handler) {
-		return advancedTextBox.addMouseDownHandler(handler);
+		sinkEvents(Event.ONMOUSEDOWN);
+		return addHandler(handler, MouseDownEvent.getType());
+		// return advancedTextBox.addMouseDownHandler(handler);
 	}
 
 	public HandlerRegistration addMouseMoveHandler(MouseMoveHandler handler) {
@@ -380,11 +417,12 @@ public class SuggestTextBoxWidgetImpl<T, W extends EventHandlingValueHolderItem<
 
 	// -------------------- self handling ---------------------
 	/**
-	 * On a click on the button, we recompute the possibilities list and we show them
+	 * On a click on the button, we recompute the possibilities list and we show
+	 * them
 	 */
 	@UiHandler("textField")
 	public void onMouseDown(MouseDownEvent event) {
-		int interval = advancedTextBox.getAbsoluteLeft() + advancedTextBox.getOffsetWidth() - event.getClientX();
+		int interval = getAbsoluteLeft() + getOffsetWidth() - event.getClientX();
 		if (interval < buttonWidth) {
 			if (representer.isShowingSuggestList()) {
 				representer.hideSuggestList(false);
@@ -396,7 +434,8 @@ public class SuggestTextBoxWidgetImpl<T, W extends EventHandlingValueHolderItem<
 	}
 
 	/**
-	 * The style adding and removing is handled by {@link AbstractSuggestBox} here we just analyse our own state
+	 * The style adding and removing is handled by {@link AbstractSuggestBox} here
+	 * we just analyse our own state
 	 * 
 	 * @param event
 	 *          mouse event

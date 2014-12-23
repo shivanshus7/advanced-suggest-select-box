@@ -47,13 +47,17 @@ import eu.nextstreet.gwt.components.client.ui.widget.suggest.iconed.impl.IconedV
  */
 public class MultiChoiceSuggestBox<T, W extends IconedValueHolderItem<T>, C extends ValueHolderItem<T>> extends DefaultIconedSuggestBox<T, W> {
 
+	private static final String MULTI_BOX = "multiBox";
+
 	/**
-	 * Contains the list of widgets for the selected values in their addition order
+	 * Contains the list of widgets for the selected values in their addition
+	 * order
 	 */
 	protected List<C> selectedValues = new ArrayList<C>();
 
 	/**
-	 * Contains the list of widgets for the selected values in their addition order
+	 * Contains the list of widgets for the selected values in their addition
+	 * order
 	 */
 	protected ListRenderer<T, C> selectedValuesPanel;
 
@@ -71,6 +75,11 @@ public class MultiChoiceSuggestBox<T, W extends IconedValueHolderItem<T>, C exte
 		setChoiceItemsRendererFactory(choiceItemsRendererFactory);
 		setChoicesPanel();
 		setMaxSelected(-1);
+	}
+
+	@Override
+	protected void initStyles() {
+		setStyleName(MULTI_BOX);
 	}
 
 	@Override

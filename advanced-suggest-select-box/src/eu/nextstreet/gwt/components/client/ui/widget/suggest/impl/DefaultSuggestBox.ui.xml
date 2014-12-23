@@ -2,7 +2,7 @@
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
 	xmlns:g="urn:import:com.google.gwt.user.client.ui"
 	xmlns:into="urn:import:eu.nextstreet.gwt.components.client.ui.widget.suggest">
-	<g:HTMLPanel styleName="eu-nextstreet-SuggestFieldPanel">
+	<g:HTMLPanel styleName="advSugFieldPanel">
 		<into:SuggestTextBoxWidgetImpl ui:field="textField"/>
 	</g:HTMLPanel>
 </ui:UiBinder> 

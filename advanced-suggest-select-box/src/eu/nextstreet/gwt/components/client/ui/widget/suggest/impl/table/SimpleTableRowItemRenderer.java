@@ -41,7 +41,7 @@ import eu.nextstreet.gwt.components.client.ui.widget.util.HtmlUtil;
  *          the value to be represented in this row's type
  */
 public class SimpleTableRowItemRenderer<T> extends BasicWidgetListHolder implements EventHandlingValueHolderItem<T> {
-	private static final String MATCHING_STRING = "eu-nextstreet-SuggestTableMatchingString";
+	private static final String MATCHING_STRING = "advSugTableMatchingString";
 	public static final String SELECTED = "selected";
 	private static final long serialVersionUID = 1L;
 	protected T value;

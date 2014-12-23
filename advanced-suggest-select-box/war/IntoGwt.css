@@ -16,6 +16,99 @@ h4 {
 	color: #ff7700;
 }
 
+/*--------------------- new styles -----------------------*/
+.advSugField {
+	border: none;
+}
+.multiBox .detail,
+.advSugBox .detail {
+	border: 1px solid #D3D3D3;
+	border-radius: 0.3em 0.3em 0.3em 0.3em;
+	display: block;
+	padding: 1px;
+}
+
+.detail .vCentral {
+	display: block;
+	position: relative;
+}
+
+.detail .vCentral .left {
+	display: inline-block;
+	max-width: 0;
+	position: absolute;
+	vertical-align: middle;
+}
+
+.detail .vCentral .left .gwt-Image {
+	vertical-align: top;
+}
+
+.sItem,
+.detail .vCentral .advSugField {
+	display: inline-block;
+	margin-left: 1.7em;
+	width: -moz-available;
+	min-width: intrinsic;
+}
+
+.detail .vCentral .right {
+  color: #808080;
+  font-size: 1.2em;
+  position: absolute;
+  right: 0.2em;
+  bottom: 0;
+}
+
+/*--------------------- new styles : popup -----------------------*/
+.popupContent .sItem {
+	margin-left: 0.2em;
+	display: list-item;
+	min-height: 1.7em;
+}
+
+.popupContent .sItem.label {
+	margin-left: 1.7em
+}
+
+.defaultListRenderer .sItem .container {
+  display: block;
+  position: relative;
+}
+
+.sItem .container .icon {
+  left: 0;
+  position: absolute;
+  top: 0;
+}
+/*--------------------- new styles : multiple choice -----------------------*/
+.multiBox .detail .vCentral .advSugField {
+	margin-left: 0.2em;
+}
+
+.multiBox .eu-nextstreet-MultiChoiceItem {
+  border: 1px solid #E6E6E6;
+  border-radius: 0.2em 0.2em 0.2em 0.2em;
+  display: inline-block;
+  margin: 0 0.1em 0 0;
+  min-width: 2.5em;
+  min-height: 1.4em;
+  position: relative;
+}
+
+.eu-nextstreet-MultiChoiceSelection .gwt-Image.icon {
+  display: inline;
+  margin: 0.1em;
+  position: absolute;
+}
+
+.eu-nextstreet-MultiChoiceItem .remove {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+/*--------------------- new styles end -----------------------*/
 .sendButton {
 	display: block;
 	font-size: 16pt;
@@ -40,7 +133,7 @@ h4 {
 }
 
 /* la suggest box CUSTOM */
-.eu-nextstreet-SuggestFieldPanel {
+.advSugFieldPanel {
 	border: 1px solid blue;
 	-moz-border-radius: 8px;
 	border-radius: 8px;
@@ -49,51 +142,48 @@ h4 {
 	box-shadow: 1px 1px 8px #414178;
 }
 
-.eu-nextstreet-SuggestFieldPanel table tr {
+.advSugFieldPanel table tr {
 	
 }
 
-.eu-nextstreet-SuggestFieldPanel .eu-nextstreet-SuggestFieldPanel-left {
+.advSugFieldPanel .advSugFieldPanel-left {
 	
 }
 
-.eu-nextstreet-SuggestFieldPanel .eu-nextstreet-SuggestFieldPanel-left .eu-nextstreet-SuggestFieldPanel-leftInner
+.advSugFieldPanel .advSugFieldPanel-left .advSugFieldPanel-leftInner
 	{
 	
 }
 
-.eu-nextstreet-SuggestFieldPanel .eu-nextstreet-SuggestFieldPanel-content
+.advSugFieldPanel .advSugFieldPanel-content
 	{
 	
 }
 
-.eu-nextstreet-SuggestFieldPanel .eu-nextstreet-SuggestFieldPanel-right
+.advSugFieldPanel .advSugFieldPanel-right
 	{
 	
 }
 
-.eu-nextstreet-SuggestFieldPanel .eu-nextstreet-SuggestFieldPanel-right .eu-nextstreet-SuggestFieldPanel-rightInner
+.advSugFieldPanel .advSugFieldPanel-right .advSugFieldPanel-rightInner
 	{
 	
 }
 
-.eu-nextstreet-SuggestItem {
+.sItem {
+	font-size: 0.9em;
+}
+
+.panelSelector .gwt-Image.icon {
+	float: left;
+	width: 1em;
+}
+
+.panelSelector .sItem {
+	float: left;
 	font-size: 0.9em;
 	min-height: 22px;
 	padding: 2px;
-}
-
- 
-.panelSelector .gwt-Image.icon {
-    float: left;
-    width: 1em;
-}
-
-.panelSelector .eu-nextstreet-SuggestItem {
-    float: left;
-    font-size: 0.9em;
-    min-height: 22px;
-    padding: 2px;
 }
 
 .panelSelector .label {
@@ -106,19 +196,18 @@ h4 {
 }
 
 .panelSelector .selectionIndicator {
-	clear:left;
+	clear: left;
 	height: 0.15em;
 	background-color: green;
 }
 
 #selectionPanel3 .panelSelector .selected {
 	background-color: inherit;
-	border-radius:0; 
+	border-radius: 0;
 }
 
-
 .panelSelector .selected .selectionIndicator {
-    background-color: #77FF77;
+	background-color: #77FF77;
 }
 
 .panelSelector .last {
@@ -130,17 +219,6 @@ h4 {
 	border-radius: 0;
 }
  */
-.eu-nextstreet-SuggestItem .container {
-	
-}
-
-.eu-nextstreet-SuggestItem .container .icon {
-	float: left;
-}
-
-.eu-nextstreet-SuggestItem .container .label {
-	float: left;
-}
 
 .selected {
 	-moz-border-radius: 6px;
@@ -149,6 +227,7 @@ h4 {
 	background-color: #cbddfa;
 	color: black;
 }
+
 .selected .disabled {
 	background-color: inherit;
 	color: inherit;
@@ -156,12 +235,11 @@ h4 {
 
 .panelSelector .selected .disabled .label {
 	color: gray;
-	text-shadow: none;	
+	text-shadow: none;
 }
 
 .panelSelector .selected .disabled .selectionIndicator {
 	background-color: inherit;
-	
 }
 
 hover {
@@ -176,78 +254,66 @@ hover {
 	text-shadow: 1px 1px 1px #95ff8f;
 }
 
-.eu-nextstreet-SuggestFieldComp {
+.advSugBox {
 	clear: both;
 }
 
-
-.eu-nextstreet-SuggestFieldComp.rOnly {
-    background-color: #DDDDDD;
-    -webkit-border-radius: 3px;
+.advSugBox.rOnly {
+	background-color: #DDDDDD;
+	-webkit-border-radius: 3px;
 	border-radius: 3px;
 }
 
-.rOnly .eu-nextstreet-SuggestFieldDetail {
+.rOnly .advSugFieldDetail {
 	border: none;
 }
 
-.eu-nextstreet-SuggestFieldDetail {
+.advSugFieldDetail {
 	-webkit-border-radius: 3px;
 	border-radius: 3px;
 	border: 1px solid #F4F4F4;
 }
 
-.eu-nextstreet-SuggestFieldDetail .top {
+.advSugFieldDetail .top {
 	clear: both;
 }
 
-.eu-nextstreet-SuggestFieldDetail .bottom {
+.advSugFieldDetail .bottom {
 	clear: both;
 }
 
-.eu-nextstreet-SuggestFieldDetail .vCentral {
+.advSugFieldDetail .vCentral {
+	
 }
 
-.eu-nextstreet-SuggestFieldDetail .left {
+.advSugFieldDetail .left {
 	float: left;
 	min-height: 1em;
 	padding-right: 1%;
 	min-width: 1em;
 }
 
-.eu-nextstreet-SuggestField {
-	background: url("img/arrow.png") no-repeat scroll right 5px transparent;
-	border: medium none;
-	float: left;
-}
 
-#suggestBoxMultiValueContainer .eu-nextstreet-SuggestField {
-	width: 99%;
-}
 
 #selectionPanelState {
-    background-color: #085123;
-    color: yellow;
+	background-color: #085123;
+	color: yellow;
 }
 
 #selectionPanelState2 {
-    background-color: #E0CFBC;
-    border-radius: 4px 4px 4px 4px;
-    color: black;
-    padding: 1em;
+	background-color: #E0CFBC;
+	border-radius: 4px 4px 4px 4px;
+	color: black;
+	padding: 1em;
 }
 
-#suggestBoxContainer .eu-nextstreet-SuggestField {
-	width: 94%;
-} 
-
-.eu-nextstreet-SuggestFieldDetail .right {
+.advSugFieldDetail .right {
 	float: left;
 	min-height: 1em;
 	padding-left: 0.5%;
 }
 
-.eu-nextstreet-SuggestPopup {
+.advSugPopup {
 	background-color: #f3f3f3;
 	border: 1px solid blue;
 	border-top: 0px;
@@ -265,11 +331,11 @@ hover {
 	padding: 5px;
 }
 
-.eu-nextstreet-SuggestPopup table {
+.advSugPopup table {
 	
 }
 
-.eu-nextstreet-SuggestFieldHover {
+.advSugFieldHover {
 	cursor: pointer;
 	-webkit-box-shadow: 1px 1px 6px #dbe9ff;
 	-moz-box-shadow: 1px 1px 6px #dbe9ff;
@@ -301,7 +367,8 @@ hover {
 	-moz-box-shadow: 1px 1px 8px #ff9999;
 	box-shadow: 1px 1px 8px #ff9999;
 }
-.rOnly .eu-nextstreet-SuggestField.eu-nextstreet-SuggestField-readonly {
+
+.rOnly .advSugField.advSugField-readonly {
 	-moz-border-radius: 0px;
 	border-radius: 0px;
 	-webkit-box-shadow: none;
@@ -321,25 +388,25 @@ hover {
 	box-shadow: 1px 1px 8px #414178;
 }
 
-.eu-nextstreet-SuggestFieldPopupSimpleTable {
+.advSugFieldPopupSimpleTable {
 	padding: 0;
 }
 
-.eu-nextstreet-SuggestFieldPopupSimpleTable tr td {
+.advSugFieldPopupSimpleTable tr td {
 	
 }
 
-.eu-nextstreet-SuggestFieldPopupSimpleTableCell {
+.advSugFieldPopupSimpleTableCell {
 	
 }
 
-.eu-nextstreet-SuggestFieldPopupSimpleTableCell-selected {
+.advSugFieldPopupSimpleTableCell-selected {
 	background-color: #b5b5b5;
 	text-shadow: 1px 1px 1px #d5d5d5;
-	filter: dropshadow(color =#d5d5d5, offx =1,offy =1);
+	filter: dropshadow(color = #d5d5d5, offx = 1, offy = 1);
 }
 
-.eu-nextstreet-SuggestFieldPopupSimpleTableCell-hover {
+.advSugFieldPopupSimpleTableCell-hover {
 	text-shadow: 1px 1px 1px #707cba;
 	filter: dropshadow(color =                 #707cba, offx =                 1,
 		offy = 
@@ -347,7 +414,7 @@ hover {
 		             1);
 }
 
-.eu-nextstreet-SuggestTableMatchingString {
+.advSugTableMatchingString {
 	background-color: #b0fc24;
 	text-shadow: 1px 1px 1px #25e1fa;
 	filter: dropshadow(color =                 #25e1fa, offx =                 1,
@@ -365,24 +432,24 @@ hover {
 	
 }
 
-.eu-nextstreet-SuggestItem-Elem {
+.sItem-Elem {
 	float: left;
 }
 
-.eu-nextstreet-SuggestItem-Elem .container {
+.sItem-Elem .container {
 	clear: both;
 	float: left;
 }
 
-.eu-nextstreet-SuggestItem-Elem .container .icon {
+.sItem-Elem .container .icon {
 	float: left;
 }
 
-.eu-nextstreet-SuggestItem-Elem .container .label {
+.sItem-Elem .container .label {
 	
 }
 
-.eu-nextstreet-SuggestItem-Elem .remove {
+.sItem-Elem .remove {
 	float: right;
 	padding-right: 5px;
 }
@@ -460,28 +527,28 @@ hover {
 }
 
 .collapsibleSelector {
-    background-color: green;
-    border-radius: 4px 4px 4px 4px;
-    color: white;
-    padding: 0.5em;
-    width: 80%;
+	background-color: green;
+	border-radius: 4px 4px 4px 4px;
+	color: white;
+	padding: 0.5em;
+	width: 80%;
 }
 
 .collapsibleSelector.expanded {
-  background-color: yellowgreen;
-  font-weight: bold;
-  padding-bottom: 1em;
-  width: 96%;
+	background-color: yellowgreen;
+	font-weight: bold;
+	padding-bottom: 1em;
+	width: 96%;
 }
 
 /*-------------------- CommentWidget -------------------------*/
 .emptyComment {
 	color: gray;
 	font-style: italic;
-	width: 32em;	
+	width: 32em;
 }
 
 .comment {
 	color: black;
-	width: 39em;	
+	width: 39em;
 }

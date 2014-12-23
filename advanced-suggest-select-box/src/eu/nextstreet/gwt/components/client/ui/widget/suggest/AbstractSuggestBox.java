@@ -18,7 +18,16 @@ package eu.nextstreet.gwt.components.client.ui.widget.suggest;
 
 import java.util.List;
 
-import com.google.gwt.event.dom.client.*;
+import com.google.gwt.event.dom.client.BlurEvent;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.DoubleClickEvent;
+import com.google.gwt.event.dom.client.KeyCodes;
+import com.google.gwt.event.dom.client.KeyUpEvent;
+import com.google.gwt.event.dom.client.MouseOutEvent;
+import com.google.gwt.event.dom.client.MouseOutHandler;
+import com.google.gwt.event.dom.client.MouseOverEvent;
+import com.google.gwt.event.dom.client.MouseOverHandler;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.ScrollPanel;
@@ -35,24 +44,29 @@ import eu.nextstreet.gwt.components.client.ui.widget.suggest.impl.DefaultSuggest
 import eu.nextstreet.gwt.components.shared.Validator;
 
 /**
- * Suggest box (or select box) with many possibilities either in behavior and in presentation.
+ * Suggest box (or select box) with many possibilities either in behavior and in
+ * presentation.
  * 
- * The default event handling behavior must be connected explicitly by adding the corresponding @UiHandler("textField") on your implementation: this approach
- * makes the default behavior accessible but non intrusive
+ * The default event handling behavior must be connected explicitly by adding
+ * the corresponding @UiHandler("textField") on your implementation: this
+ * approach makes the default behavior accessible but non intrusive
  * 
  * @see DefaultSuggestBox for an implementation exemple
  * @author Zied Hamdi founder of http://1vu.fr
  * 
- *         bugs: when a selection is directly replaced by characters, the enter button doesn't fire the event (it's postponed to the blur event).
+ *         bugs: when a selection is directly replaced by characters, the enter
+ *         button doesn't fire the event (it's postponed to the blur event).
  * @param <T>
- *          the item value type (maybe as simple as String, or an object of your choice)
+ *          the item value type (maybe as simple as String, or an object of your
+ *          choice)
  * @param <W>
- *          the item list representer: the widget that displays the value in the list
+ *          the item list representer: the widget that displays the value in the
+ *          list
  */
 public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderItem<T>> extends AbstractBaseWidget<T, Boolean, SuggestChangeEvent<T, W>> {
 
 	private static final String READ_ONLY = "rOnly";
-	private static final String SUGGEST_FIELD_COMP = "eu-nextstreet-SuggestFieldComp";
+	private static final String SUGGEST_FIELD_COMP = "advSugBox";
 	private static final String SUGGEST_FIELD = "detail";
 	private static final String SUGGEST_FIELD_HOVER = "fieldHover";
 	private static final String SUGGEST_BOX_LOADING = "loading";
@@ -71,7 +85,8 @@ public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderIt
 
 	private boolean recomputePopupContent = true;
 	/**
-	 * Specifies if enter is hit multiple times with same value, whether it generates a change event for each
+	 * Specifies if enter is hit multiple times with same value, whether it
+	 * generates a change event for each
 	 */
 	private boolean multipleChangeEvent;
 	private boolean fireChangeOnBlur;
@@ -90,6 +105,10 @@ public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderIt
 	public AbstractSuggestBox(String defaultText) {
 	}
 
+	protected void initStyles() {
+		setStyleName(SUGGEST_FIELD_COMP);
+	}
+
 	/**
 	 * This method must be called in the implementation's constructor
 	 * 
@@ -97,7 +116,7 @@ public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderIt
 	 *          the defalt text. Can be null
 	 */
 	protected void init(String defaultText) {
-		setStyleName(SUGGEST_FIELD_COMP);
+		initStyles();
 		getTextField().setRepresenter(this);
 		getTextField().setStyleName(SUGGEST_FIELD);
 		getTextField().setDefaultText(defaultText);
@@ -254,7 +273,8 @@ public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderIt
 	}
 
 	/**
-	 * Handles key navigation or triggers the loading of possibilities (if no data is available)
+	 * Handles key navigation or triggers the loading of possibilities (if no data
+	 * is available)
 	 * 
 	 * @param keyCode
 	 *          the typed key
@@ -325,8 +345,10 @@ public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderIt
 	}
 
 	/**
-	 * Recomputes the content of the popup. Returns true to show there's no need to do more processing. Special cases are when one of the keys
-	 * {@link KeyCodes#KEY_DOWN}, {@link KeyCodes#KEY_UP} is pressed: all possible values are presented
+	 * Recomputes the content of the popup. Returns true to show there's no need
+	 * to do more processing. Special cases are when one of the keys
+	 * {@link KeyCodes#KEY_DOWN}, {@link KeyCodes#KEY_UP} is pressed: all possible
+	 * values are presented
 	 * 
 	 * @param keyCode
 	 */
@@ -424,7 +446,8 @@ public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderIt
 	 *          item to test
 	 * @param currentText
 	 *          the current field text
-	 * @return true ifaoif <code>currentText</code> matches the item <code>t</code>
+	 * @return true ifaoif <code>currentText</code> matches the item
+	 *         <code>t</code>
 	 */
 	protected boolean checkSelected(final T item, String currentText) {
 		String value = toString(item);
@@ -444,14 +467,18 @@ public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderIt
 	}
 
 	/**
-	 * Fills a "type safe" value (one of the available values in the list). override to check existing values change
+	 * Fills a "type safe" value (one of the available values in the list).
+	 * override to check existing values change
 	 * 
 	 * @param t
 	 *          the selected value
 	 * @param commit
-	 *          consider a value changed only if commit is true (otherwise you can have duplicate events)
-	 * @return true if the suggest box has to be hidden. Subclasses can override this method and return false to force the suggest widget to remain open even if
-	 *         there's only one element remaining in the list of choices
+	 *          consider a value changed only if commit is true (otherwise you can
+	 *          have duplicate events)
+	 * @return true if the suggest box has to be hidden. Subclasses can override
+	 *         this method and return false to force the suggest widget to remain
+	 *         open even if there's only one element remaining in the list of
+	 *         choices
 	 */
 	protected boolean fillValue(final T t, boolean commit) {
 		String textValue = toString(t);
@@ -472,9 +499,12 @@ public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderIt
 	}
 
 	/**
-	 * Called when a value is selected from the list, if the value is typed on the keyboard and only one possible element corresponds, this method will be called
-	 * immediately only if <code>multipleChangeEvent</code> is true. Otherwise it will wait until a blur event occurs Notice that if
-	 * <code>multipleChangeEvent</code> is true, this method will be called also each time the enter key is typed
+	 * Called when a value is selected from the list, if the value is typed on the
+	 * keyboard and only one possible element corresponds, this method will be
+	 * called immediately only if <code>multipleChangeEvent</code> is true.
+	 * Otherwise it will wait until a blur event occurs Notice that if
+	 * <code>multipleChangeEvent</code> is true, this method will be called also
+	 * each time the enter key is typed
 	 * 
 	 * @param value
 	 */
@@ -485,8 +515,10 @@ public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderIt
 	}
 
 	/**
-	 * Called when a typed value is confirmed whether by pressing the enter key, or on blur. Notice that this method behavior also can be changed thanks to the
-	 * property {@link #multipleChangeEvent} which specifies if the method has to be called on each enter key press or only on the first one.
+	 * Called when a typed value is confirmed whether by pressing the enter key,
+	 * or on blur. Notice that this method behavior also can be changed thanks to
+	 * the property {@link #multipleChangeEvent} which specifies if the method has
+	 * to be called on each enter key press or only on the first one.
 	 * 
 	 * @param value
 	 */
@@ -509,8 +541,9 @@ public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderIt
 
 	/**
 	 * 
-	 * @return the typed value, this can also be the selected one from list: to check if the value belongs to the list check if {@link #getSelected()} returns
-	 *         null
+	 * @return the typed value, this can also be the selected one from list: to
+	 *         check if the value belongs to the list check if
+	 *         {@link #getSelected()} returns null
 	 */
 	public String getTyped() {
 		return typed;
@@ -524,8 +557,10 @@ public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderIt
 	}
 
 	/**
-	 * Returns the text currently in the text field, this method can have different results before and after the call of {@link #recomputePopupContent(int)} which
-	 * auto completes the text automatically if only one result remains.
+	 * Returns the text currently in the text field, this method can have
+	 * different results before and after the call of
+	 * {@link #recomputePopupContent(int)} which auto completes the text
+	 * automatically if only one result remains.
 	 * 
 	 * @return the text fiel
 	 */
@@ -539,10 +574,12 @@ public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderIt
 	}
 
 	/**
-	 * Not used in the the library: utility method to get the typed item corresponding to a given text
+	 * Not used in the the library: utility method to get the typed item
+	 * corresponding to a given text
 	 * 
-	 * <b>Warning!</b> this methods calls {@link #computeFiltredPossibilities(String, SuggestPossibilitiesCallBack)} that could make a call to the server, you
-	 * should avoid calling it.
+	 * <b>Warning!</b> this methods calls
+	 * {@link #computeFiltredPossibilities(String, SuggestPossibilitiesCallBack)}
+	 * that could make a call to the server, you should avoid calling it.
 	 * 
 	 * @param text
 	 *          the typed text
@@ -578,8 +615,10 @@ public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderIt
 		getTextField().setFocus(focus);
 	}
 
-	// protected void internalComputeFiltredPossibilities(String text, final SuggestPossibilitiesCallBack<T> suggestPossibilitiesCallBack) {
-	// SuggestPossibilitiesCallBack<T> callBack = new SuggestPossibilitiesCallBack<T>() {
+	// protected void internalComputeFiltredPossibilities(String text, final
+	// SuggestPossibilitiesCallBack<T> suggestPossibilitiesCallBack) {
+	// SuggestPossibilitiesCallBack<T> callBack = new
+	// SuggestPossibilitiesCallBack<T>() {
 	//
 	// @Override
 	// public void setPossibilities(List<T> possibilities) {
@@ -601,7 +640,8 @@ public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderIt
 	}
 
 	/**
-	 * Sets the items renderer factory: you can define your own item factory to control the way items are shown in the suggest list
+	 * Sets the items renderer factory: you can define your own item factory to
+	 * control the way items are shown in the suggest list
 	 * 
 	 * @param valueRendererFactory
 	 */
@@ -633,8 +673,9 @@ public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderIt
 	}
 
 	/**
-	 * Controls whether the method {@link #valueSelected(Object)} expressing a change event will be called each time a value is selected or if it has to wait
-	 * until a blur occurs.
+	 * Controls whether the method {@link #valueSelected(Object)} expressing a
+	 * change event will be called each time a value is selected or if it has to
+	 * wait until a blur occurs.
 	 * 
 	 * @return true if the event is immediate
 	 */

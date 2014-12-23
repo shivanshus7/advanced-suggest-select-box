@@ -35,8 +35,8 @@ import eu.nextstreet.gwt.components.client.ui.widget.suggest.param.Option;
  *          the view object representing the value row
  */
 public class SimpleTableValueRendererFactory<T, W extends SimpleTableRowItemRenderer<T>> extends AbstractValueRendererFactory<T, W> {
-	private String tableStyle = "eu-nextstreet-SuggestFieldPopupSimpleTable";
-	private String cellStyle = "eu-nextstreet-SuggestFieldPopupSimpleTableCell";
+	private String tableStyle = "advSugFieldPopupSimpleTable";
+	private String cellStyle = "advSugFieldPopupSimpleTableCell";
 
 	@Override
 	public SimpleTableListRenderer<T, W> createListRenderer() {

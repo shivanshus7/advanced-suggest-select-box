@@ -32,37 +32,37 @@ h1 {
 }
 
 /* la suggest box STANDARD */
-.eu-nextstreet-SuggestFieldPanel {
+.advSugFieldPanel {
 	border-collapse: collapse;
 	border: none;
 }
 
-.eu-nextstreet-SuggestFieldPanel .eu-nextstreet-SuggestFieldPanel-left {
+.advSugFieldPanel .advSugFieldPanel-left {
 	background-color: #eaeff7;
 }
 
-.eu-nextstreet-SuggestFieldPanel .eu-nextstreet-SuggestFieldPanel-left .eu-nextstreet-SuggestFieldPanel-leftInner
+.advSugFieldPanel .advSugFieldPanel-left .advSugFieldPanel-leftInner
 	{
 	padding: 6px 0 6px 6px;
 }
 
-.eu-nextstreet-SuggestFieldPanel .eu-nextstreet-SuggestFieldPanel-content
+.advSugFieldPanel .advSugFieldPanel-content
 	{
 	background-color: #eaeff7;
 	padding: 6px 0 6px 0;
 }
 
-.eu-nextstreet-SuggestFieldPanel .eu-nextstreet-SuggestFieldPanel-right
+.advSugFieldPanel .advSugFieldPanel-right
 	{
 	background-color: #eaeff7;
 }
 
-.eu-nextstreet-SuggestFieldPanel .eu-nextstreet-SuggestFieldPanel-right .eu-nextstreet-SuggestFieldPanel-rightInner
+.advSugFieldPanel .advSugFieldPanel-right .advSugFieldPanel-rightInner
 	{
 	padding: 6px 6px 6px 0;
 }
 
-.eu-nextstreet-SuggestItemSelected {
+.advSugItemSelected {
 	background-color: #c9dcfe;
 	color: black;
 	font-weight: bold;
@@ -72,16 +72,16 @@ h1 {
 	font-weight: bold;
 }
 
-.eu-nextstreet-SuggestMatchingString {
+.advSugMatchingString {
 	font-weight: bold;
 	color: #1aae1d;
 }
 
-.eu-nextstreet-SuggestField {
+.advSugField {
 	background: white url('img/arrow.png') no-repeat right 5px;
 }
 
-.eu-nextstreet-SuggestPopup {
+.advSugPopup {
 	background-color: #eaeff7;
 	border-top: 0px;
 	border-left: 1px solid #c9dcfe;
@@ -90,7 +90,7 @@ h1 {
 	padding: 5px;
 }
 
-.eu-nextstreet-SuggestFieldHover {
+.advSugFieldHover {
 	cursor: pointer;
 }
 
@@ -113,19 +113,19 @@ h1 {
 	color: gray;
 }
 
-.eu-nextstreet-SuggestFieldPopupSimpleTableCell {
+.advSugFieldPopupSimpleTableCell {
 	
 }
 
-.eu-nextstreet-SuggestFieldPopupSimpleTableCell-selected {
+.advSugFieldPopupSimpleTableCell-selected {
 	background-color: #aaffaa;
 }
 
-.eu-nextstreet-SuggestFieldPopupSimpleTableCell-hover {
+.advSugFieldPopupSimpleTableCell-hover {
 	font-weight: bold;
 }
 
-.eu-nextstreet-SuggestTableMatchingString {
+.advSugTableMatchingString {
 	background: transparent url( img/matching-str-bg.PNG ) repeat-x left top
 		;
 }

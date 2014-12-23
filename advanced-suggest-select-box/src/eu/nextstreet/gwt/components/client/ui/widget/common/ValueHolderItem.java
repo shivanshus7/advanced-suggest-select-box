@@ -29,7 +29,7 @@ import com.google.gwt.user.client.ui.UIObject;
  *          value type
  */
 public interface ValueHolderItem<T> extends IsWidget {
-	public static final String ITEM_DEFAULT_STYLE = "eu-nextstreet-SuggestItem";
+	public static final String ITEM_DEFAULT_STYLE = "sItem";
 
 	/**
 	 * returns the value it represents
@@ -39,7 +39,8 @@ public interface ValueHolderItem<T> extends IsWidget {
 	public T getValue();
 
 	/**
-	 * sets the value to be rendered. This method should handle matching text highlighting also.
+	 * sets the value to be rendered. This method should handle matching text
+	 * highlighting also.
 	 * 
 	 * @param value
 	 */
@@ -75,7 +76,8 @@ public interface ValueHolderItem<T> extends IsWidget {
 	public UIObject getUiObject();
 
 	/**
-	 * Any created instance must be aware of its factory since it can hold context specific information
+	 * Any created instance must be aware of its factory since it can hold context
+	 * specific information
 	 * 
 	 * @return the factory that created this instance
 	 */

@@ -30,7 +30,7 @@ import eu.nextstreet.gwt.components.client.ui.widget.suggest.SuggestWidget;
  */
 public class DefaultSuggestionPopup<T> extends PopupPanel implements SuggestWidget<T> {
 	public static boolean DEBUG_MODE = false;
-	private static final String POPUP_STYLE = "eu-nextstreet-SuggestPopup";
+	private static final String POPUP_STYLE = "advSugPopup";
 
 	public DefaultSuggestionPopup() {
 		this(!DEBUG_MODE, false);
