@@ -34,7 +34,7 @@ import eu.nextstreet.gwt.components.client.ui.widget.suggest.multi.BasicMultiCho
  *          item value type
  */
 public class MultiChoiceValueHolderLabel<T> extends BasicMultiChoiceValueHolderItem<T, IconedValueRenderer<T>, MultiChoiceValueHolderLabel<T>> {
-	private static final String MULTI_CHOICE_ITEM = "eu-nextstreet-MultiChoiceItem";
+	private static final String MULTI_CHOICE_ITEM = "advMultiItem";
 	protected ValueRendererFactory<T, ? extends ValueHolderItem<T>> textRendererFactory;
 
 	/**

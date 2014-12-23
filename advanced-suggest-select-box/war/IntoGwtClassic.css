@@ -94,21 +94,21 @@ h1 {
 	cursor: pointer;
 }
 
-.eu-nextstreet-AdvancedTextBoxDefaultText {
+.advSugAdvancedTextBoxDefaultText {
 	color: #9999BB;
 }
 
-.eu-nextstreet-AdvancedTextBoxErrorText {
+.advSugAdvancedTextBoxErrorText {
 	background-color: #ee4444;
 	color: white;
 	border: red;
 }
 
-.eu-nextstreet-AdvancedTextBoxMandatoryText {
+.advSugAdvancedTextBoxMandatoryText {
 	background-color: #aa9999;
 }
 
-.eu-nextstreet-AdvancedTextBoxReadOnlyText {
+.advSugAdvancedTextBoxReadOnlyText {
 	background-color: #dddddd;
 	color: gray;
 }

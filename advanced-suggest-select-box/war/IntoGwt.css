@@ -20,6 +20,7 @@ h4 {
 .advSugField {
 	border: none;
 }
+
 .multiBox .detail,
 .advSugBox .detail {
 	border: 1px solid #D3D3D3;
@@ -86,7 +87,7 @@ h4 {
 	margin-left: 0.2em;
 }
 
-.multiBox .eu-nextstreet-MultiChoiceItem {
+.multiBox .advMultiItem {
   border: 1px solid #E6E6E6;
   border-radius: 0.2em 0.2em 0.2em 0.2em;
   display: inline-block;
@@ -94,15 +95,18 @@ h4 {
   min-width: 2.5em;
   min-height: 1.4em;
   position: relative;
+  /*must be above parent*/
+  z-index: 1;
 }
 
-.eu-nextstreet-MultiChoiceSelection .gwt-Image.icon {
+.advSugMultiChoiceSelection .gwt-Image.icon {
   display: inline;
   margin: 0.1em;
   position: absolute;
+  cursor: pointer;
 }
 
-.eu-nextstreet-MultiChoiceItem .remove {
+.advMultiItem .remove {
   position: absolute;
   right: 0;
   top: 0;
@@ -342,11 +346,11 @@ hover {
 	box-shadow: 1px 1px 6px #dbe9ff;
 }
 
-.eu-nextstreet-AdvancedTextBoxDefaultText {
+.advSugAdvancedTextBoxDefaultText {
 	color: #999999;
 }
 
-.eu-nextstreet-AdvancedTextBoxErrorText {
+.advSugAdvancedTextBoxErrorText {
 	-moz-border-radius: 6px;
 	border-radius: 6px;
 	text-shadow: 1px 1px 1px #a90329;
@@ -358,7 +362,7 @@ hover {
 	color: black;
 }
 
-.eu-nextstreet-AdvancedTextBoxMandatoryText {
+.advSugAdvancedTextBoxMandatoryText {
 	background-color: #ff9999;
 	border: 0px;
 	-moz-border-radius: 6px;
@@ -377,7 +381,7 @@ hover {
 	background: none;
 }
 
-.eu-nextstreet-AdvancedTextBoxReadOnlyText {
+.advSugAdvancedTextBoxReadOnlyText {
 	background-color: #dddddd;
 	color: gray;
 	border: 0px;
@@ -423,12 +427,12 @@ hover {
 		             1);
 }
 
-.eu-nextstreet-MultiChoiceItem {
+.advMultiItem {
 	float: left;
 	padding-right: 3px;
 }
 
-.eu-nextstreet-MultiChoiceItem .eu-nextstreet-MultiItem {
+.advMultiItem .advSugMultiItem {
 	
 }
 
@@ -454,15 +458,15 @@ hover {
 	padding-right: 5px;
 }
 
-.eu-nextstreet-MultiChoiceSelection {
+.advSugMultiChoiceSelection {
 	
 }
 
-.eu-nextstreet-MultiItem {
+.advSugMultiItem {
 	vertical-align: middle;
 }
 
-.eu-nextstreet-MultiItem .line {
+.advSugMultiItem .line {
 	-webkit-border-radius: 3px 3px 3px 3px;
 	-moz-border-radius: 3px 3px 3px 3px;
 	border-radius: 3px 3px 3px 3px;
@@ -470,11 +474,11 @@ hover {
 	padding: 2px;
 }
 
-.eu-nextstreet-MultiItem .lineBreak {
+.advSugMultiItem .lineBreak {
 	clear: both;
 }
 
-.eu-nextstreet-AdvancedTextBoxDefaultText-loading {
+.advSugAdvancedTextBoxDefaultText-loading {
 	background-color: gray;
 }
 
