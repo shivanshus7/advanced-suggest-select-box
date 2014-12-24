@@ -68,7 +68,7 @@ public class DefaultSuggestionPopup<T> extends PopupPanel implements SuggestWidg
 
 	public void setStyle(String style) {
 		style += POPUP_APPENDED_STYLE;
-		super.setStyleName(style);
+		// super.setStyleName(style);
 		setStylePrimaryName(style);
 	};
 }
