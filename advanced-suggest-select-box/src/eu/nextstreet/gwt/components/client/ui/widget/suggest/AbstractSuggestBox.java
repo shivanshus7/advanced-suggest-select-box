@@ -109,6 +109,12 @@ public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderIt
 		setStyleName(SUGGEST_FIELD_COMP);
 	}
 
+	@Override
+	public void setStyleName(String style) {
+		super.setStyleName(style);
+		suggestWidget.setStyleName(style);
+	}
+
 	/**
 	 * This method must be called in the implementation's constructor
 	 * 
@@ -870,4 +876,5 @@ public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderIt
 	protected void refresh() {
 		// TODO implement
 	}
+
 }

@@ -30,7 +30,7 @@ import eu.nextstreet.gwt.components.client.ui.widget.suggest.SuggestWidget;
  */
 public class DefaultSuggestionPopup<T> extends PopupPanel implements SuggestWidget<T> {
 	public static boolean DEBUG_MODE = false;
-	private static final String POPUP_STYLE = "advSugPopup";
+	public static final String POPUP_STYLE = "advSugPopup";
 
 	public DefaultSuggestionPopup() {
 		this(!DEBUG_MODE, false);
@@ -42,7 +42,6 @@ public class DefaultSuggestionPopup<T> extends PopupPanel implements SuggestWidg
 
 	public DefaultSuggestionPopup(boolean autoHide, boolean modal) {
 		super(autoHide, modal);
-		setStylePrimaryName(POPUP_STYLE);
 	}
 
 	@Override
@@ -67,4 +66,9 @@ public class DefaultSuggestionPopup<T> extends PopupPanel implements SuggestWidg
 			super.hide();
 	}
 
+	public void setStyleName(String style) {
+		style += POPUP_STYLE;
+		setStyleName(style);
+		setStylePrimaryName(style);
+	};
 }
