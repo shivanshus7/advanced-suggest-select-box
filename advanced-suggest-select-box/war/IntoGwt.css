@@ -58,7 +58,7 @@ h4 {
   font-size: 1.2em;
   position: absolute;
   right: 0.2em;
-  bottom: 0;
+  bottom: -3px;
 }
 
 /*--------------------- new styles : popup -----------------------*/
@@ -92,8 +92,9 @@ h4 {
   border-radius: 0.2em 0.2em 0.2em 0.2em;
   display: inline-block;
   margin: 0 0.1em 0 0;
-  min-width: 2.5em;
+  height: 1.4em;
   min-height: 1.4em;
+  min-width: 2.5em;
   position: relative;
   /*must be above parent*/
   z-index: 1;
@@ -354,10 +355,6 @@ hover {
 	-moz-border-radius: 6px;
 	border-radius: 6px;
 	text-shadow: 1px 1px 1px #a90329;
-	filter: dropshadow(color =                 #a90329, offx =                 1,
-		offy = 
-		 
-		             1);
 	background-color: #ffc2c2;
 	color: black;
 }
@@ -407,29 +404,15 @@ hover {
 .advSugFieldPopupSimpleTableCell-selected {
 	background-color: #b5b5b5;
 	text-shadow: 1px 1px 1px #d5d5d5;
-	filter: dropshadow(color = #d5d5d5, offx = 1, offy = 1);
 }
 
 .advSugFieldPopupSimpleTableCell-hover {
 	text-shadow: 1px 1px 1px #707cba;
-	filter: dropshadow(color =                 #707cba, offx =                 1,
-		offy = 
-		 
-		             1);
 }
 
 .advSugTableMatchingString {
 	background-color: #b0fc24;
 	text-shadow: 1px 1px 1px #25e1fa;
-	filter: dropshadow(color =                 #25e1fa, offx =                 1,
-		offy = 
-		 
-		             1);
-}
-
-.advMultiItem {
-	float: left;
-	padding-right: 3px;
 }
 
 .advMultiItem .advSugMultiItem {

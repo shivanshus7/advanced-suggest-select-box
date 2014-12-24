@@ -112,7 +112,7 @@ public abstract class AbstractSuggestBox<T, W extends EventHandlingValueHolderIt
 	@Override
 	public void setStyleName(String style) {
 		super.setStyleName(style);
-		suggestWidget.setStyleName(style);
+		suggestWidget.setStyle(style);
 	}
 
 	/**

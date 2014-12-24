@@ -51,7 +51,7 @@ public interface SuggestWidget<T> {
 	 */
 	void setMinWidth(int pixels);
 
-	public void setStyleName(String style);
+	public void setStyle(String style);
 
 	public String getStyleName();
 }
